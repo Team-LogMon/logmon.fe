@@ -1,12 +1,12 @@
 import { Box, Button, Flex, Input, VStack } from '@chakra-ui/react';
 
-export function LoginPage() {
+export const LoginPage = () => {
   return (
     <Flex align={'center'} justify={'center'} w={'100vw'} h={'100vh'}>
       <Flex
         w={'lg'}
         border={'1px solid'}
-        borderColor={'gray.600'}
+        borderColor={'gray.500'}
         borderRadius={'md'}
         p={4}
       >
@@ -14,7 +14,13 @@ export function LoginPage() {
           <Box fontWeight={'600'} fontSize={'2xl'}>
             Login
           </Box>
-          <Box w={'full'} h={'54px'} border={'1px solid'} borderRadius={'md'}>
+          <Box
+            w={'full'}
+            h={'54px'}
+            border={'1px solid'}
+            borderRadius={'md'}
+            borderColor={'gray.400'}
+          >
             <Box fontSize={'10px'} h={'12px'} mt={1} p={1} ml={1}>
               ID or email
             </Box>
@@ -30,7 +36,13 @@ export function LoginPage() {
               }}
             ></Input>
           </Box>
-          <Box w={'full'} h={'54px'} border={'1px solid'} borderRadius={'md'}>
+          <Box
+            w={'full'}
+            h={'54px'}
+            border={'1px solid'}
+            borderRadius={'md'}
+            borderColor={'gray.400'}
+          >
             <Box fontSize={'10px'} h={'12px'} p={1} ml={1} mt={1}>
               Password
             </Box>
@@ -69,13 +81,17 @@ export function LoginPage() {
             display="flex"
             alignItems="center"
             justifyContent="center"
+            borderColor={'gray.400'}
             h={'48px'}
             mt={'8px'}
+            onClick={() => {
+              window.location.href = `${import.meta.env.VITE_BACKEND_URL}/oauth/google/login?state=${import.meta.env.VITE_PROFILE}`;
+            }}
           >
-            Login with Google account
+            Continue with Google
           </Button>
         </VStack>
       </Flex>
     </Flex>
   );
-}
+};

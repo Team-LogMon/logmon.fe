@@ -8,10 +8,10 @@ import {
   Link,
   Text,
 } from '@chakra-ui/react';
-import bannerImage from '../assets/business-people-working-laptop-development-b.png';
+import bannerImage from '../assets/banner_image.svg';
 import { useNavigate } from 'react-router';
 
-export function LandingPage() {
+export const LandingPage = () => {
   const navigate = useNavigate();
   return (
     <Flex justify={'center'} align={'center'} direction={'column'}>
@@ -20,11 +20,13 @@ export function LandingPage() {
         position={'fixed'}
         top={0}
         w={'full'}
-        h={'70px'}
+        h={'60px'}
         align={'center'}
         justify={'space-between'}
         px={6}
         borderBottom={'1px solid black'}
+        zIndex={99}
+        bgColor={'#242424'}
       >
         <Box>
           <Text fontSize={'24px'} fontWeight={'600'}>
@@ -40,16 +42,28 @@ export function LandingPage() {
           >
             Sign in
           </Link>
-          <ButtonGroup display={{ base: 'none', sm: 'flex' }}>
-            <Button colorPalette={'blue'}>Get started</Button>
-            <Button colorPalette={'white'}>Documents</Button>
+          <ButtonGroup size={'sm'} display={{ base: 'none', sm: 'flex' }}>
+            <Button
+              colorPalette={'blue'}
+              onClick={() => {
+                navigate('/projects');
+              }}
+            >
+              Get started
+            </Button>
+            <Button colorPalette={'white'}>Documentations</Button>
           </ButtonGroup>
         </Flex>
       </Flex>
-
-      <Box h={'70px'} />
-
-      <Flex w={'full'} direction={'row'} align={'center'} px={2}>
+      <Box h={'60px'} />
+      <Flex
+        w={'full'}
+        direction={{ base: 'column-reverse', lg: 'row' }}
+        align={'center'}
+        px={2}
+        h={'600px'}
+        mt={'30px'}
+      >
         <Flex
           direction={'column'}
           align={'center'}
@@ -68,20 +82,31 @@ export function LandingPage() {
             Super easy logging system will boost your program management.
           </Heading>
           <ButtonGroup mt={'30px'}>
-            <Button size={'xl'} colorPalette={'blue'}>
+            <Button
+              size={'xl'}
+              colorPalette={'blue'}
+              onClick={() => {
+                navigate('/projects');
+              }}
+            >
               Get started
             </Button>
             <Button size={'xl'} colorPalette={'white'}>
-              Documents
+              Documentations
             </Button>
           </ButtonGroup>
         </Flex>
-        <Image
-          display={{ base: 'none', lg: 'block' }}
-          w={{ base: '700px', '2xl': '840px' }}
-          src={bannerImage}
-        />
+        <Flex
+          w={{ base: 'full', md: '600px', '2xl': '640px' }}
+          justify={'center'}
+          align={'center'}
+        >
+          <Image
+            src={bannerImage}
+            w={{ base: '260px', md: '320px', '2xl': '420px' }}
+          />
+        </Flex>
       </Flex>
     </Flex>
   );
-}
+};
