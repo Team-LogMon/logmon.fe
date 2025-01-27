@@ -75,7 +75,7 @@ export const LandingPage = () => {
             h={'360px'}
           >
             <Heading fontSize={{ base: '27px', sm: '42px' }}>
-              Easy Logging, Fast Finding.
+              Easy Logging, Fast Searching.
             </Heading>
             <Heading
               fontSize={{ base: '22px', sm: '20px' }}

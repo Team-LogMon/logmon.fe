@@ -8,6 +8,7 @@ interface ProjectItemProps {
 }
 
 const ProjectItem = ({ title, pId }: ProjectItemProps) => {
+  const navigate = useNavigate();
   return (
     <Flex
       bgColor={'gray.700'}
@@ -19,6 +20,9 @@ const ProjectItem = ({ title, pId }: ProjectItemProps) => {
       _hover={{
         bgColor: 'gray.600',
         cursor: 'pointer',
+      }}
+      onClick={() => {
+        navigate(`/dashboard/${pId}`);
       }}
     >
       <Text fontWeight={700} fontSize={'20px'}>
