@@ -1,10 +1,11 @@
 import './App.css';
 import './shared/css/hideScrollbar.css';
 import { BrowserRouter, Route, Routes } from 'react-router';
-import { LandingPage } from '@/page/LandingPage.tsx';
-import { LoginPage } from '@/page/LoginPage.tsx';
-import { ProjectsPage } from '@/page/ProjectsPage.tsx';
-import { DashboardPage } from '@/page/DashboardPage.tsx';
+import { LandingPage } from '@/pages/LandingPage.tsx';
+import { LoginPage } from '@/pages/LoginPage.tsx';
+import { ProjectsPage } from '@/pages/ProjectsPage.tsx';
+import { DashboardPage } from '@/pages/DashboardPage.tsx';
+import { CreateProjectFunnel } from '@/pages/createProjectPages/CreateProjectFunnel.tsx';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path={'/'} element={<LandingPage />} />
         <Route path={'/login'} element={<LoginPage />} />
         <Route path={'/projects'} element={<ProjectsPage />} />
+        <Route path={'/projects/create'} element={<CreateProjectFunnel />} />
         <Route path={'/dashboard/:projectId'} element={<DashboardPage />} />
       </Routes>
     </BrowserRouter>

@@ -1,4 +1,4 @@
-import { Flex, HStack, Icon, Text, VStack } from '@chakra-ui/react';
+import { HStack, Icon, Text } from '@chakra-ui/react';
 
 interface MenuItemProps {
   icon: any;

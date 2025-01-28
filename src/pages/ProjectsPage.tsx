@@ -88,6 +88,9 @@ export const ProjectsPage = () => {
             boxShadow={'md'}
             direction={'column'}
             p={3}
+            onClick={() => {
+              navigate('/projects/create');
+            }}
             _hover={{
               bgColor: 'gray.600',
               cursor: 'pointer',

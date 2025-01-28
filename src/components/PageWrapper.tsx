@@ -8,7 +8,7 @@ interface PageWrapperProps {
 
 export const PageWrapper = ({ children }: PageWrapperProps) => {
   return (
-    <Box>
+    <Box w={'full'} h={'100vh'}>
       {children}
       <LoadingOverlay />
     </Box>
