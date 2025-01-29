@@ -3,7 +3,7 @@ import { DocumentationLayout } from '@/documentations/DocumentationLayout.tsx';
 
 export const DHome = () => {
   return (
-    <DocumentationLayout name={'Home'}>
+    <DocumentationLayout name={'Introduction'}>
       <Heading as={'h1'}>Logmon is the simplest log management system.</Heading>
       <Text>It provides the following features:</Text>
       <ListRoot>

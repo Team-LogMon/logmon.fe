@@ -100,7 +100,11 @@ export const LandingPage = () => {
               >
                 Get started
               </Button>
-              <Button size={'xl'} colorPalette={'white'}>
+              <Button
+                size={'xl'}
+                colorPalette={'white'}
+                onClick={() => navigate('/documentations')}
+              >
                 Documentations
               </Button>
             </ButtonGroup>
