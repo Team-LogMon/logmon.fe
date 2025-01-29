@@ -1,0 +1,74 @@
+.documentations {
+    /* 전체적인 글자 크기와 줄 간격 설정 */
+    font-size: 20px;
+    line-height: 1.6;
+    color: gainsboro; /* 기본 텍스트 색상 */
+}
+
+.documentations p,
+.documentations .chakra-text {
+    font-size: 20px;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.documentations h1 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+.documentations h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 1.25rem;
+}
+
+.documentations h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.documentations h4 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 0.75rem;
+}
+
+.documentations ul,
+.documentations ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.documentations li,
+.documentations .chakra-listitem {
+    font-size: 20px;
+    margin-bottom: 0.5rem;
+}
+
+.documentations pre {
+    background-color: #f5f5f5;
+    padding: 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 14px;
+}
+
+.documentations code,
+.documentations .chakra-code {
+    font-size: 20px;
+    background-color: #f3f4f6;
+    padding: 4px 6px;
+    border-radius: 4px;
+    font-family: "Courier New", monospace;
+}
+
+.documentations blockquote {
+    border-left: 4px solid #ccc;
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+    font-style: italic;
+    color: #555;
+}

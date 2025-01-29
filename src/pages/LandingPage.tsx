@@ -48,13 +48,16 @@ export const LandingPage = () => {
             <ButtonGroup size={'sm'} display={{ base: 'none', sm: 'flex' }}>
               <Button
                 colorPalette={'blue'}
-                onClick={() => {
-                  navigate('/projects');
-                }}
+                onClick={() => navigate('/projects')}
               >
                 Get started
               </Button>
-              <Button colorPalette={'white'}>Documentations</Button>
+              <Button
+                colorPalette={'white'}
+                onClick={() => navigate('/documentations')}
+              >
+                Documentations
+              </Button>
             </ButtonGroup>
           </Flex>
         </Flex>

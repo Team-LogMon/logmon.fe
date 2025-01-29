@@ -22,7 +22,7 @@ const ProjectItem = ({ title, pId }: ProjectItemProps) => {
         cursor: 'pointer',
       }}
       onClick={() => {
-        navigate(`/dashboard/${pId}`);
+        navigate(`/app/${pId}/dashboard`);
       }}
     >
       <Text fontWeight={700} fontSize={{ base: '16px', sm: '20px' }}>
@@ -89,7 +89,7 @@ export const ProjectsPage = () => {
             direction={'column'}
             p={3}
             onClick={() => {
-              navigate('/projects/create/drawer');
+              navigate('/projects/create');
             }}
             _hover={{
               bgColor: 'gray.600',
