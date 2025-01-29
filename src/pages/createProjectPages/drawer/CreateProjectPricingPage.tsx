@@ -1,24 +1,21 @@
-import { CreateProjectPageLayout } from '@/pages/createProjectPages/CreateProjectPageLayout.tsx';
-import { Pricing } from '@/shared/const/app/Pricing.ts';
 import {
   Box,
   Button,
+  DrawerCloseTrigger,
+  DrawerContent,
+  DrawerRoot,
+  DrawerTrigger,
   Flex,
   For,
   Grid,
   Heading,
-  IconButton,
   List,
   Text,
 } from '@chakra-ui/react';
-import { useState } from 'react';
-import { IoArrowBack } from 'react-icons/io5';
-import { useNavigate } from 'react-router';
-
-interface CreateProjectPricingPageProps {
-  name: string;
-  onNext: (name: string, pricing: Pricing) => void;
-}
+import { Pricing } from '@/shared/const/app/Pricing.ts';
+import { CreateProjectPageLayout } from '@/pages/createProjectPages/drawer/CreateProjectPageLayout.tsx';
+import { useCreateProjectStore } from '@/shared/store/createProjectStore.ts';
+import { CreateProjectCompletePage } from '@/pages/createProjectPages/drawer/CreateProjectCompletePage.tsx';
 
 interface PlanBoxProps {
   title: string;
@@ -27,6 +24,7 @@ interface PlanBoxProps {
   descriptions: string[];
   onClick: () => void;
 }
+
 const PlanBox = ({
   title,
   price,
@@ -44,6 +42,9 @@ const PlanBox = ({
       border={'2px solid'}
       borderColor={isSelected ? 'white' : 'gray.700'}
       onClick={onClick}
+      _hover={{
+        cursor: 'pointer',
+      }}
     >
       <Text
         fontWeight={700}
@@ -66,31 +67,23 @@ const PlanBox = ({
   );
 };
 
+interface CreateProjectPricingPageProps {
+  onBefore: () => void;
+}
+
 export const CreateProjectPricingPage = ({
-  onNext,
-  name,
+  onBefore,
 }: CreateProjectPricingPageProps) => {
-  const navigate = useNavigate();
-  const [pricing, setPricing] = useState<Pricing>(Pricing.FREE);
+  const pricing = useCreateProjectStore((state) => state.pricing);
+  const setPricing = useCreateProjectStore((state) => state.setPricing);
 
   return (
-    <CreateProjectPageLayout>
-      <Flex w={{ base: 'full', sm: '5xl' }} direction={'column'}>
-        <IconButton
-          bg={'inherit'}
-          color={'white'}
-          boxSize={'36px'}
-          mb={10}
-          onClick={() => {
-            navigate(-1);
-          }}
-        >
-          <IoArrowBack style={{ width: '100%', height: '100%' }} />
-        </IconButton>
+    <DrawerRoot size={'full'}>
+      <CreateProjectPageLayout onBefore={onBefore}>
         <Heading fontSize={{ base: '26px', sm: '36px' }}>
           Select your pricing plan
         </Heading>
-        <Grid gap={3} templateColumns={'repeat(3,1fr)'} mt={6}>
+        <Grid gap={3} templateColumns={'repeat(2,1fr)'} mt={6}>
           <PlanBox
             title={'FREE'}
             price={0}
@@ -113,17 +106,19 @@ export const CreateProjectPricingPage = ({
             }}
           />
         </Grid>
-        <Flex w={{ base: 'full', sm: 'xl' }} justify={'space-between'} py={6}>
-          <Button
-            colorPalette={'blue'}
-            w={'120px'}
-            fontSize={'xl'}
-            onClick={() => onNext(name, pricing)}
-          >
-            Next
-          </Button>
+        <Flex w={{ base: 'full' }} justify={'space-between'} py={6}>
+          <Box />
+          <DrawerTrigger asChild>
+            <Button colorPalette={'blue'} w={'120px'} fontSize={'xl'}>
+              Next
+            </Button>
+          </DrawerTrigger>
         </Flex>
-      </Flex>
-    </CreateProjectPageLayout>
+      </CreateProjectPageLayout>
+      <DrawerContent position={'fixed'} top={0}>
+        <CreateProjectCompletePage />
+        <DrawerCloseTrigger />
+      </DrawerContent>
+    </DrawerRoot>
   );
 };

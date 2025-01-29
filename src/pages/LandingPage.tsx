@@ -29,7 +29,7 @@ export const LandingPage = () => {
           px={6}
           borderBottom={'1px solid black'}
           zIndex={99}
-          bgColor={'#242424'}
+          bgColor={'#18181b'}
         >
           <Box>
             <Text fontSize={'24px'} fontWeight={'600'}>
@@ -74,7 +74,10 @@ export const LandingPage = () => {
             justify={'center'}
             h={'360px'}
           >
-            <Heading fontSize={{ base: '27px', sm: '42px' }}>
+            <Heading
+              fontSize={{ base: '27px', sm: '42px' }}
+              textAlign={'center'}
+            >
               Easy Logging, Fast Searching.
             </Heading>
             <Heading

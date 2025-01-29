@@ -12,11 +12,11 @@ const ProjectItem = ({ title, pId }: ProjectItemProps) => {
   return (
     <Flex
       bgColor={'gray.700'}
-      h={{ base: '160px', sm: '200px' }}
+      h={{ base: '120px', sm: '200px' }}
       borderRadius={'md'}
       boxShadow={'md'}
       direction={'column'}
-      p={4}
+      p={{ base: 2, sm: 4 }}
       _hover={{
         bgColor: 'gray.600',
         cursor: 'pointer',
@@ -25,10 +25,10 @@ const ProjectItem = ({ title, pId }: ProjectItemProps) => {
         navigate(`/dashboard/${pId}`);
       }}
     >
-      <Text fontWeight={700} fontSize={'20px'}>
+      <Text fontWeight={700} fontSize={{ base: '16px', sm: '20px' }}>
         {title}
       </Text>
-      <Text fontSize={'14px'} color={'gray.300'}>
+      <Text fontSize={{ base: '12px', sm: '14px' }} color={'gray.300'}>
         {pId}
       </Text>
     </Flex>
@@ -50,7 +50,7 @@ export const ProjectsPage = () => {
         px={6}
         borderBottom={'1px solid black'}
         zIndex={99}
-        bgColor={'#242424'}
+        bgColor={'gray.900'}
       >
         <Box>
           <Text
@@ -83,13 +83,13 @@ export const ProjectsPage = () => {
         >
           <Flex
             bgColor={'gray.700'}
-            h={{ base: '160px', sm: '200px' }}
+            h={{ base: '120px', sm: '200px' }}
             borderRadius={'md'}
             boxShadow={'md'}
             direction={'column'}
             p={3}
             onClick={() => {
-              navigate('/projects/create');
+              navigate('/projects/create/drawer');
             }}
             _hover={{
               bgColor: 'gray.600',
@@ -99,7 +99,7 @@ export const ProjectsPage = () => {
             align={'center'}
           >
             <Icon as={IoAdd} boxSize={'58px'} />
-            <Text fontSize={{ base: 'md', sm: 'xl' }}>Create new project</Text>
+            <Text fontSize={{ base: 'sm', sm: 'xl' }}>Create new project</Text>
           </Flex>
           <ProjectItem title={'LogMon-backend'} pId={'logmon-backend-0011'} />
           <ProjectItem title={'LogMon-backend'} pId={'logmon-backend-0011'} />

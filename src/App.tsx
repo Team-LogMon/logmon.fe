@@ -5,7 +5,7 @@ import { LandingPage } from '@/pages/LandingPage.tsx';
 import { LoginPage } from '@/pages/LoginPage.tsx';
 import { ProjectsPage } from '@/pages/ProjectsPage.tsx';
 import { DashboardPage } from '@/pages/DashboardPage.tsx';
-import { CreateProjectFunnel } from '@/pages/createProjectPages/CreateProjectFunnel.tsx';
+import { CreateProjectNamePage } from '@/pages/createProjectPages/drawer/CreateProjectNamePage.tsx';
 
 function App() {
   return (
@@ -14,7 +14,10 @@ function App() {
         <Route path={'/'} element={<LandingPage />} />
         <Route path={'/login'} element={<LoginPage />} />
         <Route path={'/projects'} element={<ProjectsPage />} />
-        <Route path={'/projects/create'} element={<CreateProjectFunnel />} />
+        <Route
+          path={'/projects/create/drawer'}
+          element={<CreateProjectNamePage />}
+        />
         <Route path={'/dashboard/:projectId'} element={<DashboardPage />} />
       </Routes>
     </BrowserRouter>
