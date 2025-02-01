@@ -9,7 +9,7 @@ export const MenuItem = ({ icon, title }: MenuItemProps) => {
   return (
     <HStack
       px={4}
-      py={1}
+      py={2}
       w={'full'}
       color={'gray.400'}
       align={'center'}
