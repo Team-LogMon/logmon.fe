@@ -1,4 +1,5 @@
-import { Box, Button, Flex, Input, VStack } from '@chakra-ui/react';
+import { Box, Button, Flex, Image, Input, VStack } from '@chakra-ui/react';
+import logo from '@/assets/logo.svg';
 
 export const LoginPage = () => {
   return (
@@ -11,6 +12,7 @@ export const LoginPage = () => {
         p={4}
       >
         <VStack gap={3} display={'flex'} align={'center'} p={2} w={'full'}>
+          <Image src={logo} boxSize={'48px'} />
           <Box fontWeight={'600'} fontSize={'2xl'}>
             Login
           </Box>

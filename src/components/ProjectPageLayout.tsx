@@ -4,9 +4,13 @@ import { MenuList } from '@/components/MenuList.tsx';
 
 export interface ProjectPageLayoutProps {
   children?: React.ReactNode;
+  currentTab: string;
 }
 
-export const ProjectPageLayout = ({ children }: ProjectPageLayoutProps) => {
+export const ProjectPageLayout = ({
+  children,
+  currentTab,
+}: ProjectPageLayoutProps) => {
   return (
     <PageWrapper>
       <Flex>
@@ -20,7 +24,7 @@ export const ProjectPageLayout = ({ children }: ProjectPageLayoutProps) => {
           h={'100vh'}
           bgColor={'gray.900'}
         >
-          <MenuList />
+          <MenuList currentTab={currentTab} />
         </Flex>
         <Flex w={'220px'} grow={0} shrink={0} />
         <Flex direction={'column'} w={'full'} grow={1}>

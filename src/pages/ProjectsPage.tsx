@@ -1,6 +1,7 @@
-import { Box, Flex, Grid, Heading, Icon, Text } from '@chakra-ui/react';
+import { Box, Flex, Grid, Heading, Icon, Image, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router';
 import { IoAdd } from 'react-icons/io5';
+import logo from '@/assets/logo.svg';
 
 interface ProjectItemProps {
   title: string;
@@ -52,9 +53,10 @@ export const ProjectsPage = () => {
         zIndex={99}
         bgColor={'gray.900'}
       >
-        <Box>
+        <Flex align={'center'} gap={2}>
+          <Image src={logo} boxSize={'24px'} />
           <Text
-            fontSize={'24px'}
+            fontSize={'22px'}
             fontWeight={'600'}
             onClick={() => {
               navigate('/');
@@ -65,7 +67,7 @@ export const ProjectsPage = () => {
           >
             Logmon
           </Text>
-        </Box>
+        </Flex>
       </Flex>
       <Box h={'60px'} />
       <Box h={'70px'} />

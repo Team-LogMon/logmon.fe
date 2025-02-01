@@ -11,6 +11,7 @@ import {
 import bannerImage from '../assets/banner_image.svg';
 import { useNavigate } from 'react-router';
 import { PageWrapper } from '@/components/PageWrapper.tsx';
+import logo from '@/assets/logo.svg';
 
 export const LandingPage = () => {
   const navigate = useNavigate();
@@ -31,11 +32,21 @@ export const LandingPage = () => {
           zIndex={99}
           bgColor={'#18181b'}
         >
-          <Box>
-            <Text fontSize={'24px'} fontWeight={'600'}>
+          <Flex align={'center'} gap={2}>
+            <Image src={logo} boxSize={'24px'} />
+            <Text
+              fontSize={'22px'}
+              fontWeight={'600'}
+              onClick={() => {
+                navigate('/');
+              }}
+              _hover={{
+                cursor: 'pointer',
+              }}
+            >
               Logmon
             </Text>
-          </Box>
+          </Flex>
           <Flex gap={5}>
             <Link
               onClick={() => {

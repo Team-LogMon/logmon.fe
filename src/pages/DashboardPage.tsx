@@ -39,7 +39,7 @@ const DashboardGridItem = ({
 export const DashboardPage = () => {
   const { projectId } = useParams();
   return (
-    <ProjectPageLayout>
+    <ProjectPageLayout currentTab={'Dashboard'}>
       <Grid
         w={'full'}
         templateColumns={{
