@@ -13,6 +13,7 @@ import {
   DocumentationMenus,
   findRootName,
 } from '@/documentations/DocumentationMenus.ts';
+import { useDocumentAccordionStore } from '@/shared/store/documentationAccordionStore.ts';
 
 interface DocumentationLayoutProps {
   children: ReactNode;
@@ -46,6 +47,8 @@ export const DocumentationLayout = ({
   children,
   name,
 }: DocumentationLayoutProps) => {
+  const openMenus = useDocumentAccordionStore((state) => state.openMenus);
+  const toggle = useDocumentAccordionStore((state) => state.toggle);
   const defaultOpenMenu = findRootName(name);
   const navigate = useNavigate();
   return (
@@ -72,7 +75,7 @@ export const DocumentationLayout = ({
         >
           Logmon
         </Box>
-        <AccordionRoot multiple defaultValue={[defaultOpenMenu]}>
+        <AccordionRoot multiple defaultValue={openMenus}>
           {DocumentationMenus.map((item, index) => (
             <AccordionItem key={index} value={item.name}>
               <AccordionItemTrigger
@@ -82,6 +85,7 @@ export const DocumentationLayout = ({
                 bgColor={
                   defaultOpenMenu === item.name ? 'blue.700' : 'gray.900'
                 }
+                onClick={() => toggle(item.name)}
               >
                 {item.name}
               </AccordionItemTrigger>
