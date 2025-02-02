@@ -5,6 +5,7 @@ import { BiMessageError } from 'react-icons/bi';
 import { CiSettings } from 'react-icons/ci';
 import { MdOutlineDashboard } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router';
+import { toaster } from '@/components/ui/toaster.tsx';
 
 interface MenuListProps {
   currentTab: string;
@@ -31,13 +32,25 @@ export const MenuList = ({ currentTab }: MenuListProps) => {
           title={'Logs'}
           icon={TbLogs}
           isSelected={currentTab === 'Logs'}
-          onClick={() => navigate(`/app/${pId}/logs`)}
+          onClick={() =>
+            toaster.create({
+              title: 'This service is currently under development.',
+              description: 'Please check back later.',
+              duration: 3000,
+            })
+          }
         />
         <MenuItem
           title={'Errors'}
           icon={BiMessageError}
           isSelected={currentTab === 'Errors'}
-          onClick={() => navigate(`/app/${pId}/errors`)}
+          onClick={() =>
+            toaster.create({
+              title: 'This service is currently under development.',
+              description: 'Please check back later.',
+              duration: 3000,
+            })
+          }
         />
       </Flex>
 

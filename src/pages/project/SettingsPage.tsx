@@ -18,18 +18,31 @@ import {
   IoPeopleOutline,
   IoSettingsOutline,
 } from 'react-icons/io5';
+import { toaster } from '@/components/ui/toaster.tsx';
 
 interface SettingMenuItemProps {
   title: string;
   description: string;
   icon: any;
+  onClick?: () => void;
 }
 
 const SettingMenuItem = ({
   title,
   description,
   icon,
+  onClick,
 }: SettingMenuItemProps) => {
+  if (!onClick) {
+    onClick = () => {
+      toaster.create({
+        title: 'This service is currently under development.',
+        description: 'Please check back later.',
+        duration: 3000,
+      });
+    };
+  }
+
   return (
     <Flex
       align={'center'}
@@ -43,6 +56,7 @@ const SettingMenuItem = ({
         cursor: 'pointer',
         bgColor: 'gray.500',
       }}
+      onClick={onClick}
     >
       <Center borderRadius={'full'} bg={'gray.200'} boxSize={'32px'}>
         <Icon as={icon} color={'black'} boxSize={'20px'} />
