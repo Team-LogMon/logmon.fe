@@ -4,15 +4,21 @@ interface MenuItemProps {
   icon: any;
   title: string;
   isSelected: boolean;
+  onClick: () => void;
 }
 
-export const MenuItem = ({ icon, title, isSelected }: MenuItemProps) => {
+export const MenuItem = ({
+  icon,
+  title,
+  isSelected,
+  onClick,
+}: MenuItemProps) => {
   return (
     <HStack
       px={4}
       py={2}
       w={'full'}
-      color={'gray.400'}
+      color={isSelected ? 'gray.100' : 'gray.400'}
       bgColor={isSelected ? 'blue.700' : 'inherit'}
       align={'center'}
       gap={3}
@@ -22,6 +28,7 @@ export const MenuItem = ({ icon, title, isSelected }: MenuItemProps) => {
         bgColor: isSelected ? 'blue.700' : 'gray.800',
         cursor: 'pointer',
       }}
+      onClick={onClick}
     >
       <Icon as={icon} boxSize={'26px'} />
       <Text>{title}</Text>

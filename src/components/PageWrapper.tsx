@@ -1,6 +1,6 @@
 import React from 'react';
 import LoadingOverlay from '@/components/LoadingOverlay.tsx';
-import { Box } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 
 interface PageWrapperProps {
   children: React.ReactNode;
@@ -8,9 +8,9 @@ interface PageWrapperProps {
 
 export const PageWrapper = ({ children }: PageWrapperProps) => {
   return (
-    <Box w={'full'} h={'100vh'}>
+    <Flex w={'full'} h={'100vh'} direction={'column'}>
       {children}
       <LoadingOverlay />
-    </Box>
+    </Flex>
   );
 };

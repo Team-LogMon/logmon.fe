@@ -37,7 +37,7 @@ const DashboardGridItem = ({
 };
 
 export const DashboardPage = () => {
-  const { projectId } = useParams();
+  const { pId } = useParams();
   return (
     <ProjectPageLayout currentTab={'Dashboard'}>
       <Grid
