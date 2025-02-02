@@ -1,4 +1,14 @@
-import { Box, Button, Flex, Image, Input, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  HStack,
+  Image,
+  Input,
+  Separator,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import logo from '@/assets/logo.svg';
 
 export const LoginPage = () => {
@@ -75,6 +85,12 @@ export const LoginPage = () => {
           <Box w={'full'} textAlign={'center'} mt={'8px'} fontSize={'14px'}>
             Register | Forget Password?
           </Box>
+
+          <HStack w={'full'}>
+            <Separator flex="1" size={'lg'} />
+            <Text flexShrink={0}>or</Text>
+            <Separator flex="1" size={'lg'} />
+          </HStack>
 
           <Button
             w={'full'}
