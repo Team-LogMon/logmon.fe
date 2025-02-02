@@ -3,6 +3,7 @@ import { Flex, Image, Text } from '@chakra-ui/react';
 import { MenuList } from '@/components/MenuList.tsx';
 import logo from '@/assets/logo.svg';
 import { useNavigate } from 'react-router';
+import { Toaster } from '@/components/ui/toaster.tsx';
 
 export interface ProjectPageLayoutProps {
   children?: React.ReactNode;
@@ -60,6 +61,7 @@ export const ProjectPageLayout = ({
           {children}
         </Flex>
       </Flex>
+      <Toaster />
     </PageWrapper>
   );
 };
