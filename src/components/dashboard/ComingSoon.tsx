@@ -10,8 +10,8 @@ export const ComingSoon = () => {
       h={'full'}
       direction={'column'}
     >
-      <Icon as={IoBarChartSharp} boxSize={'48px'} mb={3} color={'gray.400'} />
-      <Text fontSize={'xl'} color={'gray.400'}>
+      <Icon as={IoBarChartSharp} boxSize={'48px'} mb={3} color={'fg.subtle'} />
+      <Text fontSize={'xl'} color={'fg.subtle'}>
         Coming Soon
       </Text>
     </Flex>

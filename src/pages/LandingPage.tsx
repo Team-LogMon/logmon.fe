@@ -1,17 +1,15 @@
 import {
-  Box,
   Button,
   ButtonGroup,
   Flex,
   Heading,
   Image,
   Link,
-  Text,
 } from '@chakra-ui/react';
 import bannerImage from '../assets/banner_image.svg';
 import { useNavigate } from 'react-router';
 import { PageWrapper } from '@/components/PageWrapper.tsx';
-import logo from '@/assets/logo.svg';
+import { Header } from '@/components/Header.tsx';
 
 export const LandingPage = () => {
   const navigate = useNavigate();
@@ -19,60 +17,28 @@ export const LandingPage = () => {
   return (
     <PageWrapper>
       <Flex justify={'center'} align={'center'} direction={'column'}>
-        {/*Header */}
-        <Flex
-          position={'fixed'}
-          top={0}
-          w={'full'}
-          h={'60px'}
-          align={'center'}
-          justify={'space-between'}
-          px={6}
-          borderBottom={'1px solid black'}
-          zIndex={99}
-          bgColor={'#18181b'}
-        >
-          <Flex align={'center'} gap={2}>
-            <Image src={logo} boxSize={'24px'} />
-            <Text
-              fontSize={'22px'}
-              fontWeight={'600'}
-              onClick={() => {
-                navigate('/');
-              }}
-              _hover={{
-                cursor: 'pointer',
-              }}
+        <Header>
+          <Link
+            onClick={() => {
+              navigate('/login');
+            }}
+            fontWeight={'700'}
+          >
+            Sign in
+          </Link>
+          <ButtonGroup size={'sm'} display={{ base: 'none', sm: 'flex' }}>
+            <Button
+              bg={'#6158FF'}
+              onClick={() => navigate('/projects')}
+              color={'white'}
             >
-              Logmon
-            </Text>
-          </Flex>
-          <Flex gap={5}>
-            <Link
-              onClick={() => {
-                navigate('/login');
-              }}
-              fontWeight={'700'}
-            >
-              Sign in
-            </Link>
-            <ButtonGroup size={'sm'} display={{ base: 'none', sm: 'flex' }}>
-              <Button
-                colorPalette={'blue'}
-                onClick={() => navigate('/projects')}
-              >
-                Get started
-              </Button>
-              <Button
-                colorPalette={'white'}
-                onClick={() => navigate('/documentations')}
-              >
-                Documentations
-              </Button>
-            </ButtonGroup>
-          </Flex>
-        </Flex>
-        <Box h={'60px'} />
+              Get started
+            </Button>
+            <Button onClick={() => navigate('/documentations')}>
+              Documentations
+            </Button>
+          </ButtonGroup>
+        </Header>
         <Flex
           w={'full'}
           direction={{ base: 'column-reverse', lg: 'row' }}
@@ -104,7 +70,8 @@ export const LandingPage = () => {
             <ButtonGroup mt={'30px'}>
               <Button
                 size={'xl'}
-                colorPalette={'blue'}
+                bg={'#6158FF'}
+                color={'white'}
                 onClick={() => {
                   navigate('/projects');
                 }}

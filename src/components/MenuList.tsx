@@ -16,7 +16,13 @@ export const MenuList = ({ currentTab }: MenuListProps) => {
   const navigate = useNavigate();
 
   return (
-    <Flex direction={'column'} justify={'space-between'} h={'full'}>
+    <Flex
+      direction={'column'}
+      justify={'space-between'}
+      h={'full'}
+      borderRight={'1px solid'}
+      borderColor={'border'}
+    >
       <Flex direction={'column'}>
         <Box h={'10px'}></Box>
         <Box h={'10px'}></Box>

@@ -49,15 +49,15 @@ const PlanBox = ({
       <Text
         fontWeight={700}
         fontSize={'lg'}
-        color={isSelected ? 'white' : 'gray.500'}
+        color={isSelected ? 'fg' : 'fg.muted'}
       >
         {title}
       </Text>
-      <Text color={isSelected ? 'white' : 'gray.500'}>{price}$/month</Text>
+      <Text color={isSelected ? 'fg' : 'fg.muted'}>{price}$/month</Text>
       <List.Root>
         <For each={descriptions}>
           {(item, index) => (
-            <List.Item color={isSelected ? 'white' : 'gray.500'} key={index}>
+            <List.Item color={isSelected ? 'fg' : 'fg.muted'} key={index}>
               {item}
             </List.Item>
           )}

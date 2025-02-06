@@ -18,14 +18,14 @@ export const MenuItem = ({
       px={4}
       py={2}
       w={'full'}
-      color={isSelected ? 'gray.100' : 'gray.400'}
-      bgColor={isSelected ? 'blue.700' : 'inherit'}
+      color={isSelected ? 'white' : 'fg.muted'}
+      bgColor={isSelected ? 'blue.600' : 'inherit'}
       align={'center'}
       gap={3}
       fontSize={'lg'}
       borderRadius={'md'}
       _hover={{
-        bgColor: isSelected ? 'blue.700' : 'gray.800',
+        bgColor: isSelected ? 'blue.700' : 'bg.emphasized',
         cursor: 'pointer',
       }}
       onClick={onClick}

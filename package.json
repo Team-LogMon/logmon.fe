@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@chakra-ui/react": "^3.5.1",
+    "@chakra-ui/react": "^3.7.0",
     "@emotion/react": "^11.14.0",
     "@use-funnel/browser": "^0.0.11",
     "@use-funnel/next": "^0.0.10",

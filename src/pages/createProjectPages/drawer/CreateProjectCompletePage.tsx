@@ -17,7 +17,6 @@ export const CreateProjectCompletePage = () => {
           Go to Dashboard
         </Button>
         <Button
-          colorPalette={'white'}
           size={{ base: 'sm', sm: 'xl' }}
           onClick={() => {
             window.location.href = '/documentations';

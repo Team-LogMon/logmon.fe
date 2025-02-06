@@ -1,6 +1,7 @@
 import { ProjectPageLayout } from '@/components/ProjectPageLayout.tsx';
 import {
   Box,
+  Button,
   Center,
   Flex,
   Grid,
@@ -19,12 +20,14 @@ import {
   IoSettingsOutline,
 } from 'react-icons/io5';
 import { toaster } from '@/components/ui/toaster.tsx';
+import { useNavigate, useParams } from 'react-router';
 
 interface SettingMenuItemProps {
   title: string;
   description: string;
   icon: any;
   onClick?: () => void;
+  color: string;
 }
 
 const SettingMenuItem = ({
@@ -32,6 +35,7 @@ const SettingMenuItem = ({
   description,
   icon,
   onClick,
+  color,
 }: SettingMenuItemProps) => {
   if (!onClick) {
     onClick = () => {
@@ -44,30 +48,34 @@ const SettingMenuItem = ({
   }
 
   return (
-    <Flex
-      align={'center'}
+    <Button
+      display={'flex'}
+      justifyContent={'flex-start'}
       h={'64px'}
-      bg={'gray.600'}
-      boxShadow={'md'}
       my={2}
+      boxShadow={'sm'}
       p={4}
       gap={3}
-      _hover={{
-        cursor: 'pointer',
-        bgColor: 'gray.500',
-      }}
+      border={'1px solid'}
+      borderColor={'border'}
       onClick={onClick}
+      variant={'outline'}
     >
-      <Center borderRadius={'full'} bg={'gray.200'} boxSize={'32px'}>
-        <Icon as={icon} color={'black'} boxSize={'20px'} />
+      <Center
+        borderRadius={'full'}
+        boxSize={'32px'}
+        bg={`${color}.100`}
+        flexShrink={0}
+      >
+        <Icon as={icon} boxSize={'18px'} color={`${color}.700`} />
       </Center>
-      <Flex direction={'column'}>
+      <Flex direction={'column'} w={'full'} align={'flex-start'}>
         <Text fontWeight={600} fontSize={'sm'}>
           {title}
         </Text>
         <Text fontSize={'xs'}>{description}</Text>
       </Flex>
-    </Flex>
+    </Button>
   );
 };
 
@@ -83,7 +91,7 @@ const SettingMenu = ({ children, title, description }: SettingMenuProps) => {
       <Heading as={'h4'} size={'md'}>
         {title}
       </Heading>
-      <Text fontSize={'xs'} color={'gray.400'} mb={'8px'}>
+      <Text fontSize={'xs'} color={'fg.muted'} mb={'8px'}>
         {description}
       </Text>
       {children}
@@ -92,11 +100,14 @@ const SettingMenu = ({ children, title, description }: SettingMenuProps) => {
 };
 
 export const SettingsPage = () => {
+  const { pId } = useParams();
+  const navigate = useNavigate();
+
   return (
     <ProjectPageLayout currentTab={'Settings'}>
-      <Flex direction={'column'} p={'48px'}>
-        <Heading>Project Setting</Heading>
-        <Box h={'40px'} />
+      <Flex direction={'column'}>
+        <Heading fontSize={'2xl'}>Project Setting</Heading>
+        <Box h={'30px'} />
         <Grid
           templateColumns={{ base: 'repeat(1,1fr)', lg: 'repeat(3,1fr)' }}
           gap={8}
@@ -109,11 +120,13 @@ export const SettingsPage = () => {
               title={'Project Configuration'}
               icon={IoSettingsOutline}
               description={'Configure your project settings.'}
+              color={'blue'}
             />
             <SettingMenuItem
               title={'API Logs'}
               icon={IoBarChartOutline}
               description={'Monitor your api calls.'}
+              color={'blue'}
             />
           </SettingMenu>
           <SettingMenu
@@ -126,11 +139,13 @@ export const SettingsPage = () => {
               title={'Your plan and billing'}
               icon={IoCardOutline}
               description={'Check your plan details and upgrade'}
+              color={'yellow'}
             />
             <SettingMenuItem
               title={'Usage'}
               icon={IoCellularOutline}
               description={'Monitor your plan usage'}
+              color={'yellow'}
             />
           </SettingMenu>
           <SettingMenu
@@ -141,11 +156,15 @@ export const SettingsPage = () => {
               title={'API Keys'}
               icon={IoKeyOutline}
               description={'Add, edit, and manage your API keys'}
+              onClick={() => navigate(`/app/${pId}/settings/key`)}
+              color={'purple'}
             />
             <SettingMenuItem
               title={'Members'}
               icon={IoPeopleOutline}
               description={'Manage your team members permissions'}
+              onClick={() => navigate(`/app/${pId}/settings/members`)}
+              color={'purple'}
             />
           </SettingMenu>
         </Grid>

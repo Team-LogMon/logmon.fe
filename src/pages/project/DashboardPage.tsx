@@ -22,7 +22,9 @@ const DashboardGridItem = ({
       colSpan={{ base: 2, md: colSpan, lg: colSpan }} // base(모바일)에서는 두 칸 차지
       h={'300px'}
       p={4}
-      bg={'gray.800'}
+      bg={'bg.panel'}
+      border={'1px solid'}
+      borderColor={'border'}
       borderRadius={'lg'}
       boxShadow={'md'}
       display={'flex'}
@@ -48,7 +50,6 @@ export const DashboardPage = () => {
           lg: 'repeat(4, minmax(0, 1fr))', // 데스크탑: 최대 4열
         }}
         gap={4}
-        p={10}
       >
         <DashboardGridItem title={'Error Log Count'} colSpan={2}>
           <ErrorLogCount />

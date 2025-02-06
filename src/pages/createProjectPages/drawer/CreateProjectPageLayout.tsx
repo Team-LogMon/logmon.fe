@@ -12,20 +12,18 @@ export const CreateProjectPageLayout = ({
   onBefore,
 }: DrawerCreateProjectPageLayoutProps) => {
   return (
-    <Flex w={'full'} h={'full'} position={'relative'}>
+    <Flex w={'full'} h={'100vh'} position={'relative'}>
       <Flex
         grow={1}
         direction={'column'}
         p={{ base: '20px', sm: '100px' }}
         h={'full'}
-        bgColor={'gray.900'}
       >
         <Flex h={'60px'} shrink={0} />
         <Flex w={{ base: 'full', lg: '2xl' }} direction={'column'}>
           {onBefore && (
             <IconButton
               bg={'inherit'}
-              color={'white'}
               boxSize={'36px'}
               mb={10}
               onClick={onBefore}
