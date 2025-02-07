@@ -104,8 +104,8 @@ export const ProjectsPage = () => {
             <ProjectItem title={'LogMon-backend'} pId={'logmon-backend-0011'} />
           </Grid>
         </Flex>
-        <Box h={'120px'} />
       </Flex>
+      <Box h={'120px'} />
     </PageWrapper>
   );
 };

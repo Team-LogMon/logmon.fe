@@ -14,7 +14,6 @@ export const LoadingOverlay: React.FC = () => {
       left="0"
       width="100vw"
       height="100vh"
-      bg="rgba(0, 0, 0, 0.5)"
       display="flex"
       justifyContent="center"
       alignItems="center"

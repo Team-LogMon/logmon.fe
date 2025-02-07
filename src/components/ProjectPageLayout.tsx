@@ -26,9 +26,17 @@ export const ProjectPageLayout = ({
           <MenuList currentTab={currentTab} />
         </Flex>
         <Flex w={'220px'} grow={0} shrink={0} />
-        <Flex direction={'column'} w={'full'} grow={1} px={'48px'}>
+        <Flex
+          direction={'column'}
+          w={'full'}
+          grow={1}
+          px={'48px'}
+          minH={'100vh'}
+          bg={'bg'}
+        >
           <Box h={'40px'} />
           {children}
+          <Box h={'40px'} />
         </Flex>
       </Flex>
     </PageWrapper>

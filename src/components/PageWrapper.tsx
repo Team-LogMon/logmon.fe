@@ -9,7 +9,7 @@ interface PageWrapperProps {
 
 export const PageWrapper = ({ children }: PageWrapperProps) => {
   return (
-    <Flex w={'full'} direction={'column'} minH={'100vh'} bg={'bg'}>
+    <Flex w={'full'} direction={'column'} minH={'100vh'}>
       {children}
       <LoadingOverlay />
       <Toaster />
