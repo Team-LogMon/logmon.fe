@@ -14,6 +14,7 @@ import {
   findRootName,
 } from '@/documentations/DocumentationMenus.ts';
 import { useDocumentAccordionStore } from '@/shared/store/documentationAccordionStore.ts';
+import { Header } from '@/components/Header.tsx';
 
 interface DocumentationLayoutProps {
   children: ReactNode;
@@ -28,7 +29,7 @@ const DocumentItem = ({
   const navigate = useNavigate();
   return (
     <Flex
-      bgColor={selected ? 'gray.700' : 'gray.900'}
+      bgColor={selected ? 'bg.emphasized' : 'bg'}
       borderRadius={'md'}
       p={3}
       px={10}
@@ -50,46 +51,39 @@ export const DocumentationLayout = ({
   const openMenus = useDocumentAccordionStore((state) => state.openMenus);
   const toggle = useDocumentAccordionStore((state) => state.toggle);
   const defaultOpenMenu = findRootName(name);
-  const navigate = useNavigate();
+
   return (
-    <Flex w={'full'}>
+    <Flex w={'full'} h={'100vh'}>
+      <Header />
       <Flex
         w={'400px'}
         shrink={0}
+        height={'calc(100vh-60px)'}
+        pt={'60px'}
         direction={'column'}
-        mt={20}
         position={'sticky'}
-        top={'20px'}
-        height="calc(100vh - 40px)" // 화면 전체 높이에서 여백 제외
         overflowY="auto" // 내용이 많아질 경우 스크롤 가능
+        borderRight={'1px solid'}
+        borderColor={'border'}
+        className={'hide-scrollbar'}
       >
-        <Box
-          m={4}
-          mb={8}
-          fontSize={'24px'}
-          fontWeight={800}
-          onClick={() => navigate('/')}
-          _hover={{
-            cursor: 'pointer',
-          }}
+        <AccordionRoot
+          multiple
+          defaultValue={openMenus}
+          colorPalette={'purple'}
         >
-          Logmon
-        </Box>
-        <AccordionRoot multiple defaultValue={openMenus}>
           {DocumentationMenus.map((item, index) => (
             <AccordionItem key={index} value={item.name}>
               <AccordionItemTrigger
                 fontSize={'lg'}
                 p={4}
                 pl={6}
-                bgColor={
-                  defaultOpenMenu === item.name ? 'blue.700' : 'gray.900'
-                }
+                bgColor={defaultOpenMenu === item.name ? 'purple.400' : 'bg'}
                 onClick={() => toggle(item.name)}
               >
                 {item.name}
               </AccordionItemTrigger>
-              <AccordionItemContent>
+              <AccordionItemContent border={'1px solid'} borderColor={'border'}>
                 <For each={item.inner}>
                   {(item, index) => (
                     <DocumentItem
