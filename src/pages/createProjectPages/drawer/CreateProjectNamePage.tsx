@@ -19,6 +19,8 @@ export const CreateProjectNamePage = () => {
   const navigate = useNavigate();
   const name = useCreateProjectStore((state) => state.name);
   const setName = useCreateProjectStore((state) => state.setName);
+  const description = useCreateProjectStore((state) => state.description);
+  const setDescription = useCreateProjectStore((state) => state.setDescription);
 
   return (
     <DrawerRoot size={'full'}>
@@ -31,7 +33,6 @@ export const CreateProjectNamePage = () => {
           w={{ base: 'full' }}
           type={'text'}
           mt={4}
-          borderColor={'gray.400'}
           border={'none'}
           borderBottom={'1px solid'}
           placeholder={'YOUR PROJECT NAME'}
@@ -45,6 +46,24 @@ export const CreateProjectNamePage = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
+        <Input
+          w={{ base: 'full' }}
+          type={'text'}
+          mt={4}
+          border={'none'}
+          borderBottom={'1px solid'}
+          placeholder={'Descriptions (Optional)'}
+          size={'xl'}
+          _focus={{
+            border: 'none',
+            borderBottom: '3px solid',
+            boxShadow: 'none', // focus 상태의 시각적 강조 제거
+            outline: 'none',
+          }}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+
         <Flex w={{ base: 'full' }} justify={'space-between'} py={6}>
           <Box />
           <DrawerTrigger asChild>

@@ -34,13 +34,12 @@ const PlanBox = ({
 }: PlanBoxProps) => {
   return (
     <Box
-      bg={'gray.700'}
-      color={'gray.50'}
+      bg={'bg.emphasized'}
       boxShadow={'sm'}
       borderRadius={'md'}
       p={3}
       border={'2px solid'}
-      borderColor={isSelected ? 'white' : 'gray.700'}
+      borderColor={isSelected ? 'border.inverted' : 'border'}
       onClick={onClick}
       _hover={{
         cursor: 'pointer',
@@ -54,7 +53,7 @@ const PlanBox = ({
         {title}
       </Text>
       <Text color={isSelected ? 'fg' : 'fg.muted'}>{price}$/month</Text>
-      <List.Root>
+      <List.Root pl={3}>
         <For each={descriptions}>
           {(item, index) => (
             <List.Item color={isSelected ? 'fg' : 'fg.muted'} key={index}>
