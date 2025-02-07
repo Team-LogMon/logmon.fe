@@ -8,6 +8,7 @@ import {
 import { Slider } from '@/components/ui/slider.tsx';
 import { useLogsTimeSliderStore } from '@/shared/store/logsTimeSliderStore.ts';
 import { Time } from '@/shared/utils/Time.ts';
+import { useEffect, useState } from 'react';
 
 export const LogFilteringSlider = () => {
   const min = useLogsTimeSliderStore((state) => state.min);
@@ -17,6 +18,14 @@ export const LogFilteringSlider = () => {
   const clear = useLogsTimeSliderStore((state) => state.clear);
   const optimize = useLogsTimeSliderStore((state) => state.optimize);
   const onSliderValueChange = useLogsTimeSliderStore((state) => state.onChange);
+
+  const [curLeft, setCurLeft] = useState(left);
+  const [curRight, setCurRight] = useState(right);
+
+  useEffect(() => {
+    setCurLeft(left);
+    setCurRight(right);
+  }, [left, right]);
 
   const calculateMarks = () => {
     const range = max - min;
@@ -101,7 +110,11 @@ export const LogFilteringSlider = () => {
               </Button>
             </Flex>
           }
-          value={[left, right]} // ✅ 상태를 직접 사용하여 UI 업데이트 반영
+          value={[curLeft, curRight]} // ✅ 상태를 직접 사용하여 UI 업데이트 반영
+          onValueChange={(details) => {
+            setCurLeft(details.value[0]);
+            setCurRight(details.value[1]);
+          }}
           h={'40px'}
           step={(max - min) / 50}
           marks={calculateMarks()}
