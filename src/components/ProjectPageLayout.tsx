@@ -31,8 +31,8 @@ export const ProjectPageLayout = ({
           w={'full'}
           grow={1}
           px={'48px'}
-          minH={'100vh'}
           bg={'bg'}
+          minH={'calc(100vh-60px)'}
         >
           <Box h={'40px'} />
           {children}

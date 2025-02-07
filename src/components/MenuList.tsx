@@ -38,13 +38,7 @@ export const MenuList = ({ currentTab }: MenuListProps) => {
           title={'Logs'}
           icon={TbLogs}
           isSelected={currentTab === 'Logs'}
-          onClick={() =>
-            toaster.create({
-              title: 'This service is currently under development.',
-              description: 'Please check back later.',
-              duration: 3000,
-            })
-          }
+          onClick={() => navigate(`/app/${pId}/logs`)}
         />
         <MenuItem
           title={'Errors'}
