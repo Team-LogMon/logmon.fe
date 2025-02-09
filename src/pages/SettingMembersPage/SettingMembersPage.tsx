@@ -78,8 +78,11 @@ export const SettingMembersPage = () => {
           <Table.Body>
             <Table.Row>
               <Table.Cell w={'sm'}>
-                sbslc2000@gmail.com <Tag.Root>OWNER</Tag.Root>
-                <Tag.Root colorPalette={'green'}>Active</Tag.Root>
+                <HStack>
+                  <Text>sbslc2000@gmail.com</Text>
+                  <Tag.Root>OWNER</Tag.Root>
+                  <Tag.Root colorPalette={'green'}>Active</Tag.Root>
+                </HStack>
               </Table.Cell>
 
               <Table.Cell display={'flex'} gap={3}>

@@ -5,7 +5,7 @@ import { LoginPage } from '@/pages/LoginPage.tsx';
 import { DashboardPage } from '@/pages/DashboardPage/DashboardPage.tsx';
 import { CreateProjectNamePage } from '@/pages/createProjectPages/drawer/CreateProjectNamePage.tsx';
 import { SettingsPage } from '@/pages/settings/SettingsPage.tsx';
-import { SettingMembersPage } from '@/pages/settings/SettingMembersPage.tsx';
+import { SettingMembersPage } from '@/pages/SettingMembersPage/SettingMembersPage.tsx';
 import { SettingsApiKeyPage } from '@/pages/settings/SettingsApiKeyPage.tsx';
 import { LogsPage } from '@/pages/LogsPage/LogsPage.tsx';
 
