@@ -16,3 +16,17 @@ export type Log = {
   timeStamp: TimeStamp;
   jsonPayload?: object;
 };
+
+export type LogAlertSubscription = {
+  id: string;
+  projectId: string;
+  platform: string;
+  url: string;
+  alertThreshold: Severity;
+  dailyQuotaLimit: number;
+  dailyQuotaUsed: number;
+  monthlyQuotaLimit: number;
+  monthlyQuotaUsed: number;
+  createdAt: number;
+  updatedAt: number;
+};
