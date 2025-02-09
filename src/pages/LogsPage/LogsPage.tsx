@@ -4,9 +4,9 @@ import { Icon, Tabs } from '@chakra-ui/react';
 import { MdOutlineMonitorHeart } from 'react-icons/md';
 import { IoMdNotificationsOutline } from 'react-icons/io';
 import { LogsPanel } from '@/pages/LogsPage/components/LogsPanel.tsx';
-import { EmptyNotification } from '@/pages/LogsPage/components/EmptyNotification.tsx';
 import { ImStatsBars } from 'react-icons/im';
 import { NotificationStatistics } from '@/pages/LogsPage/components/NotificationStatistics.tsx';
+import { LogAlertSubscriptionsList } from '@/pages/LogsPage/components/LogAlertSubscriptionsList.tsx';
 
 export const LogsPage = () => {
   return (
@@ -32,7 +32,7 @@ export const LogsPage = () => {
           <LogsPanel />
         </Tabs.Content>
         <Tabs.Content value="notification">
-          <EmptyNotification />
+          <LogAlertSubscriptionsList />
         </Tabs.Content>
         <Tabs.Content value="statistics">
           <NotificationStatistics />
