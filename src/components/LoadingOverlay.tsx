@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Spinner } from '@chakra-ui/react';
+import { Center, Spinner } from '@chakra-ui/react';
 import { useLoading } from '@/contexts/LoadingContext.tsx';
 
 export const LoadingOverlay: React.FC = () => {
@@ -8,20 +8,18 @@ export const LoadingOverlay: React.FC = () => {
   if (loadingCount === 0) return null;
 
   return (
-    <Box
-      position="fixed"
-      top="0"
-      left="0"
-      width="100vw"
-      height="100vh"
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      zIndex="overlay"
-      pointerEvents="all"
+    <Center
+      position={'fixed'}
+      top={'0'}
+      left={'0'}
+      width={'100vw'}
+      height={'100vh'}
+      zIndex={'overlay'}
+      pointerEvents={'all'}
+      bg={'bg.inverted/20'}
     >
-      <Spinner size="xl" color="white" />
-    </Box>
+      <Spinner size={'xl'} color={'blue'} />
+    </Center>
   );
 };
 
