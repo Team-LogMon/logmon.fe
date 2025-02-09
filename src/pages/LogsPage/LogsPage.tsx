@@ -6,6 +6,7 @@ import { IoMdNotificationsOutline } from 'react-icons/io';
 import { LogsPanel } from '@/pages/LogsPage/components/LogsPanel.tsx';
 import { EmptyNotification } from '@/pages/LogsPage/components/EmptyNotification.tsx';
 import { ImStatsBars } from 'react-icons/im';
+import { NotificationStatistics } from '@/pages/LogsPage/components/NotificationStatistics.tsx';
 
 export const LogsPage = () => {
   return (
@@ -32,6 +33,9 @@ export const LogsPage = () => {
         </Tabs.Content>
         <Tabs.Content value="notification">
           <EmptyNotification />
+        </Tabs.Content>
+        <Tabs.Content value="statistics">
+          <NotificationStatistics />
         </Tabs.Content>
       </Tabs.Root>
     </ProjectPageLayout>
