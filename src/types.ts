@@ -10,6 +10,7 @@ export type TimeStamp = number;
 
 export type Log = {
   id: string;
+  projectId: string;
   severity: Severity;
   message: string;
   source?: string;

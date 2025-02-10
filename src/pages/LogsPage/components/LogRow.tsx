@@ -1,9 +1,9 @@
 import { Status, Table, Text, useDisclosure } from '@chakra-ui/react';
 import { Log } from '@/types.ts';
+import { DateFormatter } from '@/shared/utils/DateFormatter.ts';
 
 export const LogRow = (props: Log) => {
   const { id, severity, timeStamp, source, message, jsonPayload } = props;
-  console.log(jsonPayload);
   const { open, onToggle } = useDisclosure();
 
   const getSeverityColor = () => {
@@ -36,7 +36,9 @@ export const LogRow = (props: Log) => {
             <Status.Indicator bg={getSeverityColor()} />
           </Status.Root>
         </Table.Cell>
-        <Table.Cell>{new Date(timeStamp).toISOString()}</Table.Cell>
+        <Table.Cell>
+          {DateFormatter.formatDateToYYYYMMDDHHMMSS(new Date(timeStamp), '-')}
+        </Table.Cell>
         <Table.Cell textAlign={'center'}>{source ? source : '-'}</Table.Cell>
         <Table.Cell>{message}</Table.Cell>
       </Table.Row>

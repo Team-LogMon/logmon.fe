@@ -1,6 +1,6 @@
 import { RouteObject } from 'react-router';
-import { LandingPage } from '@/pages/LandingPage.tsx';
-import { ProjectsPage } from '@/pages/ProjectsPage.tsx';
+import { LandingPage } from '@/pages/LandingPage/LandingPage.tsx';
+import { ProjectsPage } from '@/pages/ProjectsPage/ProjectsPage.tsx';
 import { LoginPage } from '@/pages/LoginPage.tsx';
 import { DashboardPage } from '@/pages/DashboardPage/DashboardPage.tsx';
 import { CreateProjectNamePage } from '@/pages/createProjectPages/drawer/CreateProjectNamePage.tsx';

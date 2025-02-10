@@ -10,7 +10,7 @@ import {
   Link,
   VStack,
 } from '@chakra-ui/react';
-import bannerImage from '../assets/banner_image.svg';
+import bannerImage from '../../assets/banner_image.svg';
 import { useNavigate } from 'react-router';
 import { PageWrapper } from '@/components/PageWrapper.tsx';
 import { Header } from '@/components/Header.tsx';
