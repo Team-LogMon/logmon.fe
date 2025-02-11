@@ -1,7 +1,6 @@
 import { ProjectPageLayout } from '@/components/ProjectPageLayout.tsx';
 import {
   Box,
-  Button,
   Flex,
   Heading,
   HStack,
@@ -15,28 +14,8 @@ import { IoChevronBackOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 import { MemberRow } from '@/pages/SettingMembersPage/MemberRow.tsx';
-import { useLoading } from '@/contexts/LoadingContext.tsx'; // const floatingStyles = defineStyle({
-
-// const floatingStyles = defineStyle({
-//   pos: 'absolute',
-//   bg: 'bg',
-//   px: '0.5',
-//   top: '-3',
-//   insetStart: '2',
-//   fontWeight: 'normal',
-//   pointerEvents: 'none',
-//   transition: 'position',
-//   _peerPlaceholderShown: {
-//     color: 'fg.muted',
-//     top: '2.5',
-//     insetStart: '3',
-//   },
-//   _peerFocusVisible: {
-//     color: 'fg',
-//     top: '-3',
-//     insetStart: '2',
-//   },
-// });
+import { useLoading } from '@/contexts/LoadingContext.tsx';
+import { InviteMemberDialog } from '@/pages/SettingMembersPage/InviteMemberDialog.tsx'; // const floatingStyles = defineStyle({
 
 export const SettingMembersPage = () => {
   const [members, setMembers] = useState<
@@ -109,24 +88,9 @@ export const SettingMembersPage = () => {
                 setSearchWord(e.target.value);
               }}
             />
-            <Button colorPalette={'blue'}>Invite Member</Button>
+            <InviteMemberDialog />
           </Flex>
         </Flex>
-
-        {/*<Heading fontSize={'xl'} my={3}>*/}
-        {/*  Invite Member*/}
-        {/*</Heading>*/}
-        {/*<Flex w={'full'} align={'center'}>*/}
-        {/*  <Field.Root my={3} w={'300px'}>*/}
-        {/*    <Box pos="relative" w={'280px'}>*/}
-        {/*      <Input className="peer" placeholder="" />*/}
-        {/*      <Field.Label css={floatingStyles}>Email</Field.Label>*/}
-        {/*    </Box>*/}
-        {/*  </Field.Root>*/}
-        {/*  <Button pos={'relative'} colorPalette={'blue'}>*/}
-        {/*    Invite*/}
-        {/*  </Button>*/}
-        {/*</Flex>*/}
 
         <HStack align={'center'} gap={1}>
           <Heading fontSize={'xl'} my={3}>
