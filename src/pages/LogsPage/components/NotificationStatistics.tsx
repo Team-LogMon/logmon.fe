@@ -1,4 +1,5 @@
-import { Card, Flex, Heading, HStack, Progress } from '@chakra-ui/react';
+import { Card, Flex, Heading } from '@chakra-ui/react';
+import { NotificationQuotaProgress } from '@/pages/LogsPage/components/NotificationQuotaProgress.tsx';
 
 export const NotificationStatistics = () => {
   return (
@@ -8,47 +9,31 @@ export const NotificationStatistics = () => {
       <Card.Root>
         <Card.Header>Subscription: IDIDIDID</Card.Header>
         <Card.Body>
-          <Progress.Root defaultValue={40}>
-            <HStack gap={5}>
-              <Progress.Label w={'100px'}>Daily Quota</Progress.Label>
-              <Progress.Track w={'360px'}>
-                <Progress.Range />
-              </Progress.Track>
-              <Progress.ValueText>40%</Progress.ValueText>
-            </HStack>
-          </Progress.Root>
-          <Progress.Root defaultValue={10}>
-            <HStack gap={5}>
-              <Progress.Label w={'100px'}>Monthly Quota</Progress.Label>
-              <Progress.Track w={'360px'}>
-                <Progress.Range />
-              </Progress.Track>
-              <Progress.ValueText>10%</Progress.ValueText>
-            </HStack>
-          </Progress.Root>
+          <NotificationQuotaProgress
+            label={'Daily Quota'}
+            used={30}
+            max={100}
+          />
+          <NotificationQuotaProgress
+            label={'Monthly Quota'}
+            used={90}
+            max={1000}
+          />
         </Card.Body>
       </Card.Root>
       <Card.Root>
         <Card.Header>Subscription: IDIDIDID</Card.Header>
         <Card.Body>
-          <Progress.Root defaultValue={10}>
-            <HStack gap={5}>
-              <Progress.Label w={'100px'}>Daily Quota</Progress.Label>
-              <Progress.Track w={'360px'}>
-                <Progress.Range />
-              </Progress.Track>
-              <Progress.ValueText>10%</Progress.ValueText>
-            </HStack>
-          </Progress.Root>
-          <Progress.Root defaultValue={5}>
-            <HStack gap={5}>
-              <Progress.Label w={'100px'}>Monthly Quota</Progress.Label>
-              <Progress.Track w={'360px'}>
-                <Progress.Range />
-              </Progress.Track>
-              <Progress.ValueText>5%</Progress.ValueText>
-            </HStack>
-          </Progress.Root>
+          <NotificationQuotaProgress
+            label={'Daily Quota'}
+            used={90}
+            max={100}
+          />
+          <NotificationQuotaProgress
+            label={'Monthly Quota'}
+            used={700}
+            max={1000}
+          />
         </Card.Body>
       </Card.Root>
     </Flex>
