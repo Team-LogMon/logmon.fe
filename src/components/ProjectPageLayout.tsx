@@ -20,7 +20,7 @@ export const ProjectPageLayout = ({
         <Flex
           direction={'column'}
           position={'fixed'}
-          w={'220px'}
+          w={'210px'}
           h={'calc(100vh - 60px)'}
         >
           <MenuList currentTab={currentTab} />

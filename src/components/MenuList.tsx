@@ -24,16 +24,14 @@ export const MenuList = ({ currentTab }: MenuListProps) => {
       borderColor={'border'}
     >
       <Flex direction={'column'}>
-        <Box h={'10px'}></Box>
-        <Box h={'10px'}></Box>
-        <Box h={'10px'}></Box>
+        <Box h={'30px'} />
         <MenuItem
           title={'Dashboard'}
           icon={MdOutlineDashboard}
           isSelected={currentTab === 'Dashboard'}
           onClick={() => navigate(`/app/${pId}/dashboard`)}
         />
-        <Box h={'10px'}></Box>
+        <Box h={'15px'}></Box>
         <MenuItem
           title={'Logs'}
           icon={TbLogs}

@@ -22,7 +22,6 @@ export const MenuItem = ({
       bgColor={isSelected ? 'blue.600' : 'inherit'}
       align={'center'}
       gap={3}
-      fontSize={'lg'}
       borderRadius={'md'}
       _hover={{
         bgColor: isSelected ? 'blue.700' : 'bg.emphasized',
