@@ -24,11 +24,11 @@ export const CreateProjectPageLayout = ({
         <Flex w={{ base: 'full', lg: '2xl' }} direction={'column'}>
           {onBefore && (
             <IconButton
-              bg={'inherit'}
               boxSize={'36px'}
               mb={10}
               onClick={onBefore}
-              color={'white'}
+              bg={'bg'}
+              color={'fg'}
             >
               <IoArrowBack style={{ width: '100%', height: '100%' }} />
             </IconButton>
