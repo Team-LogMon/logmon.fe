@@ -31,3 +31,11 @@ export type LogAlertSubscription = {
   createdAt: number;
   updatedAt: number;
 };
+
+export type User = {
+  id: string;
+  name: string;
+  profileImage: string;
+  createdAt: number;
+  updatedAt: number;
+};
