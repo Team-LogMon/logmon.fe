@@ -16,7 +16,7 @@ export const LoadingOverlay: React.FC = () => {
       height={'100vh'}
       zIndex={'overlay'}
       pointerEvents={'all'}
-      bg={'bg.inverted/20'}
+      bg={'bg.inverted/15'}
     >
       <Spinner size={'xl'} color={'blue'} />
     </Center>
