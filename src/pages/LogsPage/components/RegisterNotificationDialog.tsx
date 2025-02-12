@@ -27,9 +27,9 @@ import {
   SelectTrigger,
   SelectValueText,
 } from '@/components/ui/select.tsx';
-import { FaDiscord, FaSlack } from 'react-icons/fa6';
 import { Field } from '@/components/ui/field.tsx';
 import { Severity } from '@/types.ts';
+import { getIcon } from '@/shared/Icon.ts';
 
 export const RegisterNotificationDialog = () => {
   const appearance = useThemeStore((state) => state.appearance);
@@ -39,12 +39,12 @@ export const RegisterNotificationDialog = () => {
       {
         label: 'Slack',
         value: 'slack',
-        icon: FaSlack,
+        icon: getIcon('slack'),
       },
       {
         label: 'Discord',
         value: 'discord',
-        icon: FaDiscord,
+        icon: getIcon('discord'),
       },
     ],
   });

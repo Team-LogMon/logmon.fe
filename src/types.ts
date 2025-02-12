@@ -20,6 +20,7 @@ export type Log = {
 
 export type LogAlertSubscription = {
   id: string;
+  name: string;
   projectId: string;
   platform: string;
   url: string;

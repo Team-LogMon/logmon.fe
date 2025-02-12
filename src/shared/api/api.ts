@@ -14,6 +14,7 @@ export async function getLogAlertSubscriptionByProjectId(
   return [
     {
       id: 'log-alert-subscription-1',
+      name: 'Slack Notifier',
       projectId: projectId,
       platform: 'slack',
       url: 'https://logmon-slack.webhook.com',
@@ -27,6 +28,7 @@ export async function getLogAlertSubscriptionByProjectId(
     },
     {
       id: 'log-alert-subscription-2',
+      name: 'Discord Critical Error Bot',
       projectId: projectId,
       platform: 'discord',
       url: 'https://logmon-discord.webhook.com',
