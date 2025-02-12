@@ -67,7 +67,7 @@ export const InviteMemberDialog = () => {
         <Button colorPalette={'blue'}>Invite Member</Button>
       </DialogTrigger>
       <DialogContent className={appearance} color={'fg'}>
-        <DialogHeader>
+        <DialogHeader bg={'bg'} color={'fg'}>
           <DialogTitle>Invite Member</DialogTitle>
         </DialogHeader>
         <DialogBody>
@@ -103,11 +103,21 @@ export const InviteMemberDialog = () => {
         </DialogBody>
         <DialogFooter>
           <DialogActionTrigger asChild>
-            <Button variant="subtle">Cancel</Button>
+            <Button
+              variant="subtle"
+              onClick={() => {
+                setEmails([]);
+                setEmailValue('');
+              }}
+            >
+              Cancel
+            </Button>
           </DialogActionTrigger>
           <Button colorPalette={'blue'}>Invite</Button>
         </DialogFooter>
         <DialogCloseTrigger
+          bg={'bg'}
+          color={'fg'}
           onClick={() => {
             setEmails([]);
             setEmailValue('');
