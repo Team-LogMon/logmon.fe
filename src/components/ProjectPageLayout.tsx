@@ -31,7 +31,7 @@ export const ProjectPageLayout = ({
           w={'full'}
           grow={1}
           px={'48px'}
-          bg={'bg'}
+          bg={'bg.base'}
           minH={'calc(100vh-60px)'}
         >
           <Box h={'40px'} />

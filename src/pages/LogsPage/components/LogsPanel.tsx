@@ -38,7 +38,7 @@ export const LogsPanel = () => {
       borderWidth={'1px'}
       ref={scrollRef}
     >
-      <Table.Root stickyHeader interactive size={'sm'} bg={'bg.panel'}>
+      <Table.Root stickyHeader interactive size={'sm'}>
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeader w={'30px'}>Severity</Table.ColumnHeader>

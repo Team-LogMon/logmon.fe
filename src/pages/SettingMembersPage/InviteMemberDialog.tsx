@@ -24,7 +24,7 @@ import { useState } from 'react';
 
 const floatingStyles = defineStyle({
   pos: 'absolute',
-  bg: 'bg',
+  bg: 'bg.panel',
   px: '0.5',
   top: '-3',
   insetStart: '2',
@@ -67,7 +67,7 @@ export const InviteMemberDialog = () => {
         <Button colorPalette={'blue'}>Invite Member</Button>
       </DialogTrigger>
       <DialogContent className={appearance} color={'fg'}>
-        <DialogHeader bg={'bg'} color={'fg'}>
+        <DialogHeader bg={'bg.panel'} color={'fg'}>
           <DialogTitle>Invite Member</DialogTitle>
         </DialogHeader>
         <DialogBody>
@@ -116,7 +116,7 @@ export const InviteMemberDialog = () => {
           <Button colorPalette={'blue'}>Invite</Button>
         </DialogFooter>
         <DialogCloseTrigger
-          bg={'bg'}
+          bg={'bg.panel'}
           color={'fg'}
           onClick={() => {
             setEmails([]);

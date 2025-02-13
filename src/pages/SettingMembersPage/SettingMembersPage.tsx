@@ -72,7 +72,7 @@ export const SettingMembersPage = () => {
 
   return (
     <ProjectPageLayout currentTab={'Settings'}>
-      <Box w={'full'} bg={'bg'}>
+      <Box w={'full'}>
         <Link color={'fg.subtle'} my={4} onClick={() => navigate(-1)}>
           <Icon as={IoChevronBackOutline}></Icon>
           Back to Settings
@@ -83,6 +83,7 @@ export const SettingMembersPage = () => {
           </Heading>
           <Flex gap={2}>
             <Input
+              bg={'bg.panel'}
               placeholder={'Search members...'}
               onChange={(e) => {
                 setSearchWord(e.target.value);

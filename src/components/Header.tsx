@@ -1,8 +1,9 @@
-import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import { Box, Flex, Icon, IconButton, Image, Text } from '@chakra-ui/react';
 import logo from '@/assets/logo.svg';
 import { ReactNode } from 'react';
 import { useNavigate } from 'react-router';
 import { ThemeChangeBtn } from '@/components/ThemeChangeBtn.tsx';
+import { IoPersonCircleOutline } from 'react-icons/io5';
 
 interface HeaderProps {
   children?: ReactNode;
@@ -13,7 +14,7 @@ export const Header = ({ children }: HeaderProps) => {
   return (
     <>
       <Flex
-        bg={'bg'}
+        bg={'bg.base'}
         position={'fixed'}
         top={0}
         w={'full'}
@@ -22,7 +23,7 @@ export const Header = ({ children }: HeaderProps) => {
         justify={'space-between'}
         px={6}
         borderBottom={'1px solid'}
-        borderColor={'border.emphasized'}
+        borderColor={'border'}
         zIndex={99}
       >
         <Flex align={'center'} gap={2}>
@@ -42,7 +43,16 @@ export const Header = ({ children }: HeaderProps) => {
         </Flex>
         <Flex gap={5}>
           {children}
-          <ThemeChangeBtn />
+          <Flex>
+            <ThemeChangeBtn />
+            <IconButton
+              bg={'bg.base'}
+              color={'fg'}
+              onClick={() => navigate('/user')}
+            >
+              <Icon as={IoPersonCircleOutline} />
+            </IconButton>
+          </Flex>
         </Flex>
       </Flex>
       <Box h={'60px'} />

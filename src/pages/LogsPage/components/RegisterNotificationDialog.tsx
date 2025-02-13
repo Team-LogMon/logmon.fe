@@ -63,10 +63,7 @@ export const RegisterNotificationDialog = () => {
       <DialogTrigger asChild>
         <Button colorPalette={'blue'}>Add Notification</Button>
       </DialogTrigger>
-      <DialogContent
-        bg={appearance == 'dark' ? 'gray.950' : 'bg'}
-        color={appearance == 'dark' ? 'white' : 'fg'}
-      >
+      <DialogContent className={appearance} bg={'bg.panel'} color={'fg'}>
         <DialogHeader>
           <DialogTitle>Add Notification</DialogTitle>
         </DialogHeader>
@@ -78,9 +75,10 @@ export const RegisterNotificationDialog = () => {
                 <SelectValueText placeholder={'Select platform'} />
               </SelectTrigger>
               <SelectContent
+                className={appearance}
                 zIndex={'popover'}
-                bg={appearance == 'dark' ? 'gray.950' : 'bg'}
-                color={appearance == 'dark' ? 'white' : 'fg'}
+                bg={'bg.panel'}
+                color={'fg'}
               >
                 {notificationPlatforms.items.map((platform) => (
                   <SelectItem item={platform} key={platform.value}>
@@ -101,9 +99,9 @@ export const RegisterNotificationDialog = () => {
                 <SelectValueText placeholder={'Select Severity'} />
               </SelectTrigger>
               <SelectContent
+                className={appearance}
+                color={'fg'}
                 zIndex={'popover'}
-                bg={appearance == 'dark' ? 'gray.950' : 'bg'}
-                color={appearance == 'dark' ? 'white' : 'fg'}
               >
                 {logSeverities.items.map((severity) => (
                   <SelectItem item={severity} key={severity.value}>

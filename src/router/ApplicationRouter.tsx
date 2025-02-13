@@ -8,6 +8,7 @@ import { SettingsPage } from '@/pages/settings/SettingsPage.tsx';
 import { SettingMembersPage } from '@/pages/SettingMembersPage/SettingMembersPage.tsx';
 import { SettingsApiKeyPage } from '@/pages/settings/SettingsApiKeyPage.tsx';
 import { LogsPage } from '@/pages/LogsPage/LogsPage.tsx';
+import { UserPage } from '@/pages/UserPage/UserPage.tsx';
 
 export const ApplicationRouter: RouteObject[] = [
   { path: '', element: <LandingPage /> },
@@ -18,6 +19,10 @@ export const ApplicationRouter: RouteObject[] = [
   {
     path: '/login',
     element: <LoginPage />,
+  },
+  {
+    path: '/user',
+    element: <UserPage />,
   },
   {
     path: '/app/:pId/dashboard',

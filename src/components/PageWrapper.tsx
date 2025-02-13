@@ -11,7 +11,7 @@ interface PageWrapperProps {
 export const PageWrapper = ({ children }: PageWrapperProps) => {
   const appearance = useThemeStore((state) => state.appearance);
   return (
-    <Flex w={'full'} direction={'column'} minH={'100vh'}>
+    <Flex w={'full'} direction={'column'} minH={'100vh'} bg={'bg.base'}>
       {children}
       <LoadingOverlay />
       <Toaster appearance={appearance} />

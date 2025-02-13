@@ -49,6 +49,7 @@ const SettingMenuItem = ({
 
   return (
     <Button
+      bg={'bg.panel'}
       display={'flex'}
       justifyContent={'flex-start'}
       h={'64px'}
