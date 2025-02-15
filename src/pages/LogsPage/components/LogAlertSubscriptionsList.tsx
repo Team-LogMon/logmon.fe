@@ -1,5 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
-import { getLogAlertSubscriptionByProjectId } from '@/shared/api/api.ts';
+import {
+  deleteLogAlertSubscription,
+  getLogAlertSubscriptionByProjectId,
+} from '@/shared/api/api.ts';
 import { useLoading } from '@/contexts/LoadingContext.tsx';
 import {
   Box,
@@ -32,6 +35,10 @@ export const LogAlertSubscriptionsList = () => {
   if (!pId) {
     throw Error();
   }
+
+  const refresh = () => {
+    setRefreshLogAlertSubscriptions(true);
+  };
 
   const refreshed = useCallback(() => {
     setRefreshLogAlertSubscriptions(false);
@@ -80,7 +87,14 @@ export const LogAlertSubscriptionsList = () => {
                 <Button size={'xs'} variant={'surface'}>
                   Update
                 </Button>
-                <Button size={'xs'} colorPalette={'red'}>
+                <Button
+                  size={'xs'}
+                  colorPalette={'red'}
+                  onClick={async () => {
+                    await deleteLogAlertSubscription(s.id);
+                    refresh();
+                  }}
+                >
                   Delete
                 </Button>
               </HStack>
@@ -108,9 +122,7 @@ export const LogAlertSubscriptionsList = () => {
               Register a webhook and receive instant notifications.
             </EmptyState.Description>
             <Box h={'8px'} />
-            <RegisterNotificationDialog
-              refresh={() => setRefreshLogAlertSubscriptions(true)}
-            />
+            <RegisterNotificationDialog refresh={refresh} />
           </VStack>
         </EmptyState.Content>
       </EmptyState.Root>
