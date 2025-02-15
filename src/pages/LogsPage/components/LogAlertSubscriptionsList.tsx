@@ -44,7 +44,7 @@ export const LogAlertSubscriptionsList = () => {
         gap={3}
       >
         {logAlertSubscriptions.map((s) => (
-          <Card.Root>
+          <Card.Root key={s.id}>
             <Card.Header>
               <VStack align={'left'} gap={0}>
                 <Text fontWeight={'bolder'}> {s.name}</Text>

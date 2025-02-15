@@ -51,6 +51,7 @@ export const LogsPanel = () => {
           {logs.map((log) => {
             return (
               <LogRow
+                key={log.id}
                 id={log.id}
                 projectId={log.projectId}
                 severity={log.severity}
