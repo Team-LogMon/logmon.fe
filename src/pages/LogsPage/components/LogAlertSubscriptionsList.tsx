@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { getLogAlertSubscriptionByProjectId } from '@/shared/api/api.ts';
 import { useLoading } from '@/contexts/LoadingContext.tsx';
 import {
@@ -18,20 +18,33 @@ import { EmptyNotification } from '@/pages/LogsPage/components/EmptyNotification
 import { SeverityTag } from '@/components/SeverityTag.tsx';
 import { getIcon } from '@/shared/Icon.ts';
 import { RegisterNotificationDialog } from '@/pages/LogsPage/components/RegisterNotificationDialog.tsx';
+import { useParams } from 'react-router';
 
 export const LogAlertSubscriptionsList = () => {
+  const { pId } = useParams();
   const [logAlertSubscriptions, setLogAlertSubscriptions] = useState<
     LogAlertSubscription[]
   >([]);
+  const [refreshLogAlertSubscriptions, setRefreshLogAlertSubscriptions] =
+    useState<boolean>(true);
   const { showLoading, hideLoading } = useLoading();
+
+  if (!pId) {
+    throw Error();
+  }
+
+  const refreshed = useCallback(() => {
+    setRefreshLogAlertSubscriptions(false);
+  }, []);
 
   useEffect(() => {
     showLoading();
-    getLogAlertSubscriptionByProjectId('p-1').then((value) => {
+    getLogAlertSubscriptionByProjectId(pId).then((value) => {
       setLogAlertSubscriptions(value);
       hideLoading();
+      refreshed();
     });
-  }, []);
+  }, [refreshLogAlertSubscriptions]);
 
   if (logAlertSubscriptions.length === 0) {
     return <EmptyNotification />;
@@ -95,7 +108,9 @@ export const LogAlertSubscriptionsList = () => {
               Register a webhook and receive instant notifications.
             </EmptyState.Description>
             <Box h={'8px'} />
-            <RegisterNotificationDialog />
+            <RegisterNotificationDialog
+              refresh={() => setRefreshLogAlertSubscriptions(true)}
+            />
           </VStack>
         </EmptyState.Content>
       </EmptyState.Root>

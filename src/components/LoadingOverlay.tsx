@@ -14,7 +14,7 @@ export const LoadingOverlay: React.FC = () => {
       left={'0'}
       width={'100vw'}
       height={'100vh'}
-      zIndex={'modal'}
+      zIndex={'9999'}
       pointerEvents={'all'}
       bg={'bg.inverted/15'}
     >

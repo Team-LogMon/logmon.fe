@@ -1,5 +1,4 @@
 import { Log, LogAlertSubscription, Severity, TimeStamp } from '@/types.ts';
-import { Time } from '@/shared/utils/Time.ts';
 import { getRandomInt } from '@/shared/utils/random.ts';
 import axios from 'axios';
 import { Pricing } from '@/shared/const/app/Pricing.ts';
@@ -30,42 +29,46 @@ export async function apiCall(apiCallConfig: ApiCallConfig) {
 export async function getLogAlertSubscriptionByProjectId(
   projectId: string
 ): Promise<LogAlertSubscription[]> {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-
-  if (projectId === 'empty') {
-    return [];
-  }
-
-  return [
-    {
-      id: 'log-alert-subscription-1',
-      name: 'Slack Notifier',
-      projectId: projectId,
-      platform: 'slack',
-      url: 'https://logmon-slack.webhook.com',
-      alertThreshold: Severity.DEBUG,
-      dailyQuotaLimit: 100,
-      dailyQuotaUsed: 20,
-      monthlyQuotaLimit: 1000,
-      monthlyQuotaUsed: 60,
-      createdAt: Date.now() - Time.months(1),
-      updatedAt: Date.now() - Time.minutes(3),
-    },
-    {
-      id: 'log-alert-subscription-2',
-      name: 'Discord Critical Error Bot',
-      projectId: projectId,
-      platform: 'discord',
-      url: 'https://logmon-discord.webhook.com',
-      alertThreshold: Severity.ERROR,
-      dailyQuotaLimit: 100,
-      dailyQuotaUsed: 10,
-      monthlyQuotaLimit: 1000,
-      monthlyQuotaUsed: 10,
-      createdAt: Date.now() - Time.months(1),
-      updatedAt: Date.now() - Time.minutes(3),
-    },
-  ];
+  return await apiCall({
+    path: '/api/logAlertSubscriptions',
+    method: 'get',
+    params: { projectId },
+  });
+  //
+  // if (projectId === 'empty') {
+  //   return [];
+  // }
+  //
+  // return [
+  //   {
+  //     id: 'log-alert-subscription-1',
+  //     name: 'Slack Notifier',
+  //     projectId: projectId,
+  //     platform: 'slack',
+  //     url: 'https://logmon-slack.webhook.com',
+  //     alertThreshold: Severity.DEBUG,
+  //     dailyQuotaLimit: 100,
+  //     dailyQuotaUsed: 20,
+  //     monthlyQuotaLimit: 1000,
+  //     monthlyQuotaUsed: 60,
+  //     createdAt: Date.now() - Time.months(1),
+  //     updatedAt: Date.now() - Time.minutes(3),
+  //   },
+  //   {
+  //     id: 'log-alert-subscription-2',
+  //     name: 'Discord Critical Error Bot',
+  //     projectId: projectId,
+  //     platform: 'discord',
+  //     url: 'https://logmon-discord.webhook.com',
+  //     alertThreshold: Severity.ERROR,
+  //     dailyQuotaLimit: 100,
+  //     dailyQuotaUsed: 10,
+  //     monthlyQuotaLimit: 1000,
+  //     monthlyQuotaUsed: 10,
+  //     createdAt: Date.now() - Time.months(1),
+  //     updatedAt: Date.now() - Time.minutes(3),
+  //   },
+  // ];
 }
 
 export async function getLogs(
@@ -127,7 +130,6 @@ export async function createProject(
   description: string,
   pricing: Pricing
 ) {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
   return await apiCall({
     path: '/api/projects',
     method: 'post',
@@ -135,6 +137,26 @@ export async function createProject(
       title,
       description,
       pricing,
+    },
+  });
+}
+
+export async function createLogAlertDescription(
+  projectId: string,
+  name: string,
+  platform: string,
+  url: string,
+  alertThreshold: Severity
+) {
+  return await apiCall({
+    path: '/api/logAlertSubscriptions',
+    method: 'post',
+    body: {
+      projectId: projectId,
+      name: name,
+      platform: platform,
+      url: url,
+      alertThreshold: alertThreshold,
     },
   });
 }
