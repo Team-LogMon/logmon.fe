@@ -83,11 +83,7 @@ export const ProjectsPage = () => {
                 Create new project
               </Text>
             </Flex>
-            <ProjectItem title={'LogMon-backend'} pId={'logmon-backend-0011'} />
-            <ProjectItem title={'LogMon-backend'} pId={'logmon-backend-0011'} />
-            <ProjectItem title={'LogMon-backend'} pId={'logmon-backend-0011'} />
-            <ProjectItem title={'LogMon-backend'} pId={'logmon-backend-0011'} />
-            <ProjectItem title={'LogMon-backend'} pId={'logmon-backend-0011'} />
+            <ProjectItem title={'Explore Demo-project'} pId={'demo-001'} />
           </Grid>
           <Box h={'60px'} />
           <Heading fontSize={'2xl'}>All Projects</Heading>
@@ -97,11 +93,7 @@ export const ProjectsPage = () => {
             gap={{ base: 4, sm: 8 }}
             mt={3}
           >
-            <ProjectItem title={'LogMon-backend'} pId={'logmon-backend-0011'} />
-            <ProjectItem title={'LogMon-backend'} pId={'logmon-backend-0011'} />
-            <ProjectItem title={'LogMon-backend'} pId={'logmon-backend-0011'} />
-            <ProjectItem title={'LogMon-backend'} pId={'logmon-backend-0011'} />
-            <ProjectItem title={'LogMon-backend'} pId={'logmon-backend-0011'} />
+            <ProjectItem title={'Explore Demo-project'} pId={'demo-001'} />
           </Grid>
         </Flex>
       </Flex>

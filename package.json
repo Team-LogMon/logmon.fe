@@ -16,6 +16,7 @@
     "@use-funnel/next": "^0.0.10",
     "@use-funnel/react-navigation-native": "^0.0.10",
     "@use-funnel/react-router-dom": "^0.0.9",
+    "axios": "^1.7.9",
     "echarts": "^5.6.0",
     "echarts-for-react": "^3.0.2",
     "latest": "^0.2.0",

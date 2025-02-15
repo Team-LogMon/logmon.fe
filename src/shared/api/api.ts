@@ -1,6 +1,31 @@
 import { Log, LogAlertSubscription, Severity, TimeStamp } from '@/types.ts';
 import { Time } from '@/shared/utils/Time.ts';
 import { getRandomInt } from '@/shared/utils/random.ts';
+import axios from 'axios';
+import { Pricing } from '@/shared/const/app/Pricing.ts';
+
+interface ApiCallConfig {
+  path: string;
+  method: 'get' | 'post' | 'put' | 'patch' | 'delete';
+  params?: {
+    [key in string]: string;
+  };
+  body?: object;
+}
+
+export async function apiCall(apiCallConfig: ApiCallConfig) {
+  const { path, method, params, body } = apiCallConfig;
+
+  const axiosResponse = await axios({
+    method: method,
+    baseURL: import.meta.env.VITE_BACKEND_URL,
+    url: path,
+    params: params,
+    data: body,
+  });
+
+  return axiosResponse.data;
+}
 
 export async function getLogAlertSubscriptionByProjectId(
   projectId: string
@@ -95,4 +120,21 @@ export async function getLogs(
   }
 
   return logs;
+}
+
+export async function createProject(
+  title: string,
+  description: string,
+  pricing: Pricing
+) {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  return await apiCall({
+    path: '/api/projects',
+    method: 'post',
+    body: {
+      title,
+      description,
+      pricing,
+    },
+  });
 }

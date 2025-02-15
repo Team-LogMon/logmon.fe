@@ -11,11 +11,15 @@ import {
   Heading,
   List,
   Text,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { Pricing } from '@/shared/const/app/Pricing.ts';
 import { CreateProjectPageLayout } from '@/pages/createProjectPages/drawer/CreateProjectPageLayout.tsx';
 import { useCreateProjectStore } from '@/shared/store/createProjectStore.ts';
 import { CreateProjectCompletePage } from '@/pages/createProjectPages/drawer/CreateProjectCompletePage.tsx';
+import { useLoading } from '@/contexts/LoadingContext.tsx';
+import { toaster } from '@/components/ui/toaster.tsx';
+import { createProject } from '@/shared/api/api.ts';
 
 interface PlanBoxProps {
   title: string;
@@ -73,11 +77,32 @@ interface CreateProjectPricingPageProps {
 export const CreateProjectPricingPage = ({
   onBefore,
 }: CreateProjectPricingPageProps) => {
+  const { open, setOpen } = useDisclosure();
+  const { showLoading, hideLoading } = useLoading();
+
+  const name = useCreateProjectStore((state) => state.name);
+  const description = useCreateProjectStore((state) => state.description);
   const pricing = useCreateProjectStore((state) => state.pricing);
   const setPricing = useCreateProjectStore((state) => state.setPricing);
 
+  const handleOnNext = async () => {
+    try {
+      showLoading();
+      await createProject(name, description, pricing);
+      hideLoading();
+      setOpen(true);
+    } catch (e) {
+      hideLoading();
+      toaster.create({
+        title: 'Failed to create project.',
+        description: 'Please try again later or get in touch with support.',
+        type: 'error',
+      });
+    }
+  };
+
   return (
-    <DrawerRoot size={'full'}>
+    <DrawerRoot size={'full'} open={open}>
       <CreateProjectPageLayout onBefore={onBefore}>
         <Heading fontSize={{ base: '26px', sm: '36px' }}>
           Select your pricing plan
@@ -108,7 +133,12 @@ export const CreateProjectPricingPage = ({
         <Flex w={{ base: 'full' }} justify={'space-between'} py={6}>
           <Box />
           <DrawerTrigger asChild>
-            <Button colorPalette={'blue'} w={'120px'} fontSize={'xl'}>
+            <Button
+              colorPalette={'blue'}
+              w={'120px'}
+              fontSize={'xl'}
+              onClick={handleOnNext}
+            >
               Next
             </Button>
           </DrawerTrigger>
