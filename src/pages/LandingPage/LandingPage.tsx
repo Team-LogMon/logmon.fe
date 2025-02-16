@@ -17,9 +17,12 @@ import { Header } from '@/components/Header.tsx';
 import { HiColorSwatch } from 'react-icons/hi';
 import { toaster } from '@/components/ui/toaster.tsx';
 import { IoMdNotificationsOutline } from 'react-icons/io';
+import { useAuthStore } from '@/shared/store/authStore.ts';
 
 export const LandingPage = () => {
   const navigate = useNavigate();
+  const user = useAuthStore((state) => state.user);
+  const logout = useAuthStore((state) => state.logout);
 
   return (
     <PageWrapper>
@@ -27,11 +30,15 @@ export const LandingPage = () => {
         <Header>
           <Link
             onClick={() => {
-              navigate('/login');
+              if (user) {
+                logout();
+              } else {
+                navigate('/login');
+              }
             }}
             fontWeight={'700'}
           >
-            Sign in
+            {user == null ? 'Sign In' : 'Sign Out'}
           </Link>
           <ButtonGroup size={'sm'} display={{ base: 'none', sm: 'flex' }}>
             <Button

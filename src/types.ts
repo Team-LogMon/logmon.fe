@@ -36,7 +36,10 @@ export type LogAlertSubscription = {
 export type User = {
   id: string;
   name: string;
-  profileImage: string;
+  email: string;
+  socialType: string;
+  profileImageURL: string;
   createdAt: number;
   updatedAt: number;
+  status: string;
 };

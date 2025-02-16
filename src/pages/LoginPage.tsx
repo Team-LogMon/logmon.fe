@@ -103,7 +103,7 @@ export const LoginPage = () => {
             h={'48px'}
             mt={'8px'}
             onClick={() => {
-              window.location.href = `${import.meta.env.VITE_BACKEND_URL}/oauth/google/login?state=${import.meta.env.VITE_PROFILE}`;
+              window.location.href = `${import.meta.env.VITE_BACKEND_URL}/oauth2/authorization/google`;
             }}
           >
             Continue with Google

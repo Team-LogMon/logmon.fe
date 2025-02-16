@@ -1,4 +1,10 @@
-import { Log, LogAlertSubscription, Severity, TimeStamp } from '@/types.ts';
+import {
+  Log,
+  LogAlertSubscription,
+  Severity,
+  TimeStamp,
+  User,
+} from '@/types.ts';
 import { getRandomInt } from '@/shared/utils/random.ts';
 import axios from 'axios';
 import { Pricing } from '@/shared/const/app/Pricing.ts';
@@ -21,6 +27,7 @@ export async function apiCall(apiCallConfig: ApiCallConfig) {
     url: path,
     params: params,
     data: body,
+    withCredentials: true,
   });
 
   return axiosResponse.data;
@@ -130,5 +137,23 @@ export async function createProject(
       description,
       pricing,
     },
+  });
+}
+
+export async function getMe(): Promise<{
+  logined: boolean;
+  user: User;
+}> {
+  console.log('getMe called');
+  return await apiCall({
+    path: '/api/users/me',
+    method: 'get',
+  });
+}
+
+export async function logOut() {
+  return await apiCall({
+    path: '/api/logout',
+    method: 'get',
   });
 }
