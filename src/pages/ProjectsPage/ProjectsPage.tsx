@@ -3,6 +3,11 @@ import { useNavigate } from 'react-router';
 import { IoAdd } from 'react-icons/io5';
 import { Header } from '@/components/Header.tsx';
 import { PageWrapper } from '@/components/PageWrapper.tsx';
+import { useEffect, useState } from 'react';
+import { Project } from '@/types.ts';
+import { getMembersByUserId, getProjectsByIdsIn } from '@/shared/api/api.ts';
+import { useAuthStore } from '@/shared/store/authStore.ts';
+import { useLoading } from '@/contexts/LoadingContext.tsx';
 
 interface ProjectItemProps {
   title: string;
@@ -40,7 +45,27 @@ const ProjectItem = ({ title, pId }: ProjectItemProps) => {
 };
 
 export const ProjectsPage = () => {
+  const user = useAuthStore((state) => state.user);
+  const [projects, setProjects] = useState<Project[]>([] as Project[]);
+  const { showLoading, hideLoading } = useLoading();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    showLoading();
+    getMembersByUserId(user!.id).then((mResponse) => {
+      const projectIds = mResponse.map((m) => m.projectId);
+
+      getProjectsByIdsIn(projectIds).then((pResponse) => {
+        setProjects(pResponse);
+        hideLoading();
+      });
+    });
+  }, []);
+
+  if (!user) {
+    navigate('/login');
+    return;
+  }
 
   return (
     <PageWrapper>
@@ -83,7 +108,9 @@ export const ProjectsPage = () => {
                 Create new project
               </Text>
             </Flex>
-            <ProjectItem title={'Explore Demo-project'} pId={'demo-001'} />
+            {projects.map((p) => (
+              <ProjectItem title={p.title} pId={p.id} key={p.id} />
+            ))}
           </Grid>
           <Box h={'60px'} />
           <Heading fontSize={'2xl'}>All Projects</Heading>
@@ -93,7 +120,7 @@ export const ProjectsPage = () => {
             gap={{ base: 4, sm: 8 }}
             mt={3}
           >
-            <ProjectItem title={'Explore Demo-project'} pId={'demo-001'} />
+            {/*<ProjectItem title={'Demo-project'} pId={'woxGPJAOnHiWonA0mMs7'} />*/}
           </Grid>
         </Flex>
       </Flex>

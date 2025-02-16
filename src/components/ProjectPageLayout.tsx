@@ -2,6 +2,10 @@ import { PageWrapper } from '@/components/PageWrapper.tsx';
 import { Box, Flex } from '@chakra-ui/react';
 import { MenuList } from '@/components/MenuList.tsx';
 import { Header } from '@/components/Header.tsx';
+import { useProjectStore } from '@/shared/store/projectStore.ts';
+import { useParams } from 'react-router';
+import { useEffect } from 'react';
+import { useLoading } from '@/contexts/LoadingContext.tsx';
 
 export interface ProjectPageLayoutProps {
   children?: React.ReactNode;
@@ -12,6 +16,16 @@ export const ProjectPageLayout = ({
   children,
   currentTab,
 }: ProjectPageLayoutProps) => {
+  const { pId } = useParams();
+  const fetchProject = useProjectStore((state) => state.fetchProject);
+  const { showLoading, hideLoading } = useLoading();
+
+  useEffect(() => {
+    showLoading();
+    fetchProject(pId!).then(() => {
+      hideLoading();
+    });
+  }, [pId]);
   return (
     <PageWrapper>
       <Header />

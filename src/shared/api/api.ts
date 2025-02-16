@@ -1,6 +1,8 @@
 import {
   Log,
   LogAlertSubscription,
+  Member,
+  Project,
   Severity,
   TimeStamp,
   User,
@@ -13,14 +15,13 @@ interface ApiCallConfig {
   path: string;
   method: 'get' | 'post' | 'put' | 'patch' | 'delete';
   params?: {
-    [key in string]: string;
+    [key in string]: string | string[] | number;
   };
   body?: object;
 }
 
 export async function apiCall(apiCallConfig: ApiCallConfig) {
   const { path, method, params, body } = apiCallConfig;
-
   const axiosResponse = await axios({
     method: method,
     baseURL: import.meta.env.VITE_BACKEND_URL,
@@ -124,6 +125,7 @@ export async function getLogs(
   return logs;
 }
 
+//projects
 export async function createProject(
   title: string,
   description: string,
@@ -140,17 +142,78 @@ export async function createProject(
   });
 }
 
+export async function getProject(projectId: string): Promise<Project> {
+  return await apiCall({
+    path: `api/projects/${projectId}`,
+    method: 'get',
+  });
+}
+
+// export async function getProjectsByUserId(userId: string): Promise<Project[]> {
+//   return await apiCall({
+//     path: '/api/projects',
+//     method: 'get',
+//     params: { userId },
+//   });
+// }
+
+export async function getProjectsByIdsIn(
+  projectIds: string[]
+): Promise<Project[]> {
+  return await apiCall({
+    path: '/api/projects',
+    method: 'get',
+    params: {
+      projectIds,
+    },
+  });
+}
+
+//users
 export async function getMe(): Promise<{
   logined: boolean;
   user: User;
 }> {
-  console.log('getMe called');
   return await apiCall({
     path: '/api/users/me',
     method: 'get',
   });
 }
 
+export async function getUserByUserIds(userIds: string[]): Promise<User[]> {
+  return await apiCall({
+    path: '/api/users',
+    method: 'get',
+    params: {
+      userIds: userIds,
+    },
+  });
+}
+
+//members
+export async function getMembersByUserId(userId: string): Promise<Member[]> {
+  return await apiCall({
+    path: '/api/members',
+    method: 'get',
+    params: {
+      userId,
+    },
+  });
+}
+
+export async function getMembersByProjectId(
+  projectId: string
+): Promise<Member[]> {
+  return await apiCall({
+    path: '/api/members',
+    method: 'get',
+    params: {
+      projectId,
+    },
+  });
+}
+
+//auth
 export async function logOut() {
   return await apiCall({
     path: '/api/logout',

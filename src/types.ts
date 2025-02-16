@@ -43,3 +43,25 @@ export type User = {
   updatedAt: number;
   status: string;
 };
+
+export type Project = {
+  id: string;
+  title: string;
+  description: string;
+  status: 'ACTIVE' | 'DEACTIVE';
+  pricing: 'FREE' | 'BASIC';
+  createdAt: number;
+  updatedAt: number;
+};
+
+export type Member = {
+  id: string;
+  projectId: string;
+  userId: string;
+  isOwner: boolean;
+  userEmail: string;
+  permissions: string[];
+  status: 'ACTIVE' | 'DEACTIVE' | 'PENDING';
+  createdAt: number;
+  updatedAt: number;
+};

@@ -20,11 +20,11 @@ export const MemberRow = (props: MemberRowProps) => {
 
   let statusColor;
 
-  if (status === 'Active') {
+  if (status === 'ACTIVE') {
     statusColor = 'green';
-  } else if (status === 'Deactive') {
+  } else if (status === 'DEACTIVE') {
     statusColor = 'red';
-  } else if (status === 'Pending') {
+  } else if (status === 'PENDING') {
     statusColor = 'yellow';
   }
 

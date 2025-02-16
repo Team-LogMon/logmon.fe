@@ -15,59 +15,26 @@ import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 import { MemberRow } from '@/pages/SettingMembersPage/MemberRow.tsx';
 import { useLoading } from '@/contexts/LoadingContext.tsx';
-import { InviteMemberDialog } from '@/pages/SettingMembersPage/InviteMemberDialog.tsx'; // const floatingStyles = defineStyle({
+import { InviteMemberDialog } from '@/pages/SettingMembersPage/InviteMemberDialog.tsx';
+import { getMembersByProjectId } from '@/shared/api/api.ts';
+import { useProjectStore } from '@/shared/store/projectStore.ts';
+import { Member } from '@/types.ts'; // const floatingStyles = defineStyle({
 
 export const SettingMembersPage = () => {
-  const [members, setMembers] = useState<
-    {
-      id: string;
-      isOwner: boolean;
-      status: string;
-      permissions: string[];
-    }[]
-  >(
-    [] as {
-      id: string;
-      isOwner: boolean;
-      status: string;
-      permissions: string[];
-    }[]
-  );
+  const [members, setMembers] = useState<Member[]>([]);
+  const project = useProjectStore((state) => state.project);
   const [searchWord, setSearchWord] = useState<string>('');
   const navigate = useNavigate();
   const { showLoading, hideLoading } = useLoading();
 
   useEffect(() => {
+    if (!project) throw Error();
     showLoading();
-    setTimeout(() => {
-      setMembers([
-        {
-          id: 'sbslc2000@gmail.com',
-          isOwner: true,
-          status: 'Active',
-          permissions: ['Register Webhook', 'See Logs'],
-        },
-        {
-          id: 'limut0913@gmail.com@gmail.com',
-          isOwner: false,
-          status: 'Active',
-          permissions: ['Register Webhook', 'See Logs'],
-        },
-        {
-          id: 'yui5227@gmail.com',
-          isOwner: false,
-          status: 'Pending',
-          permissions: ['Register Webhook', 'See Logs'],
-        },
-        {
-          id: 'sbslc2000.02@gmail.com',
-          isOwner: false,
-          status: 'Deactive',
-          permissions: ['Register Webhook', 'See Logs'],
-        },
-      ]);
+
+    getMembersByProjectId(project.id).then((res) => {
+      setMembers(res);
       hideLoading();
-    }, 200);
+    });
   }, []);
 
   return (
@@ -115,7 +82,7 @@ export const SettingMembersPage = () => {
               .map((m) => (
                 <MemberRow
                   key={m.id}
-                  email={m.id}
+                  email={m.userEmail}
                   isOwner={m.isOwner}
                   status={m.status}
                   permissions={m.permissions}
