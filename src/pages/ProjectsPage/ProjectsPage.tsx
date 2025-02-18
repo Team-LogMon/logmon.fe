@@ -8,6 +8,7 @@ import { Project } from '@/types.ts';
 import { getMembersByUserId, getProjectsByIdsIn } from '@/shared/api/api.ts';
 import { useAuthStore } from '@/shared/store/authStore.ts';
 import { useLoading } from '@/contexts/LoadingContext.tsx';
+import { InvitationsList } from '@/pages/ProjectsPage/components/InvitationsList.tsx';
 
 interface ProjectItemProps {
   title: string;
@@ -49,22 +50,27 @@ export const ProjectsPage = () => {
   const [projects, setProjects] = useState<Project[]>([] as Project[]);
   const { showLoading, hideLoading } = useLoading();
   const navigate = useNavigate();
+  const [refreshCount, setRefreshCount] = useState(0);
+
+  const refresh = () => setRefreshCount((prev) => ++prev);
 
   useEffect(() => {
-    if (!user) {
-      setProjects([]);
-    } else {
+    if (user) {
       showLoading();
-      getMembersByUserId(user!.id).then((mResponse) => {
-        const projectIds = mResponse.map((m) => m.projectId);
+      getMembersByUserId(user!.id)
+        .then((mResponse) => {
+          const projectIds = mResponse.map((m) => m.projectId);
 
-        getProjectsByIdsIn(projectIds).then((pResponse) => {
-          setProjects(pResponse);
+          getProjectsByIdsIn(projectIds).then((pResponse) => {
+            setProjects(pResponse);
+            hideLoading();
+          });
+        })
+        .catch(() => {
           hideLoading();
         });
-      });
     }
-  }, []);
+  }, [refreshCount]);
 
   return (
     <PageWrapper>
@@ -76,6 +82,7 @@ export const ProjectsPage = () => {
           px={4}
           direction={'column'}
         >
+          <InvitationsList refreshProjects={refresh} />
           <Heading fontSize={'2xl'}>Recent Projects</Heading>
           <Grid
             templateColumns={{ base: 'repeat(2,1fr)', lg: 'repeat(3, 1fr)' }}

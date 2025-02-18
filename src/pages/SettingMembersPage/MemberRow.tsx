@@ -40,7 +40,9 @@ export const MemberRow = (props: MemberRowProps) => {
 
       <Table.Cell display={'flex'} gap={3}>
         {permissions.map((p) => (
-          <Tag.Root colorPalette={permissionsColorMap[p]}>{p}</Tag.Root>
+          <Tag.Root key={p} colorPalette={permissionsColorMap[p]}>
+            {p}
+          </Tag.Root>
         ))}
       </Table.Cell>
     </Table.Row>

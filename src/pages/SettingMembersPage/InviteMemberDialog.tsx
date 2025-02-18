@@ -18,9 +18,14 @@ import {
   HStack,
   Input,
   Tag,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { useThemeStore } from '@/shared/store/themeStore.ts';
 import { useState } from 'react';
+import { invite } from '@/shared/api/api.ts';
+import { useParams } from 'react-router';
+import { toaster } from '@/components/ui/toaster.tsx';
+import { useLoading } from '@/contexts/LoadingContext.tsx';
 
 const floatingStyles = defineStyle({
   pos: 'absolute',
@@ -43,15 +48,27 @@ const floatingStyles = defineStyle({
   },
 });
 
-export const InviteMemberDialog = () => {
+interface InviteMemberDialogProps {
+  refresh: () => void;
+}
+
+export const InviteMemberDialog = (props: InviteMemberDialogProps) => {
+  const { refresh } = props;
+  const { pId } = useParams();
+
+  const { open, setOpen } = useDisclosure();
+
   const appearance = useThemeStore((state) => state.appearance);
 
   const [emailValue, setEmailValue] = useState<string>('');
   const [emails, setEmails] = useState<string[]>([] as string[]);
 
+  const { showLoading, hideLoading } = useLoading();
+
   const handleEnterEmail = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      const s = new Set([...emails, emailValue]);
+      const trimmed = emailValue.trim();
+      const s = new Set([...emails, trimmed]);
       setEmails([...s]);
       setEmailValue('');
     }
@@ -61,10 +78,39 @@ export const InviteMemberDialog = () => {
     setEmails(emails.filter((e) => e !== email));
   };
 
+  const onClose = () => {
+    setEmails([]);
+    setEmailValue('');
+    setOpen(false);
+    refresh();
+  };
+
+  const onClickInviteBtn = async () => {
+    showLoading();
+    try {
+      await invite(pId!, emails);
+      toaster.create({
+        title: 'Successfully invited.',
+        type: 'info',
+      });
+      onClose();
+    } catch (e) {
+      toaster.create({
+        title: 'Something went wrong.',
+        description: 'Please try again later or get in touch with support.',
+        type: 'error',
+      });
+    } finally {
+      hideLoading();
+    }
+  };
+
   return (
-    <DialogRoot placement={'center'}>
+    <DialogRoot placement={'center'} open={open}>
       <DialogTrigger asChild>
-        <Button colorPalette={'blue'}>Invite Member</Button>
+        <Button colorPalette={'blue'} onClick={() => setOpen(true)}>
+          Invite Member
+        </Button>
       </DialogTrigger>
       <DialogContent className={appearance} color={'fg'}>
         <DialogHeader bg={'bg.panel'} color={'fg'}>
@@ -76,7 +122,7 @@ export const InviteMemberDialog = () => {
               <Box pos="relative" w={'full'}>
                 <Input
                   className="peer"
-                  placeholder=""
+                  placeholder="Enter to add"
                   onKeyDown={handleEnterEmail}
                   value={emailValue}
                   onChange={(e) => setEmailValue(e.target.value)}
@@ -85,7 +131,12 @@ export const InviteMemberDialog = () => {
               </Box>
               <HStack wrap={'wrap'}>
                 {emails.map((e) => (
-                  <Tag.Root variant={'subtle'} bg={'bg.muted'} color={'fg'}>
+                  <Tag.Root
+                    key={e}
+                    variant={'subtle'}
+                    bg={'bg.muted'}
+                    color={'fg'}
+                  >
                     <Tag.Label>{e}</Tag.Label>
                     <Tag.EndElement>
                       <Tag.CloseTrigger
@@ -103,26 +154,15 @@ export const InviteMemberDialog = () => {
         </DialogBody>
         <DialogFooter>
           <DialogActionTrigger asChild>
-            <Button
-              variant="subtle"
-              onClick={() => {
-                setEmails([]);
-                setEmailValue('');
-              }}
-            >
+            <Button variant="subtle" onClick={onClose}>
               Cancel
             </Button>
           </DialogActionTrigger>
-          <Button colorPalette={'blue'}>Invite</Button>
+          <Button colorPalette={'blue'} onClick={onClickInviteBtn}>
+            Invite
+          </Button>
         </DialogFooter>
-        <DialogCloseTrigger
-          bg={'bg.panel'}
-          color={'fg'}
-          onClick={() => {
-            setEmails([]);
-            setEmailValue('');
-          }}
-        />
+        <DialogCloseTrigger bg={'bg.panel'} color={'fg'} onClick={onClose} />
       </DialogContent>
     </DialogRoot>
   );

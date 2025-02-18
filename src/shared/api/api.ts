@@ -218,6 +218,34 @@ export async function getMembersByProjectId(
   });
 }
 
+export async function getInvitations(): Promise<Member[]> {
+  return await apiCall({
+    path: '/api/members/invite',
+    method: 'get',
+  });
+}
+
+export async function invite(projectId: string, emails: string[]) {
+  return await apiCall({
+    path: '/api/members/invite',
+    method: 'post',
+    body: {
+      projectId,
+      inviteeEmails: emails,
+    },
+  });
+}
+
+export async function accept(projectId: string) {
+  return await apiCall({
+    path: '/api/members/accept',
+    method: 'post',
+    body: {
+      projectId,
+    },
+  });
+}
+
 //auth
 export async function logOut() {
   return await apiCall({

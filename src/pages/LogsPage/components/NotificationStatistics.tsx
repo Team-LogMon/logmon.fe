@@ -5,9 +5,9 @@ export const NotificationStatistics = () => {
   return (
     <Flex direction={'column'} gap={3}>
       <Heading size={'xl'}>Notification</Heading>
-      <Heading size={'lg'}>Quota</Heading>
+      <Heading size={'lg'}>Quota (demo)</Heading>
       <Card.Root>
-        <Card.Header>Subscription: IDIDIDID</Card.Header>
+        <Card.Header>Subscription: Demo-alert</Card.Header>
         <Card.Body>
           <NotificationQuotaProgress
             label={'Daily Quota'}

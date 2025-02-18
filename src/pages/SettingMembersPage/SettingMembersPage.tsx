@@ -25,16 +25,20 @@ export const SettingMembersPage = () => {
   const [searchWord, setSearchWord] = useState<string>('');
   const navigate = useNavigate();
   const { showLoading, hideLoading } = useLoading();
+  const [membersRefreshCounter, setMembersRefreshCounter] = useState<number>(0);
+
+  const refresh = () => {
+    setMembersRefreshCounter((prev) => ++prev);
+  };
 
   useEffect(() => {
     if (!pId) throw Error();
     showLoading();
-
     getMembersByProjectId(pId).then((res) => {
       setMembers(res);
       hideLoading();
     });
-  }, []);
+  }, [membersRefreshCounter]);
 
   return (
     <ProjectPageLayout currentTab={'Settings'}>
@@ -55,7 +59,7 @@ export const SettingMembersPage = () => {
                 setSearchWord(e.target.value);
               }}
             />
-            <InviteMemberDialog />
+            <InviteMemberDialog refresh={refresh} />
           </Flex>
         </Flex>
 
@@ -64,7 +68,7 @@ export const SettingMembersPage = () => {
             Team
           </Heading>
           <Text fontSize={'lg'} color={'fg.muted'}>
-            (5)
+            ({members.length})
           </Text>
         </HStack>
 
