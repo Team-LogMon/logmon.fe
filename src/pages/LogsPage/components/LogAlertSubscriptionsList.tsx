@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   deleteLogAlertSubscription,
   getLogAlertSubscriptionByProjectId,
@@ -29,7 +29,7 @@ export const LogAlertSubscriptionsList = () => {
     LogAlertSubscription[]
   >([]);
   const [refreshLogAlertSubscriptions, setRefreshLogAlertSubscriptions] =
-    useState<boolean>(true);
+    useState<number>(0);
   const { showLoading, hideLoading } = useLoading();
 
   if (!pId) {
@@ -37,19 +37,14 @@ export const LogAlertSubscriptionsList = () => {
   }
 
   const refresh = () => {
-    setRefreshLogAlertSubscriptions(true);
+    setRefreshLogAlertSubscriptions((prev) => ++prev);
   };
-
-  const refreshed = useCallback(() => {
-    setRefreshLogAlertSubscriptions(false);
-  }, []);
 
   useEffect(() => {
     showLoading();
     getLogAlertSubscriptionByProjectId(pId).then((value) => {
       setLogAlertSubscriptions(value);
       hideLoading();
-      refreshed();
     });
   }, [refreshLogAlertSubscriptions]);
 
