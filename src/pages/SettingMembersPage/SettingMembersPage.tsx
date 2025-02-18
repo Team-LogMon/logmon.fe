@@ -81,7 +81,7 @@ export const SettingMembersPage = () => {
           </Table.Header>
           <Table.Body>
             {members
-              .filter((m) => m.id.includes(searchWord))
+              .filter((m) => m.userEmail.includes(searchWord))
               .map((m) => (
                 <MemberRow
                   key={m.id}
