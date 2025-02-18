@@ -11,27 +11,26 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { IoChevronBackOutline } from 'react-icons/io5';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { MemberRow } from '@/pages/SettingMembersPage/MemberRow.tsx';
 import { useLoading } from '@/contexts/LoadingContext.tsx';
 import { InviteMemberDialog } from '@/pages/SettingMembersPage/InviteMemberDialog.tsx';
 import { getMembersByProjectId } from '@/shared/api/api.ts';
-import { useProjectStore } from '@/shared/store/projectStore.ts';
 import { Member } from '@/types.ts'; // const floatingStyles = defineStyle({
 
 export const SettingMembersPage = () => {
+  const { pId } = useParams();
   const [members, setMembers] = useState<Member[]>([]);
-  const project = useProjectStore((state) => state.project);
   const [searchWord, setSearchWord] = useState<string>('');
   const navigate = useNavigate();
   const { showLoading, hideLoading } = useLoading();
 
   useEffect(() => {
-    if (!project) throw Error();
+    if (!pId) throw Error();
     showLoading();
 
-    getMembersByProjectId(project.id).then((res) => {
+    getMembersByProjectId(pId).then((res) => {
       setMembers(res);
       hideLoading();
     });
@@ -83,7 +82,7 @@ export const SettingMembersPage = () => {
                 <MemberRow
                   key={m.id}
                   email={m.userEmail}
-                  isOwner={m.isOwner}
+                  isOwner={m.owner}
                   status={m.status}
                   permissions={m.permissions}
                 />

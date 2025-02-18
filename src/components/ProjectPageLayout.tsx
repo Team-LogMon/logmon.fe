@@ -4,7 +4,7 @@ import { MenuList } from '@/components/MenuList.tsx';
 import { Header } from '@/components/Header.tsx';
 import { useProjectStore } from '@/shared/store/projectStore.ts';
 import { useParams } from 'react-router';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useLoading } from '@/contexts/LoadingContext.tsx';
 
 export interface ProjectPageLayoutProps {
@@ -19,10 +19,15 @@ export const ProjectPageLayout = ({
   const { pId } = useParams();
   const fetchProject = useProjectStore((state) => state.fetchProject);
   const { showLoading, hideLoading } = useLoading();
+  const prevPIdRef = useRef(pId);
+
+  if (!pId) throw Error();
 
   useEffect(() => {
+    if (prevPIdRef.current === pId) return;
+
     showLoading();
-    fetchProject(pId!).then(() => {
+    fetchProject(pId).then(() => {
       hideLoading();
     });
   }, [pId]);

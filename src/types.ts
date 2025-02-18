@@ -58,7 +58,7 @@ export type Member = {
   id: string;
   projectId: string;
   userId: string;
-  isOwner: boolean;
+  owner: boolean;
   userEmail: string;
   permissions: string[];
   status: 'ACTIVE' | 'DEACTIVE' | 'PENDING';

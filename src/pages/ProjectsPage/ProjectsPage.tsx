@@ -51,21 +51,20 @@ export const ProjectsPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    showLoading();
-    getMembersByUserId(user!.id).then((mResponse) => {
-      const projectIds = mResponse.map((m) => m.projectId);
+    if (!user) {
+      setProjects([]);
+    } else {
+      showLoading();
+      getMembersByUserId(user!.id).then((mResponse) => {
+        const projectIds = mResponse.map((m) => m.projectId);
 
-      getProjectsByIdsIn(projectIds).then((pResponse) => {
-        setProjects(pResponse);
-        hideLoading();
+        getProjectsByIdsIn(projectIds).then((pResponse) => {
+          setProjects(pResponse);
+          hideLoading();
+        });
       });
-    });
+    }
   }, []);
-
-  if (!user) {
-    navigate('/login');
-    return;
-  }
 
   return (
     <PageWrapper>
@@ -120,7 +119,10 @@ export const ProjectsPage = () => {
             gap={{ base: 4, sm: 8 }}
             mt={3}
           >
-            {/*<ProjectItem title={'Demo-project'} pId={'woxGPJAOnHiWonA0mMs7'} />*/}
+            <ProjectItem title={'Demo project'} pId={'mnVFhDf0wbQvkAU3pRBw'} />
+            {projects.map((p) => (
+              <ProjectItem title={p.title} pId={p.id} key={p.id} />
+            ))}
           </Grid>
         </Flex>
       </Flex>

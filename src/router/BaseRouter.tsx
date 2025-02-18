@@ -1,6 +1,6 @@
-import { createBrowserRouter } from 'react-router';
-import { ApplicationRouter } from '@/router/ApplicationRouter.tsx';
+import { createBrowserRouter } from 'react-router-dom';
 import { DocumentationRouter } from '@/router/DocumentationRouter.tsx';
+import { ApplicationRouter } from '@/router/ApplicationRouter.tsx';
 
 export const BaseRouter = createBrowserRouter([
   {

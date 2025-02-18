@@ -10,6 +10,7 @@ import {
 import { getRandomInt } from '@/shared/utils/random.ts';
 import axios from 'axios';
 import { Pricing } from '@/shared/const/app/Pricing.ts';
+import qs from 'qs';
 
 interface ApiCallConfig {
   path: string;
@@ -27,6 +28,8 @@ export async function apiCall(apiCallConfig: ApiCallConfig) {
     baseURL: import.meta.env.VITE_BACKEND_URL,
     url: path,
     params: params,
+    paramsSerializer: (params) =>
+      qs.stringify(params, { arrayFormat: 'repeat' }),
     data: body,
     withCredentials: true,
   });
@@ -76,8 +79,6 @@ export async function getLogs(
   from: TimeStamp,
   to: TimeStamp
 ): Promise<Log[]> {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-
   const randomMessage = [
     'veniam Duis sit Ut in commodo ex sit.',
     'dolor nostrud ex dolore ut dolore adipiscing eiusmod nisi.',
@@ -160,11 +161,15 @@ export async function getProject(projectId: string): Promise<Project> {
 export async function getProjectsByIdsIn(
   projectIds: string[]
 ): Promise<Project[]> {
+  if (projectIds.length === 0) {
+    return [] as Project[];
+  }
+
   return await apiCall({
     path: '/api/projects',
     method: 'get',
     params: {
-      projectIds,
+      projectIds: projectIds,
     },
   });
 }

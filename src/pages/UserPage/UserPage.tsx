@@ -10,8 +10,11 @@ import {
   Separator,
   Text,
 } from '@chakra-ui/react';
+import { useAuthStore } from '@/shared/store/authStore.ts';
 
 export const UserPage = () => {
+  const user = useAuthStore((state) => state.user)!;
+
   return (
     <PageWrapper>
       <Header />
@@ -30,21 +33,31 @@ export const UserPage = () => {
         <HStack w={'full'}>
           <Flex w={'full'} direction={{ base: 'column', sm: 'row' }}>
             <Flex w={'300px'} grow={0} shrink={0}>
-              <Text fontWeight={'bolder'}> Personal Information</Text>
+              <Text fontWeight={'bolder'}>Personal Information</Text>
             </Flex>
             <Flex direction={'column'} w={'full'}>
               <Grid templateColumns={'repeat(2,1fr)'} gap={5}>
                 <Field.Root>
                   <Field.Label>Nickname</Field.Label>
-                  <Input h={'30px'} borderColor={'border'} />
+                  <Input
+                    h={'30px'}
+                    borderColor={'border'}
+                    value={user.name}
+                    disabled
+                  />
                 </Field.Root>
                 <Field.Root>
                   <Field.Label>Email</Field.Label>
-                  <Input h={'30px'} borderColor={'border'} />
+                  <Input
+                    h={'30px'}
+                    borderColor={'border'}
+                    value={user.email}
+                    disabled
+                  />
                 </Field.Root>
               </Grid>
               <Flex justify={'end'} mt={'5'}>
-                <Button colorPalette={'blue'} size={'sm'}>
+                <Button colorPalette={'blue'} size={'sm'} disabled>
                   Save changes
                 </Button>
               </Flex>
@@ -59,7 +72,7 @@ export const UserPage = () => {
             </Flex>
             <Flex direction={'column'} w={'full'}>
               <Text fontSize={'sm'}>
-                Connected to sbslc2000@gmail.com Google account
+                Connected to {user.email} Google account
               </Text>
             </Flex>
           </Flex>
@@ -71,7 +84,7 @@ export const UserPage = () => {
               <Text fontWeight={'bolder'}>Delete account</Text>
             </Flex>
             <Flex direction={'column'}>
-              <Button colorPalette={'red'} size={'sm'}>
+              <Button colorPalette={'red'} size={'sm'} disabled>
                 Delete Account
               </Button>
             </Flex>
