@@ -1,4 +1,4 @@
-import { HStack, Progress } from '@chakra-ui/react';
+import { HStack, Progress, Text } from '@chakra-ui/react';
 
 interface NotificationQuotaProgressProps {
   label: string;
@@ -28,11 +28,20 @@ export const NotificationQuotaProgress = (
   return (
     <Progress.Root value={ratio}>
       <HStack gap={5}>
-        <Progress.Label w={'100px'}>{label}</Progress.Label>
-        <Progress.Track w={'360px'}>
+        <Progress.Label w={{ base: '180px', md: '120px' }}>
+          {label}
+        </Progress.Label>
+        <Progress.Track w={{ base: 'full', md: '360px' }}>
           <Progress.Range colorPalette={progressColor} />
         </Progress.Track>
-        <Progress.ValueText>{ratio}%</Progress.ValueText>
+        <Progress.ValueText>
+          <HStack>
+            <Text>{ratio}%</Text>
+            <Text>
+              ( {used} / {max} )
+            </Text>
+          </HStack>
+        </Progress.ValueText>
       </HStack>
     </Progress.Root>
   );

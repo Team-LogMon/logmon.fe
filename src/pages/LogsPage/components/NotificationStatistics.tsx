@@ -1,41 +1,37 @@
-import { Card, Flex, Heading } from '@chakra-ui/react';
-import { NotificationQuotaProgress } from '@/pages/LogsPage/components/NotificationQuotaProgress.tsx';
+import { Flex, Heading } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import { LogAlertSubscription } from '@/types.ts';
+import { getLogAlertSubscriptionByProjectId } from '@/shared/api/api.ts';
+import { useParams } from 'react-router';
+import { useLoading } from '@/contexts/LoadingContext.tsx';
+import { LogAlertSubscriptionStatisticCard } from '@/pages/LogsPage/components/LogAlertSubscriptionStatisticCard.tsx';
+import { useRefreshStore } from '@/shared/store/refreshStore.ts';
 
 export const NotificationStatistics = () => {
+  const { pId } = useParams();
+  const { showLoading, hideLoading } = useLoading();
+  const logAlertSubscriptionCounter = useRefreshStore(
+    (state) => state.logAlertSubscriptionCounter
+  );
+  const [logAlertSubscriptions, setLogAlertSubscriptions] = useState<
+    LogAlertSubscription[]
+  >([]);
+
+  useEffect(() => {
+    showLoading();
+    getLogAlertSubscriptionByProjectId(pId!).then((value) => {
+      setLogAlertSubscriptions(value);
+      hideLoading();
+    });
+  }, [logAlertSubscriptionCounter]);
+
   return (
     <Flex direction={'column'} gap={3}>
       <Heading size={'xl'}>Notification</Heading>
       <Heading size={'lg'}>Quota (demo)</Heading>
-      <Card.Root>
-        <Card.Header>Subscription: Demo-alert</Card.Header>
-        <Card.Body>
-          <NotificationQuotaProgress
-            label={'Daily Quota'}
-            used={30}
-            max={100}
-          />
-          <NotificationQuotaProgress
-            label={'Monthly Quota'}
-            used={90}
-            max={1000}
-          />
-        </Card.Body>
-      </Card.Root>
-      <Card.Root>
-        <Card.Header>Subscription: IDIDIDID</Card.Header>
-        <Card.Body>
-          <NotificationQuotaProgress
-            label={'Daily Quota'}
-            used={90}
-            max={100}
-          />
-          <NotificationQuotaProgress
-            label={'Monthly Quota'}
-            used={700}
-            max={1000}
-          />
-        </Card.Body>
-      </Card.Root>
+      {logAlertSubscriptions.map((s) => (
+        <LogAlertSubscriptionStatisticCard subscription={s} key={s.id} />
+      ))}
     </Flex>
   );
 };

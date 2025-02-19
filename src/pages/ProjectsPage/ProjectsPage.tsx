@@ -9,6 +9,7 @@ import { getMembersByUserId, getProjectsByIdsIn } from '@/shared/api/api.ts';
 import { useAuthStore } from '@/shared/store/authStore.ts';
 import { useLoading } from '@/contexts/LoadingContext.tsx';
 import { InvitationsList } from '@/pages/ProjectsPage/components/InvitationsList.tsx';
+import { useRefreshStore } from '@/shared/store/refreshStore.ts';
 
 interface ProjectItemProps {
   title: string;
@@ -50,9 +51,9 @@ export const ProjectsPage = () => {
   const [projects, setProjects] = useState<Project[]>([] as Project[]);
   const { showLoading, hideLoading } = useLoading();
   const navigate = useNavigate();
-  const [refreshCount, setRefreshCount] = useState(0);
-
-  const refresh = () => setRefreshCount((prev) => ++prev);
+  const projectListCounter = useRefreshStore(
+    (state) => state.projectListCounter
+  );
 
   useEffect(() => {
     if (user) {
@@ -70,7 +71,7 @@ export const ProjectsPage = () => {
           hideLoading();
         });
     }
-  }, [refreshCount]);
+  }, [projectListCounter]);
 
   return (
     <PageWrapper>
@@ -82,7 +83,7 @@ export const ProjectsPage = () => {
           px={4}
           direction={'column'}
         >
-          <InvitationsList refreshProjects={refresh} />
+          <InvitationsList />
           <Heading fontSize={'2xl'}>Recent Projects</Heading>
           <Grid
             templateColumns={{ base: 'repeat(2,1fr)', lg: 'repeat(3, 1fr)' }}

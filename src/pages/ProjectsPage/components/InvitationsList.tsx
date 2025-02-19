@@ -5,20 +5,16 @@ import { useAuthStore } from '@/shared/store/authStore.ts';
 import { useLoading } from '@/contexts/LoadingContext.tsx';
 import { VStack } from '@chakra-ui/react';
 import { Invitation } from '@/pages/ProjectsPage/components/Invitation.tsx';
+import { useRefreshStore } from '@/shared/store/refreshStore.ts';
 
-interface InvitationsListProps {
-  refreshProjects: () => void;
-}
-
-export const InvitationsList = (props: InvitationsListProps) => {
-  const { refreshProjects } = props;
+export const InvitationsList = () => {
   const user = useAuthStore((state) => state.user);
   const [invitations, setInvitations] = useState<Member[]>([] as Member[]);
   const [projects, setProjects] = useState<Map<string, Project>>(new Map());
   const { showLoading, hideLoading } = useLoading();
-  const [refreshCount, setRefreshCount] = useState(0);
-
-  const refresh = () => setRefreshCount((prev) => ++prev);
+  const invitationsCounter = useRefreshStore(
+    (state) => state.invitationsCounter
+  );
 
   useEffect(() => {
     if (!user) return;
@@ -42,7 +38,7 @@ export const InvitationsList = (props: InvitationsListProps) => {
         hideLoading();
       })
       .catch(() => hideLoading());
-  }, [user, refreshCount]);
+  }, [user, invitationsCounter]);
 
   if (invitations.length === 0) return;
 
@@ -55,10 +51,6 @@ export const InvitationsList = (props: InvitationsListProps) => {
           key={i.id}
           member={i}
           project={projects.get(i.projectId)!}
-          refresh={() => {
-            refreshProjects();
-            refresh();
-          }}
         />
       ))}
     </VStack>

@@ -22,23 +22,24 @@ import { SeverityTag } from '@/components/SeverityTag.tsx';
 import { getIcon } from '@/shared/Icon.ts';
 import { RegisterNotificationDialog } from '@/pages/LogsPage/components/RegisterNotificationDialog.tsx';
 import { useParams } from 'react-router';
+import { useRefreshStore } from '@/shared/store/refreshStore.ts';
 
 export const LogAlertSubscriptionsList = () => {
   const { pId } = useParams();
+  const { showLoading, hideLoading } = useLoading();
+  const logAlertSubscriptionCounter = useRefreshStore(
+    (state) => state.logAlertSubscriptionCounter
+  );
+  const refreshLogAlertSubscription = useRefreshStore(
+    (state) => state.refreshLogAlertSubscription
+  );
   const [logAlertSubscriptions, setLogAlertSubscriptions] = useState<
     LogAlertSubscription[]
   >([]);
-  const [refreshLogAlertSubscriptions, setRefreshLogAlertSubscriptions] =
-    useState<number>(0);
-  const { showLoading, hideLoading } = useLoading();
 
   if (!pId) {
     throw Error();
   }
-
-  const refresh = () => {
-    setRefreshLogAlertSubscriptions((prev) => ++prev);
-  };
 
   useEffect(() => {
     showLoading();
@@ -46,10 +47,10 @@ export const LogAlertSubscriptionsList = () => {
       setLogAlertSubscriptions(value);
       hideLoading();
     });
-  }, [refreshLogAlertSubscriptions]);
+  }, [logAlertSubscriptionCounter]);
 
   if (logAlertSubscriptions.length === 0) {
-    return <EmptyNotification refresh={refresh} />;
+    return <EmptyNotification />;
   }
 
   return (
@@ -87,7 +88,7 @@ export const LogAlertSubscriptionsList = () => {
                   colorPalette={'red'}
                   onClick={async () => {
                     await deleteLogAlertSubscription(s.id);
-                    refresh();
+                    refreshLogAlertSubscription();
                   }}
                 >
                   Delete
@@ -117,7 +118,7 @@ export const LogAlertSubscriptionsList = () => {
               Register a webhook and receive instant notifications.
             </EmptyState.Description>
             <Box h={'8px'} />
-            <RegisterNotificationDialog refresh={refresh} />
+            <RegisterNotificationDialog />
           </VStack>
         </EmptyState.Content>
       </EmptyState.Root>

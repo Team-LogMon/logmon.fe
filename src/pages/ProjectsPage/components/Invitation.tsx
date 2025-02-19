@@ -2,13 +2,17 @@ import { Member, Project } from '@/types.ts';
 import { Alert, Button, HStack, VStack } from '@chakra-ui/react';
 import { accept } from '@/shared/api/api.ts';
 import { toaster } from '@/components/ui/toaster.tsx';
+import { useRefreshStore } from '@/shared/store/refreshStore.ts';
 
-export const Invitation = (props: {
-  member: Member;
-  project: Project;
-  refresh: () => void;
-}) => {
-  const { project, refresh } = props;
+export const Invitation = (props: { member: Member; project: Project }) => {
+  const { project } = props;
+  const refreshInvitations = useRefreshStore(
+    (state) => state.refreshInvitations
+  );
+
+  const refreshProjectList = useRefreshStore(
+    (state) => state.refreshProjectList
+  );
 
   const onClickAcceptBtn = async () => {
     try {
@@ -17,7 +21,8 @@ export const Invitation = (props: {
         title: 'Accepted Successfully.',
         type: 'success',
       });
-      refresh();
+      refreshInvitations();
+      refreshProjectList();
     } catch (e) {
       toaster.create({
         title: 'Something went wrong.',

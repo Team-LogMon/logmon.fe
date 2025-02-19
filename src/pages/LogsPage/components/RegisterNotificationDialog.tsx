@@ -36,14 +36,9 @@ import { useParams } from 'react-router';
 import { useLoading } from '@/contexts/LoadingContext.tsx';
 import { toaster } from '@/components/ui/toaster.tsx';
 import { createLogAlertDescription } from '@/shared/api/api.ts';
+import { useRefreshStore } from '@/shared/store/refreshStore.ts';
 
-interface RegisterNotificationDialogProps {
-  refresh: () => void;
-}
-
-export const RegisterNotificationDialog = ({
-  refresh,
-}: RegisterNotificationDialogProps) => {
+export const RegisterNotificationDialog = () => {
   const { pId } = useParams();
   const { open, setOpen } = useDisclosure();
   const { showLoading, hideLoading } = useLoading();
@@ -53,6 +48,9 @@ export const RegisterNotificationDialog = ({
   const [name, setName] = useState<string>('');
   const [alertThreshold, setAlertThreshold] = useState<Severity | null>(null);
   const [url, setUrl] = useState<string>('');
+  const refreshLogAlertSubscription = useRefreshStore(
+    (state) => state.refreshLogAlertSubscription
+  );
   const [fieldErrors, setFieldErrors] = useState<Map<string, string>>(
     new Map<string, string>()
   );
@@ -127,7 +125,7 @@ export const RegisterNotificationDialog = ({
       type: 'info',
       title: `LogAlertSubscription "${name}" registered successfully`,
     });
-    refresh();
+    refreshLogAlertSubscription();
     close();
   };
 
