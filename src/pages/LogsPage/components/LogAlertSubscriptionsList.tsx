@@ -49,7 +49,7 @@ export const LogAlertSubscriptionsList = () => {
   }, [refreshLogAlertSubscriptions]);
 
   if (logAlertSubscriptions.length === 0) {
-    return <EmptyNotification />;
+    return <EmptyNotification refresh={refresh} />;
   }
 
   return (

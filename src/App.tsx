@@ -7,6 +7,11 @@ import { useEffect } from 'react';
 import { useAuthStore } from '@/shared/store/authStore.ts';
 import { useLoading } from '@/contexts/LoadingContext.tsx';
 
+// @ts-ignore
+import 'swiper/css';
+// @ts-ignore
+import 'swiper/css/scrollbar';
+
 function App() {
   const fetchUser = useAuthStore((state) => state.fetchUser);
   const { showLoading, hideLoading } = useLoading();

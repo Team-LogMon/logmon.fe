@@ -1,7 +1,8 @@
 .no-drag {
+    pointer-events: auto; /* 일부 브라우저에서 필요 */
     -webkit-user-drag: none;
     -moz-user-drag: none;
     -ms-user-drag: none;
     user-drag: none;
-    user-select: none; /* 텍스트 선택도 방지 */
+    user-select: none;
 }

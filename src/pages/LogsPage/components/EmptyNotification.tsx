@@ -2,9 +2,10 @@ import { Box, EmptyState, Icon, VStack } from '@chakra-ui/react';
 import { RegisterNotificationDialog } from '@/pages/LogsPage/components/RegisterNotificationDialog.tsx';
 import { getIcon } from '@/shared/Icon.ts';
 
-export const EmptyNotification = () => {
+export const EmptyNotification = (props: { refresh: () => void }) => {
+  const { refresh } = props;
   return (
-    <EmptyState.Root>
+    <EmptyState.Root className={'no-drag'}>
       <EmptyState.Content>
         <EmptyState.Indicator gap={4}>
           <Icon as={getIcon('slack')} boxSize={'60px'} />
@@ -16,7 +17,7 @@ export const EmptyNotification = () => {
             Register your first webhook link.
           </EmptyState.Description>
           <Box h={'8px'} />
-          <RegisterNotificationDialog />
+          <RegisterNotificationDialog refresh={refresh} />
         </VStack>
       </EmptyState.Content>
     </EmptyState.Root>

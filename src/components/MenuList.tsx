@@ -22,6 +22,7 @@ export const MenuList = ({ currentTab }: MenuListProps) => {
       h={'full'}
       borderRight={'1px solid'}
       borderColor={'border'}
+      className={'no-drag'}
     >
       <Flex direction={'column'}>
         <Box h={'30px'} />
