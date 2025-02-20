@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router';
 import { IoAdd } from 'react-icons/io5';
 import { Header } from '@/components/Header.tsx';
 import { PageWrapper } from '@/components/PageWrapper.tsx';
-import { useEffect, useState } from 'react';
 import { Project } from '@/types.ts';
-import { getMembersByUserId, getProjectsByIdsIn } from '@/shared/api/api.ts';
+import { getUserProjects } from '@/shared/api/api.ts';
 import { useAuthStore } from '@/shared/store/authStore.ts';
 import { useLoading } from '@/contexts/LoadingContext.tsx';
 import { InvitationsList } from '@/pages/ProjectsPage/components/InvitationsList.tsx';
-import { useRefreshStore } from '@/shared/store/refreshStore.ts';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect } from 'react';
 
 interface ProjectItemProps {
   title: string;
@@ -47,31 +47,36 @@ const ProjectItem = ({ title, pId }: ProjectItemProps) => {
 };
 
 export const ProjectsPage = () => {
+  const queryClient = useQueryClient();
   const user = useAuthStore((state) => state.user);
-  const [projects, setProjects] = useState<Project[]>([] as Project[]);
   const { showLoading, hideLoading } = useLoading();
   const navigate = useNavigate();
-  const projectListCounter = useRefreshStore(
-    (state) => state.projectListCounter
-  );
+
+  const { data: projects, isFetching } = useQuery({
+    queryKey: ['UserProject'],
+    queryFn: () => {
+      if (user) {
+        return getUserProjects({ userId: user?.id });
+      } else {
+        return [] as unknown as Promise<Project[]>;
+      }
+    },
+    initialData: [],
+  });
 
   useEffect(() => {
-    if (user) {
+    if (isFetching) {
       showLoading();
-      getMembersByUserId(user!.id)
-        .then((mResponse) => {
-          const projectIds = mResponse.map((m) => m.projectId);
-
-          getProjectsByIdsIn(projectIds).then((pResponse) => {
-            setProjects(pResponse);
-            hideLoading();
-          });
-        })
-        .catch(() => {
-          hideLoading();
-        });
+    } else {
+      hideLoading();
     }
-  }, [projectListCounter]);
+  }, [isFetching]);
+
+  useEffect(() => {
+    queryClient.invalidateQueries({
+      queryKey: ['UserProject'],
+    });
+  }, [user]);
 
   return (
     <PageWrapper>
@@ -127,7 +132,7 @@ export const ProjectsPage = () => {
             gap={{ base: 4, sm: 8 }}
             mt={3}
           >
-            <ProjectItem title={'Demo project'} pId={'mnVFhDf0wbQvkAU3pRBw'} />
+            {/*<ProjectItem title={'Demo project'} pId={'mnVFhDf0wbQvkAU3pRBw'} />*/}
             {projects.map((p) => (
               <ProjectItem title={p.title} pId={p.id} key={p.id} />
             ))}

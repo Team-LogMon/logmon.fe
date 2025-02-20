@@ -17,28 +17,28 @@ import { MemberRow } from '@/pages/SettingMembersPage/MemberRow.tsx';
 import { useLoading } from '@/contexts/LoadingContext.tsx';
 import { InviteMemberDialog } from '@/pages/SettingMembersPage/InviteMemberDialog.tsx';
 import { getMembersByProjectId } from '@/shared/api/api.ts';
-import { Member } from '@/types.ts'; // const floatingStyles = defineStyle({
+import { Member } from '@/types.ts';
+import { useQuery } from '@tanstack/react-query'; // const floatingStyles = defineStyle({
 
 export const SettingMembersPage = () => {
   const { pId } = useParams();
-  const [members, setMembers] = useState<Member[]>([]);
   const [searchWord, setSearchWord] = useState<string>('');
   const navigate = useNavigate();
   const { showLoading, hideLoading } = useLoading();
-  const [membersRefreshCounter, setMembersRefreshCounter] = useState<number>(0);
 
-  const refresh = () => {
-    setMembersRefreshCounter((prev) => ++prev);
-  };
+  const { data: members, isFetching } = useQuery({
+    queryKey: ['Member'],
+    queryFn: () => getMembersByProjectId(pId!),
+    initialData: [] as Member[],
+  });
 
   useEffect(() => {
-    if (!pId) throw Error();
-    showLoading();
-    getMembersByProjectId(pId).then((res) => {
-      setMembers(res);
+    if (isFetching) {
+      showLoading();
+    } else {
       hideLoading();
-    });
-  }, [membersRefreshCounter]);
+    }
+  }, [isFetching]);
 
   return (
     <ProjectPageLayout currentTab={'Settings'}>
@@ -59,7 +59,7 @@ export const SettingMembersPage = () => {
                 setSearchWord(e.target.value);
               }}
             />
-            <InviteMemberDialog refresh={refresh} />
+            <InviteMemberDialog />
           </Flex>
         </Flex>
 

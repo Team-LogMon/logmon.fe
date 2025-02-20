@@ -37,23 +37,17 @@ export async function apiCall(apiCallConfig: ApiCallConfig) {
   return axiosResponse.data;
 }
 
-export async function createLogAlertDescription(
-  projectId: string,
-  name: string,
-  platform: string,
-  url: string,
-  alertThreshold: Severity
-) {
+export async function createLogAlertDescription(body: {
+  projectId: string;
+  name: string;
+  platform: string;
+  url: string;
+  alertThreshold: Severity;
+}) {
   return await apiCall({
     path: '/api/logAlertSubscriptions',
     method: 'post',
-    body: {
-      projectId: projectId,
-      name: name,
-      platform: platform,
-      url: url,
-      alertThreshold: alertThreshold,
-    },
+    body: body,
   });
 }
 
@@ -127,19 +121,15 @@ export async function getLogs(
 }
 
 //projects
-export async function createProject(
-  title: string,
-  description: string,
-  pricing: Pricing
-) {
+export async function createProject(body: {
+  title: string;
+  description: string;
+  pricing: Pricing;
+}) {
   return await apiCall({
     path: '/api/projects',
     method: 'post',
-    body: {
-      title,
-      description,
-      pricing,
-    },
+    body: body,
   });
 }
 
@@ -218,31 +208,36 @@ export async function getMembersByProjectId(
   });
 }
 
-export async function getInvitations(): Promise<Member[]> {
+export async function getPendingMembers(): Promise<Member[]> {
   return await apiCall({
     path: '/api/members/invite',
     method: 'get',
   });
 }
 
-export async function invite(projectId: string, emails: string[]) {
+export async function getUserProjects(request: { userId: string }) {
+  const { userId } = request;
+  const members = await getMembersByUserId(userId);
+  const projectIds = members.map((m) => m.projectId);
+  return await getProjectsByIdsIn(projectIds);
+}
+
+export async function invite(body: {
+  projectId: string;
+  inviteeEmails: string[];
+}) {
   return await apiCall({
     path: '/api/members/invite',
     method: 'post',
-    body: {
-      projectId,
-      inviteeEmails: emails,
-    },
+    body: body,
   });
 }
 
-export async function accept(projectId: string) {
+export async function accept(body: { projectId: string }) {
   return await apiCall({
     path: '/api/members/accept',
     method: 'post',
-    body: {
-      projectId,
-    },
+    body: body,
   });
 }
 
@@ -252,4 +247,10 @@ export async function logOut() {
     path: '/api/logout',
     method: 'get',
   });
+}
+
+export async function getInvitedProjects() {
+  const members = await getPendingMembers();
+  const projectIds = members.map((m) => m.projectId);
+  return getProjectsByIdsIn(projectIds);
 }

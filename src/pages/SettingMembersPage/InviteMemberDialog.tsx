@@ -26,6 +26,7 @@ import { invite } from '@/shared/api/api.ts';
 import { useParams } from 'react-router';
 import { toaster } from '@/components/ui/toaster.tsx';
 import { useLoading } from '@/contexts/LoadingContext.tsx';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const floatingStyles = defineStyle({
   pos: 'absolute',
@@ -48,14 +49,9 @@ const floatingStyles = defineStyle({
   },
 });
 
-interface InviteMemberDialogProps {
-  refresh: () => void;
-}
-
-export const InviteMemberDialog = (props: InviteMemberDialogProps) => {
-  const { refresh } = props;
+export const InviteMemberDialog = () => {
   const { pId } = useParams();
-
+  const queryClient = useQueryClient();
   const { open, setOpen } = useDisclosure();
 
   const appearance = useThemeStore((state) => state.appearance);
@@ -64,6 +60,30 @@ export const InviteMemberDialog = (props: InviteMemberDialogProps) => {
   const [emails, setEmails] = useState<string[]>([] as string[]);
 
   const { showLoading, hideLoading } = useLoading();
+
+  const addMutation = useMutation({
+    mutationFn: (request: Parameters<typeof invite>[0]) => invite(request),
+    onMutate: showLoading,
+    onSuccess: async () => {
+      hideLoading();
+      toaster.create({
+        type: 'success',
+        title: 'Successfully invited.',
+      });
+      await queryClient.invalidateQueries({
+        queryKey: ['Member'],
+      });
+      onClose();
+    },
+    onError: () => {
+      hideLoading();
+      toaster.create({
+        title: 'Something went wrong.',
+        description: 'Please try again later or get in touch with support.',
+        type: 'error',
+      });
+    },
+  });
 
   const handleEnterEmail = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
@@ -82,27 +102,6 @@ export const InviteMemberDialog = (props: InviteMemberDialogProps) => {
     setEmails([]);
     setEmailValue('');
     setOpen(false);
-    refresh();
-  };
-
-  const onClickInviteBtn = async () => {
-    showLoading();
-    try {
-      await invite(pId!, emails);
-      toaster.create({
-        title: 'Successfully invited.',
-        type: 'info',
-      });
-      onClose();
-    } catch (e) {
-      toaster.create({
-        title: 'Something went wrong.',
-        description: 'Please try again later or get in touch with support.',
-        type: 'error',
-      });
-    } finally {
-      hideLoading();
-    }
   };
 
   return (
@@ -158,7 +157,15 @@ export const InviteMemberDialog = (props: InviteMemberDialogProps) => {
               Cancel
             </Button>
           </DialogActionTrigger>
-          <Button colorPalette={'blue'} onClick={onClickInviteBtn}>
+          <Button
+            colorPalette={'blue'}
+            onClick={() => {
+              addMutation.mutate({
+                projectId: pId!,
+                inviteeEmails: emails,
+              });
+            }}
+          >
             Invite
           </Button>
         </DialogFooter>

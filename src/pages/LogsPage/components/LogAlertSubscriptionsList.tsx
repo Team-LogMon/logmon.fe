@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import {
   deleteLogAlertSubscription,
   getLogAlertSubscriptionByProjectId,
@@ -22,34 +21,57 @@ import { SeverityTag } from '@/components/SeverityTag.tsx';
 import { getIcon } from '@/shared/Icon.ts';
 import { RegisterNotificationDialog } from '@/pages/LogsPage/components/RegisterNotificationDialog.tsx';
 import { useParams } from 'react-router';
-import { useRefreshStore } from '@/shared/store/refreshStore.ts';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import { toaster } from '@/components/ui/toaster.tsx';
 
 export const LogAlertSubscriptionsList = () => {
   const { pId } = useParams();
+  const queryClient = useQueryClient();
   const { showLoading, hideLoading } = useLoading();
-  const logAlertSubscriptionCounter = useRefreshStore(
-    (state) => state.logAlertSubscriptionCounter
-  );
-  const refreshLogAlertSubscription = useRefreshStore(
-    (state) => state.refreshLogAlertSubscription
-  );
-  const [logAlertSubscriptions, setLogAlertSubscriptions] = useState<
-    LogAlertSubscription[]
-  >([]);
+
+  const { data, isFetching } = useQuery({
+    queryKey: ['LogAlertSubscription'],
+    queryFn: async () => getLogAlertSubscriptionByProjectId(pId!),
+    initialData: [] as LogAlertSubscription[],
+  });
+
+  useEffect(() => {
+    if (isFetching) {
+      showLoading();
+    } else {
+      hideLoading();
+    }
+  }, [isFetching]);
+
+  const deleteMutation = useMutation({
+    mutationFn: (request: Parameters<typeof deleteLogAlertSubscription>[0]) =>
+      deleteLogAlertSubscription(request),
+    onMutate: () => showLoading,
+    onSuccess: async () => {
+      hideLoading();
+      await queryClient.invalidateQueries({
+        queryKey: ['LogAlertSubscription'],
+      });
+      toaster.create({
+        type: 'success',
+        title: 'Notification deleted successfully.',
+      });
+    },
+    onError: async () => {
+      hideLoading();
+      toaster.create({
+        type: 'error',
+        title: 'Something went wrong.',
+      });
+    },
+  });
 
   if (!pId) {
     throw Error();
   }
 
-  useEffect(() => {
-    showLoading();
-    getLogAlertSubscriptionByProjectId(pId).then((value) => {
-      setLogAlertSubscriptions(value);
-      hideLoading();
-    });
-  }, [logAlertSubscriptionCounter]);
-
-  if (logAlertSubscriptions.length === 0) {
+  if (data.length === 0) {
     return <EmptyNotification />;
   }
 
@@ -59,7 +81,7 @@ export const LogAlertSubscriptionsList = () => {
         templateColumns={{ base: 'repeat(1,1fr)', lg: 'repeat(3,1fr)' }}
         gap={3}
       >
-        {logAlertSubscriptions.map((s) => (
+        {data.map((s) => (
           <Card.Root key={s.id}>
             <Card.Header>
               <VStack align={'left'} gap={0}>
@@ -86,10 +108,7 @@ export const LogAlertSubscriptionsList = () => {
                 <Button
                   size={'xs'}
                   colorPalette={'red'}
-                  onClick={async () => {
-                    await deleteLogAlertSubscription(s.id);
-                    refreshLogAlertSubscription();
-                  }}
+                  onClick={() => deleteMutation.mutate(s.id)}
                 >
                   Delete
                 </Button>

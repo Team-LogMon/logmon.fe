@@ -1,57 +1,34 @@
-import { useEffect, useState } from 'react';
-import { getInvitations, getProject } from '@/shared/api/api.ts';
-import { Member, Project } from '@/types.ts';
-import { useAuthStore } from '@/shared/store/authStore.ts';
+import { useEffect } from 'react';
+import { getInvitedProjects } from '@/shared/api/api.ts';
+import { Project } from '@/types.ts';
 import { useLoading } from '@/contexts/LoadingContext.tsx';
 import { VStack } from '@chakra-ui/react';
 import { Invitation } from '@/pages/ProjectsPage/components/Invitation.tsx';
-import { useRefreshStore } from '@/shared/store/refreshStore.ts';
+import { useQuery } from '@tanstack/react-query';
 
 export const InvitationsList = () => {
-  const user = useAuthStore((state) => state.user);
-  const [invitations, setInvitations] = useState<Member[]>([] as Member[]);
-  const [projects, setProjects] = useState<Map<string, Project>>(new Map());
   const { showLoading, hideLoading } = useLoading();
-  const invitationsCounter = useRefreshStore(
-    (state) => state.invitationsCounter
-  );
+
+  const { data: invitedProjects, isFetching } = useQuery({
+    queryKey: ['InvitedProject'],
+    queryFn: getInvitedProjects,
+    initialData: [] as Project[],
+  });
 
   useEffect(() => {
-    if (!user) return;
+    if (isFetching) {
+      showLoading();
+    } else {
+      hideLoading();
+    }
+  }, [isFetching]);
 
-    showLoading();
-    getInvitations()
-      .then(async (m) => {
-        setInvitations(m);
-
-        const projectData = await Promise.all(
-          m.map(
-            (d) => getProject(d.projectId).catch(() => null) // 실패하면 null 반환
-          )
-        );
-
-        const newProjectMap = new Map(
-          projectData.filter((p) => p !== null).map((p) => [p!.id, p!])
-        );
-
-        setProjects(newProjectMap);
-        hideLoading();
-      })
-      .catch(() => hideLoading());
-  }, [user, invitationsCounter]);
-
-  if (invitations.length === 0) return;
-
-  if (invitations.length !== projects.size) return;
+  if (invitedProjects.length === 0) return;
 
   return (
     <VStack mb={8} gap={4}>
-      {invitations.map((i) => (
-        <Invitation
-          key={i.id}
-          member={i}
-          project={projects.get(i.projectId)!}
-        />
+      {invitedProjects.map((p) => (
+        <Invitation key={p.id} project={p} />
       ))}
     </VStack>
   );

@@ -88,7 +88,7 @@ export const CreateProjectPricingPage = ({
   const handleOnNext = async () => {
     try {
       showLoading();
-      await createProject(name, description, pricing);
+      await createProject({ title: name, description, pricing });
       hideLoading();
       setOpen(true);
     } catch (e) {

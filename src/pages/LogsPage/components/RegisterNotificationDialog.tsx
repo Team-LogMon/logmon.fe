@@ -36,11 +36,12 @@ import { useParams } from 'react-router';
 import { useLoading } from '@/contexts/LoadingContext.tsx';
 import { toaster } from '@/components/ui/toaster.tsx';
 import { createLogAlertDescription } from '@/shared/api/api.ts';
-import { useRefreshStore } from '@/shared/store/refreshStore.ts';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export const RegisterNotificationDialog = () => {
   const { pId } = useParams();
   const { open, setOpen } = useDisclosure();
+  const queryClient = useQueryClient();
   const { showLoading, hideLoading } = useLoading();
   const appearance = useThemeStore((state) => state.appearance);
   const [hasSubmitted, setHasSubmitted] = useState(false);
@@ -48,9 +49,6 @@ export const RegisterNotificationDialog = () => {
   const [name, setName] = useState<string>('');
   const [alertThreshold, setAlertThreshold] = useState<Severity | null>(null);
   const [url, setUrl] = useState<string>('');
-  const refreshLogAlertSubscription = useRefreshStore(
-    (state) => state.refreshLogAlertSubscription
-  );
   const [fieldErrors, setFieldErrors] = useState<Map<string, string>>(
     new Map<string, string>()
   );
@@ -58,6 +56,29 @@ export const RegisterNotificationDialog = () => {
   if (!pId) {
     throw Error();
   }
+
+  const addMutation = useMutation({
+    mutationFn: (request: Parameters<typeof createLogAlertDescription>[0]) =>
+      createLogAlertDescription(request),
+    onMutate: () => showLoading,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ['LogAlertSubscription'],
+      });
+      hideLoading();
+      toaster.create({
+        type: 'success',
+        title: `Notification registered successfully.`,
+      });
+    },
+    onError: () => {
+      hideLoading();
+      toaster.create({
+        type: 'error',
+        title: 'Something went wrong.',
+      });
+    },
+  });
 
   const clear = () => {
     setPlatform(null);
@@ -118,14 +139,14 @@ export const RegisterNotificationDialog = () => {
       return;
     }
 
-    showLoading();
-    await createLogAlertDescription(pId, name, platform!, url, alertThreshold!);
-    hideLoading();
-    toaster.create({
-      type: 'info',
-      title: `LogAlertSubscription "${name}" registered successfully`,
+    addMutation.mutate({
+      projectId: pId,
+      name,
+      platform: platform!,
+      url,
+      alertThreshold: alertThreshold!,
     });
-    refreshLogAlertSubscription();
+
     close();
   };
 
