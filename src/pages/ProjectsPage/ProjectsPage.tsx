@@ -89,7 +89,7 @@ export const ProjectsPage = () => {
           px={4}
           direction={'column'}
         >
-          <InvitationsList />
+          {user && <InvitationsList />}
           <Heading fontSize={'2xl'}>Recent Projects</Heading>
           <Grid
             templateColumns={{ base: 'repeat(2,1fr)', lg: 'repeat(3, 1fr)' }}
