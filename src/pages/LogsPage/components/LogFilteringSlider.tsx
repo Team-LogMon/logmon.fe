@@ -94,8 +94,8 @@ export const LogFilteringSlider = () => {
           label={
             <Flex align={'center'} gap={2}>
               <Text>
-                time {DateFormatter.formatTimeStampToYYYYMMDDHHMMSS(left, '.')}{' '}
-                ~ {DateFormatter.formatTimeStampToYYYYMMDDHHMMSS(right, '.')}
+                {DateFormatter.formatTimeStampToYYYYMMDDHHMMSS(left, '.')} ~{' '}
+                {DateFormatter.formatTimeStampToYYYYMMDDHHMMSS(right, '.')}
               </Text>
               <IconButton bg={'bg'} color={'fg'} onClick={clear}>
                 <IoRefreshOutline />
