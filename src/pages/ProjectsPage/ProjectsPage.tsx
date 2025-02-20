@@ -10,6 +10,7 @@ import { useLoading } from '@/contexts/LoadingContext.tsx';
 import { InvitationsList } from '@/pages/ProjectsPage/components/InvitationsList.tsx';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
+import { EmptyProjects } from '@/pages/ProjectsPage/components/EmptyProjects.tsx';
 
 interface ProjectItemProps {
   title: string;
@@ -126,6 +127,7 @@ export const ProjectsPage = () => {
           </Grid>
           <Box h={'60px'} />
           <Heading fontSize={'2xl'}>All Projects</Heading>
+          {projects.length === 0 && <EmptyProjects />}
           <Grid
             templateColumns={{ base: 'repeat(2,1fr)', lg: 'repeat(3, 1fr)' }}
             w={'full'}
