@@ -1,23 +1,19 @@
 import {
   Button,
   ButtonGroup,
-  EmptyState,
   Flex,
   Grid,
   Heading,
-  Icon,
   Image,
   Link,
-  VStack,
 } from '@chakra-ui/react';
 import bannerImage from '../../assets/banner_image.svg';
 import { useNavigate } from 'react-router';
 import { PageWrapper } from '@/components/PageWrapper.tsx';
 import { Header } from '@/components/Header.tsx';
-import { HiColorSwatch } from 'react-icons/hi';
-import { toaster } from '@/components/ui/toaster.tsx';
-import { IoMdNotificationsOutline } from 'react-icons/io';
 import { useAuthStore } from '@/shared/store/authStore.ts';
+import { IntroduceLogFeatureCard } from '@/pages/LandingPage/components/IntroduceLogFeatureCard.tsx';
+import { IntroductionDashboardFeatureCard } from '@/pages/LandingPage/components/IntroductionDashboardFeatureCard.tsx';
 
 export const LandingPage = () => {
   const navigate = useNavigate();
@@ -113,64 +109,9 @@ export const LandingPage = () => {
           </Flex>
         </Flex>
       </Flex>
-      <Grid templateColumns={'repeat(1,1fr)'} gap={4} p={'30px'}>
-        <Flex bg={'bg.panel'} border={'1px solid'} borderColor={'border'}>
-          <EmptyState.Root>
-            <EmptyState.Content>
-              <EmptyState.Indicator>
-                <Icon as={HiColorSwatch} boxSize={'80px'} />
-              </EmptyState.Indicator>
-              <VStack textAlign="center">
-                <EmptyState.Title> Manage your logs with us.</EmptyState.Title>
-                <EmptyState.Description></EmptyState.Description>
-              </VStack>
-              <ButtonGroup>
-                <Button
-                  onClick={() =>
-                    toaster.create({
-                      title: 'This service is currently under development.',
-                      description: 'Please check back later.',
-                      duration: 3000,
-                    })
-                  }
-                >
-                  Logs API Documentation
-                </Button>
-                <Button variant="outline">Pricing</Button>
-              </ButtonGroup>
-            </EmptyState.Content>
-          </EmptyState.Root>
-        </Flex>
-        <Flex bg={'bg.panel'} border={'1px solid'} borderColor={'border'}>
-          <EmptyState.Root>
-            <EmptyState.Content>
-              <EmptyState.Indicator>
-                <Icon as={IoMdNotificationsOutline} boxSize={'80px'} />
-              </EmptyState.Indicator>
-              <VStack textAlign="center">
-                <EmptyState.Title>
-                  Receive notifications in various formats, including email,
-                  Slack, and Discord.
-                </EmptyState.Title>
-                <EmptyState.Description></EmptyState.Description>
-              </VStack>
-              <ButtonGroup>
-                <Button
-                  onClick={() =>
-                    toaster.create({
-                      title: 'This service is currently under development.',
-                      description: 'Please check back later.',
-                      duration: 3000,
-                    })
-                  }
-                >
-                  Notification Documentation
-                </Button>
-                <Button variant="outline">Pricing</Button>
-              </ButtonGroup>
-            </EmptyState.Content>
-          </EmptyState.Root>
-        </Flex>
+      <Grid templateColumns={'repeat(1,1fr)'} gap={4} p={'30px'} mb={'120px'}>
+        <IntroductionDashboardFeatureCard />
+        <IntroduceLogFeatureCard />
       </Grid>
     </PageWrapper>
   );

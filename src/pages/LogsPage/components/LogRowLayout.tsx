@@ -2,7 +2,7 @@ import { Status, Table, Text, useDisclosure } from '@chakra-ui/react';
 import { Log } from '@/types.ts';
 import { DateFormatter } from '@/shared/utils/DateFormatter.ts';
 
-export const LogRow = (props: Log) => {
+export const LogRowLayout = (props: Log) => {
   const { id, severity, timeStamp, source, message, jsonPayload } = props;
   const { open, onToggle } = useDisclosure();
 

@@ -3,7 +3,7 @@ import { LogFilteringSlider } from '@/pages/LogsPage/components/LogFilteringSlid
 import { Icon, Tabs } from '@chakra-ui/react';
 import { MdOutlineMonitorHeart } from 'react-icons/md';
 import { IoMdNotificationsOutline } from 'react-icons/io';
-import { LogsPanel } from '@/pages/LogsPage/components/LogsPanel.tsx';
+import { LogTable } from '@/pages/LogsPage/components/LogTable.tsx';
 import { ImStatsBars } from 'react-icons/im';
 import { NotificationStatistics } from '@/pages/LogsPage/components/NotificationStatistics.tsx';
 import { LogAlertSubscriptionsList } from '@/pages/LogsPage/components/LogAlertSubscriptionsList.tsx';
@@ -29,7 +29,7 @@ export const LogsPage = () => {
 
         <Tabs.Content value="monitoring">
           <LogFilteringSlider />
-          <LogsPanel />
+          <LogTable />
         </Tabs.Content>
         <Tabs.Content value="notification">
           <LogAlertSubscriptionsList />

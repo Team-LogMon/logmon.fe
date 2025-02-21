@@ -9,8 +9,10 @@ import { Slider } from '@/components/ui/slider.tsx';
 import { useLogsTimeSliderStore } from '@/shared/store/logsTimeSliderStore.ts';
 import { Time } from '@/shared/utils/Time.ts';
 import { useEffect, useState } from 'react';
+import { useThemeStore } from '@/shared/store/themeStore.ts';
 
 export const LogFilteringSlider = () => {
+  const appearance = useThemeStore((state) => state.appearance);
   const min = useLogsTimeSliderStore((state) => state.min);
   const max = useLogsTimeSliderStore((state) => state.max);
   const left = useLogsTimeSliderStore((state) => state.left);
@@ -75,7 +77,7 @@ export const LogFilteringSlider = () => {
       borderColor={'border'}
     >
       <IconButton
-        bg={'bg'}
+        bg={'bg.panel'}
         color={'fg'}
         position={'relative'}
         top={'33px'}
@@ -97,13 +99,13 @@ export const LogFilteringSlider = () => {
                 {DateFormatter.formatTimeStampToYYYYMMDDHHMMSS(left, '.')} ~{' '}
                 {DateFormatter.formatTimeStampToYYYYMMDDHHMMSS(right, '.')}
               </Text>
-              <IconButton bg={'bg'} color={'fg'} onClick={clear}>
+              <IconButton bg={'bg.panel'} color={'fg'} onClick={clear}>
                 <IoRefreshOutline />
               </IconButton>
               <Button
                 size={'xs'}
                 bg={'bg.panel'}
-                color={'blue'}
+                color={appearance === 'light' ? 'blue' : 'blue.400'}
                 onClick={optimize}
               >
                 Optimize Slider
@@ -126,7 +128,7 @@ export const LogFilteringSlider = () => {
       </Flex>
 
       <IconButton
-        bg={'bg'}
+        bg={'bg.panel'}
         color={'fg'}
         position={'relative'}
         top={'33px'}

@@ -20,6 +20,7 @@
     "axios": "^1.7.9",
     "echarts": "^5.6.0",
     "echarts-for-react": "^3.0.2",
+    "framer-motion": "^12.4.5",
     "latest": "^0.2.0",
     "next-themes": "^0.4.4",
     "prettier": "^3.4.2",
