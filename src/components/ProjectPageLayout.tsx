@@ -6,6 +6,7 @@ import { useProjectStore } from '@/shared/store/projectStore.ts';
 import { useParams } from 'react-router';
 import { useEffect, useRef } from 'react';
 import { useLoading } from '@/contexts/LoadingContext.tsx';
+import { ProjectSelector } from '@/components/ProjectSelector.tsx';
 
 export interface ProjectPageLayoutProps {
   children?: React.ReactNode;
@@ -33,7 +34,7 @@ export const ProjectPageLayout = ({
   }, [pId]);
   return (
     <PageWrapper>
-      <Header />
+      <Header leftChildren={<ProjectSelector />} />
       <Flex flex={1}>
         {/* 왼쪽 고정된 탭 */}
         <Flex

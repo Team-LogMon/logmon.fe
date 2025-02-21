@@ -1,4 +1,12 @@
-import { Box, Flex, Icon, IconButton, Image, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Icon,
+  IconButton,
+  Image,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import logo from '@/assets/logo.svg';
 import { ReactNode } from 'react';
 import { useNavigate } from 'react-router';
@@ -6,10 +14,11 @@ import { ThemeChangeBtn } from '@/components/ThemeChangeBtn.tsx';
 import { IoPersonCircleOutline } from 'react-icons/io5';
 
 interface HeaderProps {
-  children?: ReactNode;
+  leftChildren?: ReactNode;
+  rightChildren?: ReactNode;
 }
 
-export const Header = ({ children }: HeaderProps) => {
+export const Header = ({ leftChildren, rightChildren }: HeaderProps) => {
   const navigate = useNavigate();
   return (
     <>
@@ -40,9 +49,10 @@ export const Header = ({ children }: HeaderProps) => {
           >
             Logmon
           </Text>
+          <VStack ml={20}>{leftChildren}</VStack>
         </Flex>
         <Flex gap={5}>
-          {children}
+          {rightChildren}
           <Flex>
             <ThemeChangeBtn />
             <IconButton

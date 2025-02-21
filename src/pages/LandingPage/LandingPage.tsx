@@ -23,32 +23,36 @@ export const LandingPage = () => {
   return (
     <PageWrapper>
       <Flex justify={'center'} align={'center'} direction={'column'}>
-        <Header>
-          <Link
-            onClick={() => {
-              if (user) {
-                logout();
-              } else {
-                navigate('/login');
-              }
-            }}
-            fontWeight={'700'}
-          >
-            {user == null ? 'Sign In' : 'Sign Out'}
-          </Link>
-          <ButtonGroup size={'sm'} display={{ base: 'none', sm: 'flex' }}>
-            <Button
-              bg={'#6158FF'}
-              onClick={() => navigate('/projects')}
-              color={'white'}
-            >
-              Get started
-            </Button>
-            <Button onClick={() => navigate('/documentations')}>
-              Documentations
-            </Button>
-          </ButtonGroup>
-        </Header>
+        <Header
+          rightChildren={
+            <>
+              <Link
+                onClick={() => {
+                  if (user) {
+                    logout();
+                  } else {
+                    navigate('/login');
+                  }
+                }}
+                fontWeight={'700'}
+              >
+                {user == null ? 'Sign In' : 'Sign Out'}
+              </Link>
+              <ButtonGroup size={'sm'} display={{ base: 'none', sm: 'flex' }}>
+                <Button
+                  bg={'#6158FF'}
+                  onClick={() => navigate('/projects')}
+                  color={'white'}
+                >
+                  Get started
+                </Button>
+                <Button onClick={() => navigate('/documentations')}>
+                  Documentations
+                </Button>
+              </ButtonGroup>
+            </>
+          }
+        ></Header>
         <Flex
           w={'full'}
           direction={{ base: 'column-reverse', lg: 'row' }}
