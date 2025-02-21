@@ -9,6 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getProject } from '@/shared/api/api.ts';
 import { useLoading } from '@/contexts/LoadingContext.tsx';
 import { Project } from '@/types.ts';
+import { copyToClipboard } from '@/shared/utils/copyToClipboard.ts';
 
 interface ApiKeyItemProps {
   title: string;
@@ -52,6 +53,9 @@ const ApiKeyItem = ({
           as={FaRegCopy}
           _hover={{
             cursor: 'pointer',
+          }}
+          onClick={() => {
+            copyToClipboard(apiKey);
           }}
         />
       </Flex>
