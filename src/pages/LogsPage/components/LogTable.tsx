@@ -5,8 +5,10 @@ import { getLogs } from '@/shared/api/api.ts';
 import { useLogsTimeSliderStore } from '@/shared/store/logsTimeSliderStore.ts';
 import { useLoading } from '@/contexts/LoadingContext.tsx';
 import { LogTableLayout } from '@/pages/LogsPage/components/LogTableLayout.tsx';
+import { useParams } from 'react-router';
 
 export const LogTable = () => {
+  const { pId } = useParams();
   const from = useLogsTimeSliderStore((state) => state.left);
   const to = useLogsTimeSliderStore((state) => state.right);
   const { showLoading, hideLoading } = useLoading();
@@ -16,7 +18,7 @@ export const LogTable = () => {
 
   useEffect(() => {
     showLoading();
-    getLogs('p-1', from, to).then((res) => {
+    getLogs(pId!, from, to).then((res) => {
       setLogs(res);
       hideLoading();
     });

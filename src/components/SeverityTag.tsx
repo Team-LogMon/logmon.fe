@@ -1,24 +1,24 @@
-import { Severity } from '@/types.ts';
+import { LogSeverity } from '@/types.ts';
 import { Tag } from '@chakra-ui/react';
 
-export const SeverityTag = (props: { severity: Severity }) => {
+export const SeverityTag = (props: { severity: LogSeverity }) => {
   const { severity } = props;
 
   let color;
   switch (severity) {
-    case Severity.ERROR:
+    case LogSeverity.ERROR:
       color = 'red';
       break;
-    case Severity.WARNING:
+    case LogSeverity.WARNING:
       color = 'yellow';
       break;
-    case Severity.INFO:
+    case LogSeverity.INFO:
       color = 'blue';
       break;
-    case Severity.DEBUG:
+    case LogSeverity.DEBUG:
       color = 'gray';
       break;
-    case Severity.TRACE:
+    case LogSeverity.TRACE:
       color = 'gray';
   }
 

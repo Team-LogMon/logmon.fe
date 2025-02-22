@@ -29,7 +29,7 @@ import {
   SelectValueText,
 } from '@/components/ui/select.tsx';
 import { Field } from '@/components/ui/field.tsx';
-import { Severity } from '@/types.ts';
+import { LogSeverity } from '@/types.ts';
 import { getIcon } from '@/shared/Icon.ts';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
@@ -47,7 +47,9 @@ export const RegisterNotificationDialog = () => {
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [platform, setPlatform] = useState<string | null>(null);
   const [name, setName] = useState<string>('');
-  const [alertThreshold, setAlertThreshold] = useState<Severity | null>(null);
+  const [alertThreshold, setAlertThreshold] = useState<LogSeverity | null>(
+    null
+  );
   const [url, setUrl] = useState<string>('');
   const [fieldErrors, setFieldErrors] = useState<Map<string, string>>(
     new Map<string, string>()
@@ -166,7 +168,7 @@ export const RegisterNotificationDialog = () => {
   });
 
   const logSeverities = createListCollection({
-    items: Object.values(Severity).map((severity) => {
+    items: Object.values(LogSeverity).map((severity) => {
       return {
         label: severity,
         value: severity,
@@ -256,7 +258,7 @@ export const RegisterNotificationDialog = () => {
               <SelectRoot
                 collection={logSeverities}
                 onValueChange={(details) => {
-                  setAlertThreshold(details.value[0] as Severity);
+                  setAlertThreshold(details.value[0] as LogSeverity);
                 }}
               >
                 <SelectLabel>

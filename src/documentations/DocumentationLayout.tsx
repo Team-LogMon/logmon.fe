@@ -29,7 +29,7 @@ const DocumentItem = ({
   const navigate = useNavigate();
   return (
     <Flex
-      bgColor={selected ? 'bg.emphasized' : 'bg'}
+      bgColor={selected ? 'bg.emphasized' : 'bg.base'}
       borderRadius={'md'}
       p={3}
       px={10}
@@ -53,7 +53,7 @@ export const DocumentationLayout = ({
   const defaultOpenMenu = findRootName(name);
 
   return (
-    <Flex w={'full'} h={'100vh'}>
+    <Flex w={'full'} h={'100vh'} bg={'bg.base'}>
       <Header />
       <Flex
         w={'400px'}
@@ -78,7 +78,7 @@ export const DocumentationLayout = ({
                 fontSize={'lg'}
                 p={4}
                 pl={6}
-                bgColor={defaultOpenMenu === item.name ? 'purple.400' : 'bg'}
+                bgColor={defaultOpenMenu === item.name ? 'blue.500' : 'bg.base'}
                 onClick={() => toggle(item.name)}
               >
                 {item.name}

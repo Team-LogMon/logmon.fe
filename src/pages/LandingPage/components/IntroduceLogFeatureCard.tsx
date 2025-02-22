@@ -1,7 +1,7 @@
 import { Center, Flex, Heading } from '@chakra-ui/react';
 import { LogTableLayout } from '@/pages/LogsPage/components/LogTableLayout.tsx';
 import { LogRowLayout } from '@/pages/LogsPage/components/LogRowLayout.tsx';
-import { Severity } from '@/types.ts';
+import { LogSeverity } from '@/types.ts';
 import { motion } from 'framer-motion';
 import { IntroductionCard } from '@/pages/LandingPage/components/IntroductionCard.tsx';
 
@@ -19,7 +19,7 @@ export const IntroduceLogFeatureCard = () => {
             <LogRowLayout
               id={'1'}
               projectId={'p'}
-              severity={Severity.ERROR}
+              severity={LogSeverity.ERROR}
               message={'Exception occurs'}
               source={'server.user'}
               timeStamp={Date.now()}
@@ -27,7 +27,7 @@ export const IntroduceLogFeatureCard = () => {
             <LogRowLayout
               id={'2'}
               projectId={'p'}
-              severity={Severity.WARNING}
+              severity={LogSeverity.WARNING}
               message={'Something happened'}
               source={'server.user'}
               timeStamp={Date.now()}
@@ -36,7 +36,7 @@ export const IntroduceLogFeatureCard = () => {
               id={'3'}
               projectId={'p'}
               source={'frontend'}
-              severity={Severity.INFO}
+              severity={LogSeverity.INFO}
               message={'Scheduling job done successfully.'}
               timeStamp={Date.now()}
             />
@@ -44,14 +44,14 @@ export const IntroduceLogFeatureCard = () => {
               id={'4'}
               projectId={'p'}
               source={'server.auth'}
-              severity={Severity.DEBUG}
+              severity={LogSeverity.DEBUG}
               message={'Elapsed Time: 1.12s'}
               timeStamp={Date.now()}
             />
             <LogRowLayout
               id={'5'}
               projectId={'p'}
-              severity={Severity.TRACE}
+              severity={LogSeverity.TRACE}
               source={'deploy'}
               message={'Container built.'}
               timeStamp={Date.now()}

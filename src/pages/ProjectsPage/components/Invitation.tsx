@@ -4,6 +4,7 @@ import { accept } from '@/shared/api/api.ts';
 import { toaster } from '@/components/ui/toaster.tsx';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLoading } from '@/contexts/LoadingContext.tsx';
+import { logger } from '@/main.tsx';
 
 export const Invitation = (props: { project: Project }) => {
   const queryClient = useQueryClient();
@@ -28,6 +29,12 @@ export const Invitation = (props: { project: Project }) => {
     },
     onError: () => {
       hideLoading();
+      logger.error({
+        message: 'Failed to Accept invitation',
+        jsonPayload: {
+          projectId: project.id,
+        },
+      });
       toaster.create({
         type: 'error',
         title: 'Something went wrong.',

@@ -1,4 +1,4 @@
-export enum Severity {
+export enum LogSeverity {
   ERROR = 'ERROR',
   WARNING = 'WARNING',
   INFO = 'INFO',
@@ -11,7 +11,7 @@ export type TimeStamp = number;
 export type Log = {
   id: string;
   projectId: string;
-  severity: Severity;
+  severity: LogSeverity;
   message: string;
   source?: string;
   timeStamp: TimeStamp;
@@ -24,7 +24,7 @@ export type LogAlertSubscription = {
   projectId: string;
   platform: string;
   url: string;
-  alertThreshold: Severity;
+  alertThreshold: LogSeverity;
   dailyQuotaLimit: number;
   dailyQuotaUsed: number;
   monthlyQuotaLimit: number;

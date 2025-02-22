@@ -1,10 +1,10 @@
-import { Log, Severity } from '@/types.ts';
+import { Log, LogSeverity } from '@/types.ts';
 
 export const LogMockData: Log[] = [
   {
     id: '1',
     projectId: 'p-1',
-    severity: Severity.ERROR,
+    severity: LogSeverity.ERROR,
     source: 'server',
     timeStamp: 1739011601536,
     message: 'veniam Duis sit Ut in commodo ex sit.',
@@ -16,21 +16,21 @@ export const LogMockData: Log[] = [
   {
     id: '2',
     projectId: 'p-1',
-    severity: Severity.WARNING,
+    severity: LogSeverity.WARNING,
     timeStamp: 1739011901536,
     message: 'dolor nostrud ex dolore ut dolore adipiscing eiusmod nisi.',
   },
   {
     id: '3',
     projectId: 'p-1',
-    severity: Severity.DEBUG,
+    severity: LogSeverity.DEBUG,
     timeStamp: 1739012201536,
     message: 'aute quis minim amet Sed in adipiscing sit.',
   },
   {
     id: '4',
     projectId: 'p-1',
-    severity: Severity.WARNING,
+    severity: LogSeverity.WARNING,
     timeStamp: 1739012501536,
     message:
       'dolor reprehenderit ut aliqua exercitation nostrud incididunt reprehenderit nisi.',
@@ -38,7 +38,7 @@ export const LogMockData: Log[] = [
   {
     id: '5',
     projectId: 'p-1',
-    severity: Severity.INFO,
+    severity: LogSeverity.INFO,
     timeStamp: 1739012801536,
     message:
       'in Sed consectetur ex Lorem ullamco incididunt amet in aute labore.',
@@ -46,7 +46,7 @@ export const LogMockData: Log[] = [
   {
     id: '6',
     projectId: 'p-1',
-    severity: Severity.TRACE,
+    severity: LogSeverity.TRACE,
     timeStamp: 1739013101536,
     message:
       'Lorem reprehenderit ullamco et aute aliquip aliquip ullamco magna labore ipsum et enim tempor irure.',
@@ -54,14 +54,14 @@ export const LogMockData: Log[] = [
   {
     id: '7',
     projectId: 'p-1',
-    severity: Severity.INFO,
+    severity: LogSeverity.INFO,
     timeStamp: 1739013401536,
     message: 'nostrud tempor irure consectetur ullamco dolor eiusmod minim.',
   },
   {
     id: '8',
     projectId: 'p-1',
-    severity: Severity.ERROR,
+    severity: LogSeverity.ERROR,
     timeStamp: 1739013701536,
     message:
       'Lorem magna ipsum dolor consequat amet tempor amet incididunt ullamco.',
@@ -69,7 +69,7 @@ export const LogMockData: Log[] = [
   {
     id: '9',
     projectId: 'p-1',
-    severity: Severity.TRACE,
+    severity: LogSeverity.TRACE,
     timeStamp: 1739014001536,
     message:
       'tempor reprehenderit Sed nostrud Lorem nisi irure reprehenderit labore ut laboris ut Ut.',
@@ -77,7 +77,7 @@ export const LogMockData: Log[] = [
   {
     id: '10',
     projectId: 'p-1',
-    severity: Severity.DEBUG,
+    severity: LogSeverity.DEBUG,
     timeStamp: 1739014301536,
     message:
       'amet irure minim elit minim ex tempor Lorem veniam aliquip Sed dolor adipiscing enim.',
@@ -85,28 +85,28 @@ export const LogMockData: Log[] = [
   {
     id: '11',
     projectId: 'p-1',
-    severity: Severity.DEBUG,
+    severity: LogSeverity.DEBUG,
     timeStamp: 1739011601536,
     message: 'veniam Duis sit Ut in commodo ex sit.',
   },
   {
     id: '12',
     projectId: 'p-1',
-    severity: Severity.INFO,
+    severity: LogSeverity.INFO,
     timeStamp: 1739011901536,
     message: 'dolor nostrud ex dolore ut dolore adipiscing eiusmod nisi.',
   },
   {
     id: '13',
     projectId: 'p-1',
-    severity: Severity.WARNING,
+    severity: LogSeverity.WARNING,
     timeStamp: 1739012201536,
     message: 'aute quis minim amet Sed in adipiscing sit.',
   },
   {
     id: '14',
     projectId: 'p-1',
-    severity: Severity.ERROR,
+    severity: LogSeverity.ERROR,
     timeStamp: 1739012501536,
     message:
       'dolor reprehenderit ut aliqua exercitation nostrud incididunt reprehenderit nisi.',
@@ -114,7 +114,7 @@ export const LogMockData: Log[] = [
   {
     id: '15',
     projectId: 'p-1',
-    severity: Severity.ERROR,
+    severity: LogSeverity.ERROR,
     timeStamp: 1739012801536,
     message:
       'in Sed consectetur ex Lorem ullamco incididunt amet in aute labore.',
@@ -122,7 +122,7 @@ export const LogMockData: Log[] = [
   {
     id: '16',
     projectId: 'p-1',
-    severity: Severity.TRACE,
+    severity: LogSeverity.TRACE,
     timeStamp: 1739013101536,
     message:
       'Lorem reprehenderit ullamco et aute aliquip aliquip ullamco magna labore ipsum et enim tempor irure.',
@@ -130,14 +130,14 @@ export const LogMockData: Log[] = [
   {
     id: '17',
     projectId: 'p-1',
-    severity: Severity.INFO,
+    severity: LogSeverity.INFO,
     timeStamp: 1739013401536,
     message: 'nostrud tempor irure consectetur ullamco dolor eiusmod minim.',
   },
   {
     id: '18',
     projectId: 'p-1',
-    severity: Severity.TRACE,
+    severity: LogSeverity.TRACE,
     timeStamp: 1739013701536,
     message:
       'Lorem magna ipsum dolor consequat amet tempor amet incididunt ullamco.',
@@ -145,7 +145,7 @@ export const LogMockData: Log[] = [
   {
     id: '19',
     projectId: 'p-1',
-    severity: Severity.INFO,
+    severity: LogSeverity.INFO,
     timeStamp: 1739014001536,
     message:
       'tempor reprehenderit Sed nostrud Lorem nisi irure reprehenderit labore ut laboris ut Ut.',
@@ -153,7 +153,7 @@ export const LogMockData: Log[] = [
   {
     id: '20',
     projectId: 'p-1',
-    severity: Severity.DEBUG,
+    severity: LogSeverity.DEBUG,
     source: 'server',
     timeStamp: 1739014301536,
     message:
@@ -162,28 +162,28 @@ export const LogMockData: Log[] = [
   {
     id: '21',
     projectId: 'p-1',
-    severity: Severity.DEBUG,
+    severity: LogSeverity.DEBUG,
     timeStamp: 1739011601536,
     message: 'veniam Duis sit Ut in commodo ex sit.',
   },
   {
     id: '22',
     projectId: 'p-1',
-    severity: Severity.TRACE,
+    severity: LogSeverity.TRACE,
     timeStamp: 1739011901536,
     message: 'dolor nostrud ex dolore ut dolore adipiscing eiusmod nisi.',
   },
   {
     id: '23',
     projectId: 'p-1',
-    severity: Severity.DEBUG,
+    severity: LogSeverity.DEBUG,
     timeStamp: 1739012201536,
     message: 'aute quis minim amet Sed in adipiscing sit.',
   },
   {
     id: '24',
     projectId: 'p-1',
-    severity: Severity.INFO,
+    severity: LogSeverity.INFO,
     timeStamp: 1739012501536,
     message:
       'dolor reprehenderit ut aliqua exercitation nostrud incididunt reprehenderit nisi.',
@@ -191,7 +191,7 @@ export const LogMockData: Log[] = [
   {
     id: '25',
     projectId: 'p-1',
-    severity: Severity.WARNING,
+    severity: LogSeverity.WARNING,
     timeStamp: 1739012801536,
     message:
       'in Sed consectetur ex Lorem ullamco incididunt amet in aute labore.',
@@ -199,7 +199,7 @@ export const LogMockData: Log[] = [
   {
     id: '26',
     projectId: 'p-1',
-    severity: Severity.DEBUG,
+    severity: LogSeverity.DEBUG,
     timeStamp: 1739013101536,
     message:
       'Lorem reprehenderit ullamco et aute aliquip aliquip ullamco magna labore ipsum et enim tempor irure.',
@@ -207,14 +207,14 @@ export const LogMockData: Log[] = [
   {
     id: '27',
     projectId: 'p-1',
-    severity: Severity.INFO,
+    severity: LogSeverity.INFO,
     timeStamp: 1739013401536,
     message: 'nostrud tempor irure consectetur ullamco dolor eiusmod minim.',
   },
   {
     id: '28',
     projectId: 'p-1',
-    severity: Severity.ERROR,
+    severity: LogSeverity.ERROR,
     timeStamp: 1739013701536,
     message:
       'Lorem magna ipsum dolor consequat amet tempor amet incididunt ullamco.',
@@ -222,7 +222,7 @@ export const LogMockData: Log[] = [
   {
     id: '29',
     projectId: 'p-1',
-    severity: Severity.DEBUG,
+    severity: LogSeverity.DEBUG,
     timeStamp: 1739014001536,
     message:
       'tempor reprehenderit Sed nostrud Lorem nisi irure reprehenderit labore ut laboris ut Ut.',
@@ -230,7 +230,7 @@ export const LogMockData: Log[] = [
   {
     id: '30',
     projectId: 'p-1',
-    severity: Severity.WARNING,
+    severity: LogSeverity.WARNING,
     timeStamp: 1739014301536,
     message:
       'amet irure minim elit minim ex tempor Lorem veniam aliquip Sed dolor adipiscing enim.',
