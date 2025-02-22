@@ -7,18 +7,18 @@ import {
   Icon,
   Input,
   Link,
-  Table,
   Text,
 } from '@chakra-ui/react';
 import { IoChevronBackOutline } from 'react-icons/io5';
 import { useNavigate, useParams } from 'react-router';
 import { useEffect, useState } from 'react';
-import { MemberRow } from '@/pages/SettingMembersPage/MemberRow.tsx';
+import { MemberRow } from '@/pages/SettingMembersPage/components/MemberRow.tsx';
 import { useLoading } from '@/contexts/LoadingContext.tsx';
-import { InviteMemberDialog } from '@/pages/SettingMembersPage/InviteMemberDialog.tsx';
+import { InviteMemberDialog } from '@/pages/SettingMembersPage/components/InviteMemberDialog.tsx';
 import { getMembersByProjectId } from '@/shared/api/api.ts';
 import { Member } from '@/types.ts';
-import { useQuery } from '@tanstack/react-query'; // const floatingStyles = defineStyle({
+import { useQuery } from '@tanstack/react-query';
+import { MembersTableLayout } from '@/pages/SettingMembersPage/components/MembersTableLayout.tsx'; // const floatingStyles = defineStyle({
 
 export const SettingMembersPage = () => {
   const { pId } = useParams();
@@ -71,28 +71,20 @@ export const SettingMembersPage = () => {
             ({members.length})
           </Text>
         </HStack>
-
-        <Table.Root w={'full'} interactive>
-          <Table.Header>
-            <Table.Row>
-              <Table.ColumnHeader>Member</Table.ColumnHeader>
-              <Table.ColumnHeader>Permissions</Table.ColumnHeader>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {members
-              .filter((m) => m.userEmail.includes(searchWord))
-              .map((m) => (
-                <MemberRow
-                  key={m.id}
-                  email={m.userEmail}
-                  isOwner={m.owner}
-                  status={m.status}
-                  permissions={m.permissions}
-                />
-              ))}
-          </Table.Body>
-        </Table.Root>
+        <MembersTableLayout>
+          {members
+            .filter((m) => m.userEmail.includes(searchWord))
+            .map((m) => (
+              <MemberRow
+                key={m.id}
+                memberId={m.id}
+                email={m.userEmail}
+                isOwner={m.owner}
+                status={m.status}
+                permissions={m.permissions}
+              />
+            ))}
+        </MembersTableLayout>
       </Box>
     </ProjectPageLayout>
   );

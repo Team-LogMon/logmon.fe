@@ -1,6 +1,8 @@
 import { HStack, Table, Tag, Text } from '@chakra-ui/react';
+import { MemberManageMenu } from '@/pages/SettingMembersPage/components/MemberManageMenu.tsx';
 
 interface MemberRowProps {
+  memberId: string;
   email: string;
   isOwner: boolean;
   status: string;
@@ -16,7 +18,7 @@ const permissionsColorMap: {
 };
 
 export const MemberRow = (props: MemberRowProps) => {
-  const { email, isOwner, status, permissions } = props;
+  const { memberId, email, isOwner, status, permissions } = props;
 
   let statusColor;
 
@@ -38,12 +40,17 @@ export const MemberRow = (props: MemberRowProps) => {
         </HStack>
       </Table.Cell>
 
-      <Table.Cell display={'flex'} gap={3}>
-        {permissions.map((p) => (
-          <Tag.Root key={p} colorPalette={permissionsColorMap[p]}>
-            {p}
-          </Tag.Root>
-        ))}
+      <Table.Cell>
+        <HStack>
+          {permissions.map((p) => (
+            <Tag.Root key={p} colorPalette={permissionsColorMap[p]}>
+              {p}
+            </Tag.Root>
+          ))}
+        </HStack>
+      </Table.Cell>
+      <Table.Cell p={0}>
+        <MemberManageMenu memberId={memberId} />
       </Table.Cell>
     </Table.Row>
   );

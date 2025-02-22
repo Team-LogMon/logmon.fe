@@ -56,7 +56,7 @@ export const Header = ({ leftChildren, rightChildren }: HeaderProps) => {
           <Flex>
             <ThemeChangeBtn />
             <IconButton
-              bg={'bg.base'}
+              bg={'inherit'}
               color={'fg'}
               onClick={() => navigate('/user')}
             >

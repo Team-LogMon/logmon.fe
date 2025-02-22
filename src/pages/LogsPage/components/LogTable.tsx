@@ -13,9 +13,7 @@ export const LogTable = () => {
   const to = useLogsTimeSliderStore((state) => state.right);
   const { showLoading, hideLoading } = useLoading();
   const [logs, setLogs] = useState<Log[]>([]);
-
-  useEffect(() => {}, [from, to]);
-
+  
   useEffect(() => {
     showLoading();
     getLogs(pId!, from, to).then((res) => {

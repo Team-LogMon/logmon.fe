@@ -6,7 +6,7 @@ export const ThemeChangeBtn = () => {
   const appearance = useThemeStore((state) => state.appearance);
   const toggle = useThemeStore((state) => state.toggle);
   return (
-    <IconButton onClick={toggle} bg={'bg.base'} color={'fg'}>
+    <IconButton onClick={toggle} bg={'inherit'} color={'fg'}>
       <Icon as={appearance === 'dark' ? IoSunnyOutline : IoSunny} />
     </IconButton>
   );

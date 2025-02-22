@@ -86,8 +86,8 @@ export async function getLogs(
     method: 'get',
     params: {
       projectId,
-      start: from,
-      end: to,
+      start: Math.round(from),
+      end: Math.round(to),
     },
   });
 }
@@ -184,6 +184,14 @@ export async function getPendingMembers(): Promise<Member[]> {
   return await apiCall({
     path: '/api/members/invite',
     method: 'get',
+  });
+}
+
+export async function deleteMember(request: { memberId: string }) {
+  const { memberId } = request;
+  return await apiCall({
+    path: `/api/members/${memberId}`,
+    method: 'delete',
   });
 }
 
