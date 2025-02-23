@@ -7,7 +7,7 @@ import {
   TimeStamp,
   User,
 } from '@/types.ts';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { Pricing } from '@/shared/const/app/Pricing.ts';
 import qs from 'qs';
 
@@ -20,29 +20,46 @@ interface ApiCallConfig {
   body?: object;
 }
 
+export class ApiError extends Error {
+  public readonly data: {
+    errorMessage: string;
+  };
+
+  constructor(e: AxiosError) {
+    super(e.message);
+
+    if (e.response) {
+      this.data = e.response.data as {
+        errorMessage: string;
+      };
+    } else {
+      this.data = {
+        errorMessage: 'Something went wrong.',
+      };
+    }
+  }
+}
+
 export async function apiCall(apiCallConfig: ApiCallConfig) {
   const { path, method, params, body } = apiCallConfig;
-  // logger.debug({
-  //   message: 'Api Call occured',
-  //   jsonPayload: {
-  //     path,
-  //     method,
-  //     params,
-  //     body,
-  //   },
-  // });
-  const axiosResponse = await axios({
-    method: method,
-    baseURL: import.meta.env.VITE_BACKEND_URL,
-    url: path,
-    params: params,
-    paramsSerializer: (params) =>
-      qs.stringify(params, { arrayFormat: 'repeat' }),
-    data: body,
-    withCredentials: true,
-  });
 
-  return axiosResponse.data;
+  try {
+    const axiosResponse = await axios({
+      method: method,
+      baseURL: import.meta.env.VITE_BACKEND_URL,
+      url: path,
+      params: params,
+      paramsSerializer: (params) =>
+        qs.stringify(params, { arrayFormat: 'repeat' }),
+      data: body,
+      withCredentials: true,
+    });
+
+    return axiosResponse.data;
+  } catch (e) {
+    const error = e as AxiosError;
+    throw new ApiError(error);
+  }
 }
 
 export async function createLogAlertDescription(body: {

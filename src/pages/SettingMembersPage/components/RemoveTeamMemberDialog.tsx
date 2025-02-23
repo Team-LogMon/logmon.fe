@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/dialog';
 import { Dispatch } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { deleteMember } from '@/shared/api/api.ts';
+import { ApiError, deleteMember } from '@/shared/api/api.ts';
 import { toaster } from '@/components/ui/toaster.tsx';
 import { useLoading } from '@/contexts/LoadingContext.tsx';
 
@@ -38,11 +38,12 @@ export const RemoveTeamMemberDialog = (props: {
         title: 'Notification deleted successfully.',
       });
     },
-    onError: async () => {
+    onError: async (e) => {
+      const error = e as ApiError;
       hideLoading();
       toaster.create({
         type: 'error',
-        title: 'Something went wrong.',
+        title: error.data.errorMessage,
       });
     },
   });
