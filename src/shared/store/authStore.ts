@@ -14,6 +14,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   isLoading: true,
   fetchUser: async () => {
     try {
+      console.log('useAuthStore.fetchUser');
       const response = await getMe();
       if (response.logined) {
         set({ user: response.user, isLoading: false });

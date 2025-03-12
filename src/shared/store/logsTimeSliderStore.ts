@@ -83,6 +83,8 @@ export const useLogsTimeSliderStore = create<LogsTimeSliderStore>((set) => {
           newMax = Math.min(now, state.max + range * 2);
         }
 
+        console.log(newMin, newMax, newLeft, newRight);
+
         return {
           min: newMin,
           max: newMax,

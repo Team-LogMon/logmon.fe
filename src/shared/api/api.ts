@@ -175,13 +175,10 @@ export async function getUserByUserIds(userIds: string[]): Promise<User[]> {
 }
 
 //members
-export async function getMembersByUserId(userId: string): Promise<Member[]> {
+export async function getMyMembers(): Promise<Member[]> {
   return await apiCall({
     path: '/api/members',
     method: 'get',
-    params: {
-      userId,
-    },
   });
 }
 
@@ -212,9 +209,8 @@ export async function deleteMember(request: { memberId: string }) {
   });
 }
 
-export async function getUserProjects(request: { userId: string }) {
-  const { userId } = request;
-  const members = await getMembersByUserId(userId);
+export async function getMyProjects() {
+  const members = await getMyMembers();
   const projectIds = members.map((m) => m.projectId);
   return await getProjectsByIdsIn(projectIds);
 }

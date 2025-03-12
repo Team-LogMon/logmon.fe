@@ -35,9 +35,9 @@ export const LogTableLayout = (props: LogTableLayoutProps) => {
       <Table.ScrollArea
         w={'full'}
         h={height}
-        mt={'20px'}
         borderWidth={'1px'}
         ref={scrollRef}
+        bg={'bg'}
       >
         <Table.Root stickyHeader interactive size={size}>
           <Table.Header>

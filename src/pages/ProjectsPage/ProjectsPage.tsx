@@ -4,7 +4,7 @@ import { IoAdd } from 'react-icons/io5';
 import { Header } from '@/components/Header.tsx';
 import { PageWrapper } from '@/components/PageWrapper.tsx';
 import { Project } from '@/types.ts';
-import { getUserProjects } from '@/shared/api/api.ts';
+import { getMyProjects } from '@/shared/api/api.ts';
 import { useAuthStore } from '@/shared/store/authStore.ts';
 import { useLoading } from '@/contexts/LoadingContext.tsx';
 import { InvitationsList } from '@/pages/ProjectsPage/components/InvitationsList.tsx';
@@ -57,7 +57,7 @@ export const ProjectsPage = () => {
     queryKey: ['UserProject'],
     queryFn: () => {
       if (user) {
-        return getUserProjects({ userId: user?.id });
+        return getMyProjects();
       } else {
         return [] as unknown as Promise<Project[]>;
       }

@@ -37,6 +37,7 @@ import { useLoading } from '@/contexts/LoadingContext.tsx';
 import { toaster } from '@/components/ui/toaster.tsx';
 import { createLogAlertDescription } from '@/shared/api/api.ts';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { logger } from '@/main.tsx';
 
 export const RegisterNotificationDialog = () => {
   const { pId } = useParams();
@@ -93,6 +94,27 @@ export const RegisterNotificationDialog = () => {
 
   const close = () => {
     clear();
+
+    logger.error({
+      message: 'Error'!,
+    });
+
+    logger.warning({
+      message: 'Warning!!',
+    });
+
+    logger.info({
+      message: 'info',
+    });
+
+    logger.debug({
+      message: 'DEBUG!!!',
+    });
+
+    logger.trace({
+      message: 'trace!!!',
+    });
+
     setOpen(false);
   };
 
@@ -156,13 +178,13 @@ export const RegisterNotificationDialog = () => {
     items: [
       {
         label: 'Slack',
-        value: 'slack',
-        icon: getIcon('slack'),
+        value: 'SLACK',
+        icon: getIcon('SLACK'),
       },
       {
         label: 'Discord',
-        value: 'discord',
-        icon: getIcon('discord'),
+        value: 'DISCORD',
+        icon: getIcon('DISCORD'),
       },
     ],
   });

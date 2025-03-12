@@ -1,6 +1,6 @@
 import { ProjectPageLayout } from '@/components/ProjectPageLayout.tsx';
 import { LogFilteringSlider } from '@/pages/LogsPage/components/LogFilteringSlider.tsx';
-import { Icon, Tabs } from '@chakra-ui/react';
+import { Icon, Tabs, VStack } from '@chakra-ui/react';
 import { MdOutlineMonitorHeart } from 'react-icons/md';
 import { IoMdNotificationsOutline } from 'react-icons/io';
 import { LogTable } from '@/pages/LogsPage/components/LogTable.tsx';
@@ -28,8 +28,11 @@ export const LogsPage = () => {
         </Tabs.List>
 
         <Tabs.Content value="monitoring">
-          <LogFilteringSlider />
-          <LogTable />
+          <VStack gap={3}>
+            <LogFilteringSlider />
+            {/*<LogFilteringCard />*/}
+            <LogTable />
+          </VStack>
         </Tabs.Content>
         <Tabs.Content value="notification">
           <LogAlertSubscriptionsList />

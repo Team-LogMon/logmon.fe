@@ -16,7 +16,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { LogAlertSubscription } from '@/types.ts';
-import { EmptyNotification } from '@/pages/LogsPage/components/EmptyNotification.tsx';
+import { EmptySubscription } from '@/pages/LogsPage/components/EmptySubscription.tsx';
 import { SeverityTag } from '@/components/SeverityTag.tsx';
 import { getIcon } from '@/shared/Icon.ts';
 import { RegisterNotificationDialog } from '@/pages/LogsPage/components/RegisterNotificationDialog.tsx';
@@ -72,7 +72,7 @@ export const LogAlertSubscriptionsList = () => {
   }
 
   if (data.length === 0) {
-    return <EmptyNotification />;
+    return <EmptySubscription />;
   }
 
   return (
@@ -86,7 +86,7 @@ export const LogAlertSubscriptionsList = () => {
             <Card.Header>
               <VStack align={'left'} gap={0}>
                 <Text fontWeight={'bolder'}> {s.name}</Text>
-                <Text color={'fg.subtle'} fontSize={'xs'}>
+                <Text color={'fg.subtle'} fontSize={'xs'} lineClamp={1}>
                   {s.url}
                 </Text>
               </VStack>
@@ -128,8 +128,8 @@ export const LogAlertSubscriptionsList = () => {
       <EmptyState.Root>
         <EmptyState.Content>
           <EmptyState.Indicator gap={3}>
-            <Icon as={getIcon('slack')} boxSize={'60px'} />
-            <Icon as={getIcon('discord')} boxSize={'60px'} />
+            <Icon as={getIcon('SLACK')} boxSize={'60px'} />
+            <Icon as={getIcon('DISCORD')} boxSize={'60px'} />
           </EmptyState.Indicator>
           <VStack textAlign={'center'} gap={3}>
             <EmptyState.Title>Register Notification</EmptyState.Title>

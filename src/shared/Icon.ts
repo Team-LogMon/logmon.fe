@@ -3,9 +3,9 @@ import { IoHappyOutline } from 'react-icons/io5';
 
 export const getIcon = (iconName: string) => {
   switch (iconName) {
-    case 'slack':
+    case 'SLACK':
       return FaSlack;
-    case 'discord':
+    case 'DISCORD':
       return FaDiscord;
     default:
       return IoHappyOutline;
