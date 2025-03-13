@@ -10,6 +10,7 @@ import { PrivateRoute } from '@/router/PrivateRoute.tsx';
 import { LandingPage } from '@/pages/LandingPage/LandingPage.tsx';
 import { ProjectsPage } from '@/pages/ProjectsPage/ProjectsPage.tsx';
 import { LoginPage } from '@/pages/LoginPage/LoginPage.tsx';
+import { DemoLogPage } from '@/pages/DemoLogPage/DemoLogPage.tsx';
 
 export const ApplicationRouter: RouteObject[] = [
   { path: '', element: <LandingPage /> },
@@ -20,6 +21,10 @@ export const ApplicationRouter: RouteObject[] = [
   {
     path: '/login',
     element: <LoginPage />,
+  },
+  {
+    path: '/demo/log',
+    element: <DemoLogPage />,
   },
   {
     element: <PrivateRoute />,

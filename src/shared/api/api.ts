@@ -188,11 +188,8 @@ export async function getMembersByProjectId(
   projectId: string
 ): Promise<Member[]> {
   return await apiCall({
-    path: '/api/members',
+    path: `/api/members/project/${projectId}`,
     method: 'get',
-    params: {
-      projectId,
-    },
   });
 }
 
