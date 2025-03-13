@@ -114,7 +114,9 @@ export async function createProject(body: {
   title: string;
   description: string;
   pricing: Pricing;
-}) {
+}): Promise<{
+  projectId: string;
+}> {
   return await apiCall({
     path: '/api/projects',
     method: 'post',

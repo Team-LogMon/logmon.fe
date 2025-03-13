@@ -79,7 +79,7 @@ export const CreateProjectPricingPage = ({
 }: CreateProjectPricingPageProps) => {
   const { open, setOpen } = useDisclosure();
   const { showLoading, hideLoading } = useLoading();
-
+  const { projectId, setProjectId } = useCreateProjectStore();
   const name = useCreateProjectStore((state) => state.name);
   const description = useCreateProjectStore((state) => state.description);
   const pricing = useCreateProjectStore((state) => state.pricing);
@@ -88,10 +88,16 @@ export const CreateProjectPricingPage = ({
   const handleOnNext = async () => {
     try {
       showLoading();
-      await createProject({ title: name, description, pricing });
+      const { projectId: createdProjectId } = await createProject({
+        title: name,
+        description,
+        pricing,
+      });
+
+      setProjectId(createdProjectId);
       hideLoading();
       setOpen(true);
-    } catch (e) {
+    } catch {
       hideLoading();
       toaster.create({
         title: 'Failed to create project.',
@@ -145,7 +151,7 @@ export const CreateProjectPricingPage = ({
         </Flex>
       </CreateProjectPageLayout>
       <DrawerContent position={'fixed'} top={0}>
-        <CreateProjectCompletePage />
+        <CreateProjectCompletePage projectId={projectId} />
         <DrawerCloseTrigger />
       </DrawerContent>
     </DrawerRoot>

@@ -1,7 +1,11 @@
 import { CreateProjectPageLayout } from '@/pages/createProjectPages/drawer/CreateProjectPageLayout.tsx';
 import { Button, ButtonGroup, Heading } from '@chakra-ui/react';
 
-export const CreateProjectCompletePage = () => {
+export const CreateProjectCompletePage = ({
+  projectId,
+}: {
+  projectId: string | null;
+}) => {
   return (
     <CreateProjectPageLayout>
       <Heading fontSize={'36px'}>Project created.</Heading>
@@ -11,7 +15,7 @@ export const CreateProjectCompletePage = () => {
           colorPalette={'blue'}
           size={{ base: 'sm', sm: 'xl' }}
           onClick={() => {
-            window.location.href = '/';
+            window.location.href = `/app/${projectId}/dashboard`;
           }}
         >
           Go to Dashboard

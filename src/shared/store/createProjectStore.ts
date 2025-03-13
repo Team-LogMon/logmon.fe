@@ -8,6 +8,8 @@ interface CreateProjectStore {
   setPricing: (pricing: Pricing) => void;
   description: string;
   setDescription: (description: string) => void;
+  projectId: string | null;
+  setProjectId: (projectId: string) => void;
 }
 
 export const useCreateProjectStore = create<CreateProjectStore>((set) => ({
@@ -17,4 +19,6 @@ export const useCreateProjectStore = create<CreateProjectStore>((set) => ({
   setPricing: (pricing: Pricing) => set({ pricing: pricing }),
   description: '',
   setDescription: (description: string) => set({ description: description }),
+  projectId: null,
+  setProjectId: (projectId: string) => set({ projectId: projectId }),
 }));
